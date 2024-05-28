@@ -3131,19 +3131,15 @@ if ($user->isLoggedIn()) {
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Respondent Type</label>
+                                                            <label>Patient Type</label>
                                                             <select id="respondent" name="respondent" class="form-control" required>
                                                                 <option value="<?= $clients['respondent'] ?>"><?php if ($clients['respondent']) {
-                                                                                                                    if ($clients['respondent'] == 1) {
-                                                                                                                        echo 'Facility';
-                                                                                                                    } elseif ($clients['respondent'] == 2) {
-                                                                                                                        echo 'Patient';
-                                                                                                                    }
+                                                                                                                   print_r($override->getNews('respondent_type', 'status', 1, 'id', $clients['respondent'])[0]['name']);
                                                                                                                 } else {
                                                                                                                     echo 'Select';
                                                                                                                 } ?>
                                                                 </option>
-                                                                <?php foreach ($override->getNews('respondent_type', 'status', 1, 'respondent', 2) as $value) { ?>
+                                                                <?php foreach ($override->getNews('respondent_type', 'status', 1, 'respondent', 1) as $value) { ?>
                                                                     <option value="<?= $value['id']; ?>"><?= $value['name']; ?></option>
                                                                 <?php } ?>
                                                             </select>

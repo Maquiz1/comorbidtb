@@ -1050,16 +1050,9 @@ if ($user->isLoggedIn()) {
                                                         <?php
                                                         if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                         ?>
-                                                            <?php if ($value['respondent'] == 1) { ?>
-                                                                <td class="table-user">
-                                                                    Fcility
-                                                                </td>
-                                                            <?php } elseif ($value['respondent'] == 2) { ?>
-                                                                <td class="table-user">
-                                                                    Patient
-                                                                </td>
-                                                            <?php } ?>
-
+                                                            <td class="table-user">
+                                                                <?= $override->getNews('respondent_type', 'status', 1, 'id', $clients['respondent'])[0]['name']; ?>
+                                                            </td>
                                                             <td class="table-user">
                                                                 <?= $sites['name']; ?>
                                                             </td>
