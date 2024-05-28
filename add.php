@@ -267,7 +267,7 @@ if ($user->isLoggedIn()) {
                             'street' => Input::get('street'),
                             'location' => Input::get('location'),
                             'house_number' => Input::get('house_number'),
-                            'head_household' => Input::get('head_household'),
+                            'head_household' => 0,
                             'education' => Input::get('education'),
                             'occupation' => Input::get('occupation'),
                             'health_insurance' => Input::get('health_insurance'),
@@ -362,7 +362,7 @@ if ($user->isLoggedIn()) {
                             'street' => Input::get('street'),
                             'location' => Input::get('location'),
                             'house_number' => Input::get('house_number'),
-                            'head_household' => Input::get('head_household'),
+                            'head_household' => 0,
                             'education' => Input::get('education'),
                             'occupation' => Input::get('occupation'),
                             'health_insurance' => Input::get('health_insurance'),
@@ -2983,8 +2983,8 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
 
-                                            <div class="row">                                              
-                                                <div class="col-sm-4">
+                                            <div class="row">
+                                                <div class="col-sm-6">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>Level of educations</label>
@@ -3002,7 +3002,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-6">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
@@ -3108,9 +3108,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <?php
-                                                if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
-                                                ?>
+                                                <?php if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) { ?>
                                                     <div class="col-md-3">
                                                         <div class="card card-warning">
                                                             <div class="card-header">
@@ -3419,7 +3417,7 @@ if ($user->isLoggedIn()) {
                                                         <label for="new_vl_date" class="form-label">New VL test date</label>
                                                         <input type="date" value="<?php if ($individual['new_vl_date']) {
                                                                                         print_r($individual['new_vl_date']);
-                                                                                    } ?>" id="new_vl_date" name="new_vl_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
+                                                                                    } ?>" id="new_vl_date" name="new_vl_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
                                                     </div>
                                                 </div>
 
@@ -3428,7 +3426,7 @@ if ($user->isLoggedIn()) {
                                                         <label for="new_vl_results" class="form-label">New VL test Results</label>
                                                         <input type="number" value="<?php if ($individual['new_vl_results']) {
                                                                                         print_r($individual['new_vl_results']);
-                                                                                    } ?>" id="new_vl_results" name="new_vl_results" min="0" class="form-control" placeholder="Enter here" required />
+                                                                                    } ?>" id="new_vl_results" name="new_vl_results" min="0" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -3786,7 +3784,7 @@ if ($user->isLoggedIn()) {
                                                         <label for="next_date" class="form-label">Next appointment date</label>
                                                         <input type="date" value="<?php if ($individual['next_date']) {
                                                                                         print_r($individual['next_date']);
-                                                                                    } ?>" id="next_date" name="next_date" class="form-control" placeholder="Enter date" required />
+                                                                                    } ?>" id="next_date" name="next_date" class="form-control" placeholder="Enter date" />
                                                     </div>
                                                 </div>
                                             </div>
