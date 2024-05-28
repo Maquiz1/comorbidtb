@@ -8,7 +8,7 @@ $random = new Random();
 $users = $override->getData('user');
 if ($user->isLoggedIn()) {
     if ($user->data()->power == 1) {
-        $screened = $override->getCount1('history', 'status', 1, 'site_id', $user->data()->site_id);
+        $screened = $override->getCount1('clients', 'status', 1, 'site_id', $user->data()->site_id);
         $eligible = $override->countData('clients', 'status', 1, 'eligible', 1);
         $enrolled = $override->countData('clients', 'status', 1, 'enrolled', 1);
         $end = $override->countData('clients', 'status', 1, 'end_study', 1);
