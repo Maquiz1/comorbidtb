@@ -830,22 +830,28 @@ if ($user->isLoggedIn()) {
                 'screening_date' => array(
                     'required' => true,
                 ),
+                'above18' => array(
+                    'required' => true,
+                ),
+                'new_tb' => array(
+                    'required' => true,
+                ),
                 'conset' => array(
                     'required' => true,
                 ),
-                'hiv_date' => array(
+                'start_anti_b' => array(
                     'required' => true,
                 ),
-                'date_status' => array(
+                'diabetes_type1' => array(
                     'required' => true,
                 ),
-                'receive_art' => array(
+                'extrapulmonary_tb' => array(
+                    'required' => true,
+                ),
+                'mdr_xdr' => array(
                     'required' => true,
                 ),
                 'stay' => array(
-                    'required' => true,
-                ),
-                'severely' => array(
                     'required' => true,
                 ),
             ));
@@ -855,14 +861,8 @@ if ($user->isLoggedIn()) {
 
                 $screening = $override->get3('screening', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', -1);
                 $eligible = 0;
-                $pregnant = 0;
-                if ($clients[0]['sex'] == 2) {
-                    $pregnant = Input::get('pregnant');
-                } else {
-                    $pregnant = '98';
-                }
 
-                if ((Input::get('conset') == 1 && Input::get('receive_art') == 1 && Input::get('stay') == 1 && Input::get('severely') == 2 && $clients[0]['sex'] == 1) || (Input::get('conset') == 1 && Input::get('receive_art') == 1 && Input::get('stay') == 1 && Input::get('severely') == 2 && $pregnant == 2 && $clients[0]['sex'] == 2)) {
+                if ((Input::get('above18') == 1 && Input::get('new_tb') == 1 && Input::get('conset') == 1 && Input::get('start_anti_b') == 1  && Input::get('diabetes_type1') == 2 && Input::get('extrapulmonary_tb') == 2 && Input::get('mdr_xdr') == 2 && Input::get('stay') == 2)) {
                     $eligible = 1;
                 } else {
                     $eligible = 2;
@@ -872,8 +872,10 @@ if ($user->isLoggedIn()) {
                     $errorMessage = 'Screaning Date Can not be less than Registration date';
                 } elseif (Input::get('conset') == 2 && !empty(trim(Input::get('conset_date')))) {
                     $errorMessage = 'Please Remove Screening date before Submit again';
-                } elseif (Input::get('receive_art') == 2 && !empty(trim(Input::get('start_art')))) {
-                    $errorMessage = 'Please Remove ART start date before Submit again';
+                } elseif (Input::get('new_tb') == 2 && !empty(trim(Input::get('new_tb_date')))) {
+                    $errorMessage = 'Please Remove Diagnosed TB date before Submit again';
+                } elseif (Input::get('start_anti_b') == 2 && !empty(trim(Input::get('start_anti_b_date')))) {
+                    $errorMessage = 'Please Remove Started Anti-TB date before Submit again';
                 } else {
 
                     if ($screening) {
@@ -882,15 +884,17 @@ if ($user->isLoggedIn()) {
                             'visit_code' => 'Sv',
                             'visit_name' => 'Screening Visit',
                             'screening_date' => Input::get('screening_date'),
+                            'above18' => Input::get('above18'),
+                            'new_tb' => Input::get('new_tb'),
+                            'new_tb_date' => Input::get('new_tb_date'),
                             'conset' => Input::get('conset'),
                             'conset_date' => Input::get('conset_date'),
-                            'hiv_date' => Input::get('hiv_date'),
-                            'date_status' => Input::get('date_status'),
-                            'receive_art' => Input::get('receive_art'),
-                            'start_art' => Input::get('start_art'),
+                            'start_anti_b' => Input::get('start_anti_b'),
+                            'start_anti_b_date' => Input::get('start_anti_b_date'),
+                            'diabetes_type1' => Input::get('diabetes_type1'),
+                            'extrapulmonary_tb' => Input::get('extrapulmonary_tb'),
+                            'mdr_xdr' => Input::get('mdr_xdr'),
                             'stay' => Input::get('stay'),
-                            'severely' => Input::get('severely'),
-                            'pregnant' => $pregnant,
                             'comments' => Input::get('comments'),
                             'eligible' => $eligible,
                             'update_on' => date('Y-m-d H:i:s'),
@@ -954,15 +958,17 @@ if ($user->isLoggedIn()) {
                             'pid' => $clients[0]['study_id'],
                             'study_id' => $clients[0]['study_id'],
                             'screening_date' => Input::get('screening_date'),
+                            'above18' => Input::get('above18'),
+                            'new_tb' => Input::get('new_tb'),
+                            'new_tb_date' => Input::get('new_tb_date'),
                             'conset' => Input::get('conset'),
                             'conset_date' => Input::get('conset_date'),
-                            'hiv_date' => Input::get('hiv_date'),
-                            'date_status' => Input::get('date_status'),
-                            'receive_art' => Input::get('receive_art'),
-                            'start_art' => Input::get('start_art'),
+                            'start_anti_b' => Input::get('start_anti_b'),
+                            'start_anti_b_date' => Input::get('start_anti_b_date'),
+                            'diabetes_type1' => Input::get('diabetes_type1'),
+                            'extrapulmonary_tb' => Input::get('extrapulmonary_tb'),
+                            'mdr_xdr' => Input::get('mdr_xdr'),
                             'stay' => Input::get('stay'),
-                            'severely' => Input::get('severely'),
-                            'pregnant' => $pregnant,
                             'comments' => Input::get('comments'),
                             'eligible' => $eligible,
                             'status' => 1,
@@ -1105,7 +1111,6 @@ if ($user->isLoggedIn()) {
                         'update_id' => $user->data()->id,
                         'site_id' => $clients[0]['site_id'],
                     ));
-
 
                     $user->createRecord('visit', array(
                         'sequence' => 0,
@@ -3134,7 +3139,7 @@ if ($user->isLoggedIn()) {
                                                             <label>Patient Type</label>
                                                             <select id="respondent" name="respondent" class="form-control" required>
                                                                 <option value="<?= $clients['respondent'] ?>"><?php if ($clients['respondent']) {
-                                                                                                                   print_r($override->getNews('respondent_type', 'status', 1, 'id', $clients['respondent'])[0]['name']);
+                                                                                                                    print_r($override->getNews('respondent_type', 'status', 1, 'id', $clients['respondent'])[0]['name']);
                                                                                                                 } else {
                                                                                                                     echo 'Select';
                                                                                                                 } ?>
@@ -4239,24 +4244,17 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-3">
-                                                    <div class="mb-2">
-                                                        <label for="hiv_date" class="form-label">Date Tested HIV</label>
-                                                        <input type="date" value="<?php if ($screening['hiv_date']) {
-                                                                                        print_r($screening['hiv_date']);
-                                                                                    } ?>" id="hiv_date" name="hiv_date" class="form-control" placeholder="Enter date" required />
-                                                    </div>
-                                                </div>
+
                                                 <div class="col-sm-3">
-                                                    <label for="date_status" class="form-label">Is estimated or the exact date</label>
+                                                    <label for="date_status" class="form-label">18 years or above ?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('date_status', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="date_status" id="date_status<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['date_status'] == $value['id']) {
-                                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                                        } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="above18" id="above18<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['above18'] == $value['id']) {
+                                                                                                                                                                                                    echo 'checked';
+                                                                                                                                                                                                } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4265,19 +4263,28 @@ if ($user->isLoggedIn()) {
                                                 </div>
 
                                                 <div class="col-sm-3">
-                                                    <label for="stay" class="form-label">Expected to stay at study area for more than 12 months?</label>
+                                                    <label for="new_tb" class="form-label">Newly diagnosed TB patient</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="stay" id="stay<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['stay'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="new_tb" id="new_tb<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['new_tb'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
                                                         </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-3" id="new_tb_date1">
+                                                    <div class="mb-2">
+                                                        <label for="new_tb_date" class="form-label">Date of diagnosed TB</label>
+                                                        <input type="date" value="<?php if ($screening['new_tb_date']) {
+                                                                                        print_r($screening['new_tb_date']);
+                                                                                    } ?>" id="new_tb_date" name="new_tb_date" class="form-control" placeholder="Enter date" required />
                                                     </div>
                                                 </div>
 
@@ -4310,13 +4317,13 @@ if ($user->isLoggedIn()) {
                                                 </div>
 
                                                 <div class="col-sm-3">
-                                                    <label for="receive_art" class="form-label">Receiving ART services?</label>
+                                                    <label for="start_anti_b" class="form-label">Started Anti-TB</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="receive_art" id="receive_art<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['receive_art'] == $value['id']) {
+                                                                    <input class="form-check-input" type="radio" name="start_anti_b" id="start_anti_b<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['start_anti_b'] == $value['id']) {
                                                                                                                                                                                                             echo 'checked';
                                                                                                                                                                                                         } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
@@ -4325,12 +4332,12 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-3" id="start_art1">
+                                                <div class="col-3" id="start_anti_b_date1">
                                                     <div class="mb-3">
-                                                        <label for="start_art" class="form-label">When did you begin taking ART-Treatment for The first time?</label>
-                                                        <input type="date" value="<?php if ($screening['start_art']) {
-                                                                                        print_r($screening['start_art']);
-                                                                                    } ?>" id="start_art" name="start_art" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date art treatment" />
+                                                        <label for="start_anti_b_date" class="form-label">Date Started Anti-TB</label>
+                                                        <input type="date" value="<?php if ($screening['start_anti_b_date']) {
+                                                                                        print_r($screening['start_anti_b_date']);
+                                                                                    } ?>" id="start_anti_b_date" name="start_anti_b_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date art treatment" />
                                                     </div>
                                                 </div>
 
@@ -4345,14 +4352,53 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-                                                <div class="col-sm-6">
-                                                    <label for="severely" class="form-label">Severely illnesses?</label>
+                                                <div class="col-sm-3">
+                                                    <label for="diabetes_type1" class="form-label">Diabetes Type 1</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="severely" id="severely<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['severely'] == $value['id']) {
+                                                                    <input class="form-check-input" type="radio" name="diabetes_type1" id="diabetes_type1<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['diabetes_type1'] == $value['id']) {
+                                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                                            } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                                //  if ($override->get3('clients', 'status', 1, 'sex', 2, 'id', $_GET['cid'])) {
+                                                ?>
+                                                <div class="col-sm-3">
+                                                    <label for="extrapulmonary_tb" class="form-label">Extrapulmonary TB</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="extrapulmonary_tb" id="extrapulmonary_tb<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['extrapulmonary_tb'] == $value['id']) {
+                                                                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                                                                    } ?>>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                                //  }
+                                                ?>
+
+                                                <div class="col-sm-3">
+                                                    <label for="mdr_xdr" class="form-label">MDR and XDR patients</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="mdr_xdr" id="mdr_xdr<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['mdr_xdr'] == $value['id']) {
                                                                                                                                                                                                     echo 'checked';
                                                                                                                                                                                                 } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
@@ -4361,24 +4407,22 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <?php if ($override->get3('clients', 'status', 1, 'sex', 2, 'id', $_GET['cid'])) { ?>
-                                                    <div class="col-sm-6">
-                                                        <label for="pregnant" class="form-label">Pregnant Woman?</label>
-                                                        <!-- radio -->
-                                                        <div class="row-form clearfix">
-                                                            <div class="form-group">
-                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="pregnant" id="pregnant<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['pregnant'] == $value['id']) {
-                                                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                                                    } ?>>
-                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
+                                                <div class="col-sm-3">
+                                                    <label for="stay" class="form-label">Expected to stay at study area for more than 12 months?</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="stay" id="stay<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($screening['stay'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
-                                                <?php } ?>
+                                                </div>
                                             </div>
                                             <hr>
 
