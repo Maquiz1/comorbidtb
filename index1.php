@@ -58,7 +58,7 @@ if ($user->isLoggedIn()) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pivlo Database | Dashboard</title>
+  <title>Comorbidities Database | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -259,7 +259,7 @@ if ($user->isLoggedIn()) {
                   <div class="tab-content p-0">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="registration_bar" style="position: relative; height: 300px;">
-                      <canvas id="registration" height="300" style="height: 300px;"></canvas>
+                      <!-- <canvas id="registration" height="300" style="height: 300px;"></canvas> -->
                     </div>
                     <div class="chart tab-pane" id="registration_donat" style="position: relative; height: 300px;">
                       <canvas id="registration2" height="300" style="height: 300px;"></canvas>
@@ -297,7 +297,7 @@ if ($user->isLoggedIn()) {
                   <div class="tab-content p-0">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="screening1" style="position: relative; height: 300px;">
-                      <canvas id="screening" height="300" style="height: 300px;"></canvas>
+                      <!-- <canvas id="screening" height="300" style="height: 300px;"></canvas> -->
                     </div>
                     <div class="chart tab-pane" id="screening2" style="position: relative; height: 300px;">
                       <canvas id="screening2" height="300" style="height: 300px;"></canvas>
@@ -334,7 +334,7 @@ if ($user->isLoggedIn()) {
                   <div class="tab-content p-0">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="eligible_bar" style="position: relative; height: 300px;">
-                      <canvas id="eligible" height="300" style="height: 300px;"></canvas>
+                      <!-- <canvas id="eligible" height="300" style="height: 300px;"></canvas> -->
                     </div>
                     <div class="chart tab-pane" id="eligible_pie" style="position: relative; height: 300px;">
                       <canvas id="eligible2" height="300" style="height: 300px;"></canvas>
@@ -372,7 +372,7 @@ if ($user->isLoggedIn()) {
                   <div class="tab-content p-0">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="enrolled_bar" style="position: relative; height: 300px;">
-                      <canvas id="enrolled" height="300" style="height: 300px;"></canvas>
+                      <!-- <canvas id="enrolled" height="300" style="height: 300px;"></canvas> -->
                     </div>
                     <div class="chart tab-pane" id="enrolled_pie" style="position: relative; height: 300px;">
                       <canvas id="enrolled2" height="300" style="height: 300px;"></canvas>
