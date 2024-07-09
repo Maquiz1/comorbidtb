@@ -3170,21 +3170,21 @@ if ($user->isLoggedIn()) {
                                             <div class="row">
                                                 <div class="col-2">
                                                     <div class="mb-2">
-                                                        <label for="visit_date" class="form-label">Tarehe ya Mahojiano:</label>
-                                                        <input type="date" value="<?php if ($individual['visit_date']) {
-                                                                                        print_r($individual['visit_date']);
-                                                                                    } ?>" id="visit_date" name="visit_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
+                                                        <label for="tarehe_mahojiano" class="form-label">Tarehe ya Mahojiano:</label>
+                                                        <input type="date" value="<?php if ($individual['tarehe_mahojiano']) {
+                                                                                        print_r($individual['tarehe_mahojiano']);
+                                                                                    } ?>" id="tarehe_mahojiano" name="tarehe_mahojiano" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="patient_status">
-                                                    <label for="patient_status" class="form-label">6. TB iligundulika kwa njia gani</label>
+                                                <div class="col-sm-3" id="tb_kugundulika">
+                                                    <label for="tb_kugundulika" class="form-label">6. TB iligundulika kwa njia gani</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('patient_status', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('tb_methods', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="patient_status" id="patient_status<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['patient_status'] == $value['id']) {
+                                                                    <input class="form-check-input" type="radio" name="tb_kugundulika" id="tb_kugundulika<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_kugundulika'] == $value['id']) {
                                                                                                                                                                                                                 echo 'checked';
                                                                                                                                                                                                             } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
@@ -3196,24 +3196,24 @@ if ($user->isLoggedIn()) {
 
                                                 <div class="col-2">
                                                     <div class="mb-2">
-                                                        <label for="visit_date" class="form-label">6(a) Tarehe TB iliyogundulika: </label>
-                                                        <input type="date" value="<?php if ($individual['visit_date']) {
-                                                                                        print_r($individual['visit_date']);
-                                                                                    } ?>" id="visit_date" name="visit_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
+                                                        <label for="tb_tarehe" class="form-label">6(a) Tarehe TB iliyogundulika: </label>
+                                                        <input type="date" value="<?php if ($individual['tb_tarehe']) {
+                                                                                        print_r($individual['tb_tarehe']);
+                                                                                    } ?>" id="tb_tarehe" name="tb_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
                                                     </div>
                                                 </div>
 
 
-                                                <div class="col-sm-3" id="patient_status">
-                                                    <label for="patient_status" class="form-label">7. Ameanza dawa za TB</label>
+                                                <div class="col-sm-3" id="tb_dawa">
+                                                    <label for="tb_dawa" class="form-label">7. Ameanza dawa za TB</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('patient_status', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="patient_status" id="patient_status<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['patient_status'] == $value['id']) {
-                                                                                                                                                                                                                echo 'checked';
-                                                                                                                                                                                                            } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="tb_dawa" id="tb_dawa<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_dawa'] == $value['id']) {
+                                                                                                                                                                                                    echo 'checked';
+                                                                                                                                                                                                } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3223,10 +3223,10 @@ if ($user->isLoggedIn()) {
 
                                                 <div class="col-2">
                                                     <div class="mb-2">
-                                                        <label for="visit_date" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
-                                                        <input type="date" value="<?php if ($individual['visit_date']) {
-                                                                                        print_r($individual['visit_date']);
-                                                                                    } ?>" id="visit_date" name="visit_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
+                                                        <label for="tb_dawa_tarehe" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
+                                                        <input type="date" value="<?php if ($individual['tb_dawa_tarehe']) {
+                                                                                        print_r($individual['tb_dawa_tarehe']);
+                                                                                    } ?>" id="tb_dawa_tarehe" name="tb_dawa_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
                                                     </div>
                                                 </div>
 
@@ -7127,6 +7127,16 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/history/second_line.js"></script>
     <script src="myjs/add/history/third_line.js"></script>
     <script src="myjs/add/history"></script>
+
+    <script src="myjs/add/checkbox1.js"></script>
+    <script src="myjs/add/radio.js"></script>
+    <script src="myjs/add/radios1.js"></script>
+    <script src="myjs/add/radios2.js"></script>
+    <script src="myjs/add/radios3.js"></script>
+    <script src="myjs/add/radios4.js"></script>
+    <script src="myjs/add/radios96.js"></script>
+
+
 
 
 
