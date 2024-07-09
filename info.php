@@ -1276,6 +1276,15 @@ if ($user->isLoggedIn()) {
                                                                 <?php if ($visit['sequence'] >= 1) { ?>
                                                                     <?php if ($screening['eligible'] == 1) {
                                                                         $i = 1; ?>
+
+                                                                        <?php if ($override->getNews('individual', 'patient_id', $_GET['cid'], 'sequence', $i)) { ?>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Swahili Quantitative tool_TB Comorbidity Data</a>&nbsp;&nbsp; <br><br>
+
+                                                                        <?php } else { ?>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Swahili Quantitative tool_TB Comorbidity Data </a>&nbsp;&nbsp; <br><br>
+
+                                                                        <?php } ?>
+
                                                                         <?php if ($override->getNews('individual', 'patient_id', $_GET['cid'], 'sequence', $i)) { ?>
                                                                             <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update TB Patients (TB CLINIC) Data</a>&nbsp;&nbsp; <br><br>
 
