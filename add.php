@@ -4490,16 +4490,16 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
 
-                                                <div class="col-sm-3" id="hiv_status">
-                                                    <label for="hiv_status" class="form-label">72. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
+                                                <div class="col-sm-3" id="qn72">
+                                                    <label for="qn72" class="form-label">72. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="hiv_status" id="hiv_status<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['hiv_status'] == $value['id']) {
-                                                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                                                    } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="qn72" id="qn72<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn72'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4508,16 +4508,16 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-2" id="hiv_status">
-                                                    <label for="hiv_status" class="form-label">73. If Ndiyo Qn 68, Majibu ya Smear</label>
+                                                <div class="col-sm-2" id="qn73">
+                                                    <label for="qn73" class="form-label">73. If Ndiyo Qn 68, Majibu ya Smear</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="hiv_status" id="hiv_status<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['hiv_status'] == $value['id']) {
-                                                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                                                    } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="qn73" id="qn73<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn73'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4526,16 +4526,16 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="hiv_status">
-                                                    <label for="hiv_status" class="form-label">74. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa tano yamefanyika </label>
+                                                <div class="col-sm-3" id="qn74">
+                                                    <label for="qn74" class="form-label">74. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa tano yamefanyika </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="hiv_status" id="hiv_status<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['hiv_status'] == $value['id']) {
-                                                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                                                    } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="qn74" id="qn74<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn74'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4545,16 +4545,16 @@ if ($user->isLoggedIn()) {
                                                 </div>
 
 
-                                                <div class="col-sm-2" id="hiv_status">
-                                                    <label for="hiv_status" class="form-label">76. Kama Ndiyo Qn 74, Majibu </label>
+                                                <div class="col-sm-2" id="qn76">
+                                                    <label for="qn76" class="form-label">76. Kama Ndiyo Qn 74, Majibu </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="hiv_status" id="hiv_status<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['hiv_status'] == $value['id']) {
-                                                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                                                    } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="qn76" id="qn76<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn76'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4563,12 +4563,12 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-2" id="started_tb1">
+                                                <div class="col-2" id="qn77">
                                                     <div class="mb-2">
-                                                        <label for="started_tb" class="form-label">77. Tarehe ya mwisho ya mshiriki:</label>
-                                                        <input type="date" value="<?php if ($individual['started_tb']) {
-                                                                                        print_r($individual['started_tb']);
-                                                                                    } ?>" id="started_tb" name="started_tb" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                        <label for="qn77" class="form-label">77. Tarehe ya mwisho ya mshiriki:</label>
+                                                        <input type="date" value="<?php if ($individual['qn77']) {
+                                                                                        print_r($individual['qn77']);
+                                                                                    } ?>" id="qn77" name="qn77" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
                                                     </div>
                                                 </div>
 
@@ -4578,16 +4578,16 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
 
-                                                <div class="col-sm-6" id="tuberculosis_outcome">
-                                                    <label for="tuberculosis_outcome" class="form-label">78. Matokeo ya matumizi yad awa za TB (Tuberculosis Treatment Outcome )</label>
+                                                <div class="col-sm-6" id="qn78">
+                                                    <label for="qn78" class="form-label">78. Matokeo ya matumizi yad awa za TB (Tuberculosis Treatment Outcome )</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('tuberculosis_treatment', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="tuberculosis_outcome" id="tuberculosis_outcome<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tuberculosis_outcome'] == $value['id']) {
-                                                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                                                        } ?>>
+                                                                    <input class="form-check-input" type="radio" name="qn78" id="qn78<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn78'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name2']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4595,12 +4595,12 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6" id="started_tb1">
+                                                <div class="col-6" id="tb_outcome_date_1">
                                                     <div class="mb-2">
-                                                        <label for="tb_outcome_date_cured" class="form-label">Tarehe ya kupona(Cured)</label>
-                                                        <label for="tb_outcome_date_completed" class="form-label">Tarehe ya kumaliza matibabu (Completed treatment) </label>
-                                                        <label for="tb_outcome_date_death" class="form-label">Tarehe ya kufariki (Died)</label>
-                                                        <label for="tb_outcome_date_last_seen" class="form-label">Tarehe ya kupotea kwenye ufuatiliaji (Lost to follow up) / Date last seen (Last visit date) </label>
+                                                        <label for="tb_outcome_date_cured" id="tb_outcome_date_cured" class="form-label">Tarehe ya kupona(Cured)</label>
+                                                        <label for="tb_outcome_date_completed" id="tb_outcome_date_completed" class="form-label">Tarehe ya kumaliza matibabu (Completed treatment) </label>
+                                                        <label for="tb_outcome_date_death" id="tb_outcome_date_death" class="form-label">Tarehe ya kufariki (Died)</label>
+                                                        <label for="tb_outcome_date_last_seen" id="tb_outcome_date_last_seen" class="form-label">Tarehe ya kupotea kwenye ufuatiliaji (Lost to follow up) / Date last seen (Last visit date) </label>
                                                         <input type="date" value="<?php if ($individual['tb_outcome_date']) {
                                                                                         print_r($individual['tb_outcome_date']);
                                                                                     } ?>" id="tb_outcome_date" name="tb_outcome_date" class="form-control" placeholder="Enter here" />
