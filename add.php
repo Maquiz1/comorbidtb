@@ -470,19 +470,17 @@ if ($user->isLoggedIn()) {
                 // ),
             ));
             if ($validate->passed()) {
-                // print_r($_POST);
                 $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid'])[0];
                 $individual = $override->get3('comorbidtb_tool', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
-                $rbg_done = 0;
-                $enrolled = 0;
-                $end_study = 0;
-                if (Input::get('rbg_done')) {
-                    $rbg_done = Input::get('rbg_done');
-                }
 
                 if ($individual) {
 
                     $user->updateRecord('comorbidtb_tool', array(
+                        'vid' => $_GET['vid'],
+                        'sequence' => $_GET['sequence'],
+                        'visit_code' => $_GET['visit_code'],
+                        'pid' => $_GET['study_id'],
+                        'study_id' => $_GET['study_id'],
                         // 'visit_date' => Input::get('visit_date'),
                         'tarehe_mahojiano' => Input::get('tarehe_mahojiano'),
                         'tb_kugundulika' => Input::get('tb_kugundulika'),
@@ -575,9 +573,9 @@ if ($user->isLoggedIn()) {
                         'vid' => $_GET['vid'],
                         'sequence' => $_GET['sequence'],
                         'visit_code' => $_GET['visit_code'],
-                        'pid' => $clients['study_id'],
-                        'study_id' => $clients['study_id'],
-                        // 'visit_date' => Input::get('visit_date'),
+                        'pid' => $_GET['study_id'],
+                        'study_id' => $_GET['study_id'],
+                        'visit_date' => Input::get('visit_date'),
                         'tarehe_mahojiano' => Input::get('tarehe_mahojiano'),
                         'tb_kugundulika' => Input::get('tb_kugundulika'),
                         'tb_tarehe' => Input::get('tb_tarehe'),
@@ -3053,7 +3051,6 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-
                                                 <div class="col-6">
                                                     <div class="mb-2">
                                                         <label for="tarehe_mahojiano" class="form-label">Tarehe ya Mahojiano:</label>
@@ -3064,8 +3061,9 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
 
-                                            <?php if ($_GET['sequence'] == 1) { ?>
+                                            <hr>
 
+                                            <?php if ($_GET['sequence'] == 0) { ?>
                                                 <div class="row">
                                                     <div class="col-sm-3" id="tb_kugundulika">
                                                         <label for="tb_kugundulika" class="form-label">6. TB iligundulika kwa njia gani</label>
@@ -3084,7 +3082,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-2">
+                                                    <div class="col-3">
                                                         <div class="mb-2">
                                                             <label for="tb_tarehe" id="tb_tarehe1" class="form-label">6(a) Tarehe TB iliyogundulika: </label>
                                                             <input type="date" value="<?php if ($individual['tb_tarehe']) {
@@ -3111,7 +3109,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-2">
+                                                    <div class="col-3">
                                                         <div class="mb-2">
                                                             <label for="tb_dawa_tarehe" id="tb_dawa_tarehe1" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
                                                             <input type="date" value="<?php if ($individual['tb_dawa_tarehe']) {
@@ -3134,7 +3132,6 @@ if ($user->isLoggedIn()) {
                                                 <hr>
 
                                                 <div class="row">
-
                                                     <div class="col-sm-2" id="qn08">
                                                         <label for="qn08" class="form-label">8. Je, kwa sasa unavuta aina yoyote ya tumbaku kama vile sigara, kiko, sigara ya kusokota n.k? </label>
                                                         <!-- radio -->
@@ -3247,7 +3244,6 @@ if ($user->isLoggedIn()) {
                                                 <hr>
 
                                                 <div class="row">
-
                                                     <div class="col-sm-2" id="qn14">
                                                         <label for="qn14" class="form-label">14. Kama ndiyo, Kwa sasa, unatumia tumbaku isiyo ya kuvuta kila siku? </label>
                                                         <!-- radio -->
@@ -3366,7 +3362,6 @@ if ($user->isLoggedIn()) {
                                                 <hr>
 
                                                 <div class="row">
-
                                                     <div class="col-sm-3" id="qn20">
                                                         <label for="diabetic_status" class="form-label">20. Je, umewahi kutumia kinywaji chenye kilevi (kama vile bia, mvinyo, pombe kali au pombe ya kienyeji)?</label>
                                                         <!-- radio -->
@@ -3545,7 +3540,6 @@ if ($user->isLoggedIn()) {
                                                 <hr>
 
                                                 <div class="row">
-
                                                     <div class="col-sm-3" id="qn29">
                                                         <label for="qn29" class="form-label">29. Kwa kawaida ni siku ngapi ndani ya wiki moja unakula matunda? (TUMIA SHOWCARD) </label>
                                                         <!-- radio -->
@@ -3637,7 +3631,6 @@ if ($user->isLoggedIn()) {
 
 
                                                 <div class="row">
-
                                                     <div class="col-sm-3" id="qn33">
                                                         <label for="diabetic_status" class="form-label">33. Je! Ni mara ngapi unaongeza chumvi au mchuzi wa chumvi kama vile siki, chachandu, Soya Sauce, chachandu au achali, ajinomoto kwenye chakula chako kabla ya kula au unapokula? </label>
                                                         <!-- radio -->
@@ -3743,7 +3736,6 @@ if ($user->isLoggedIn()) {
 
                                                 <hr>
                                                 <div class="row">
-
                                                     <div class="col-4" id="qn38">
                                                         <label for="qn38" class="form-label">38. Je, kazi yako inahusisha shughuli za kutumia nguvu ambazo zinaongeza kasi ya kupumua na mapigo ya moyo kama vile kubeba mizigo mizito, kumwaga zege, kupiga kokoto, kuchota maji, kusomba mazao, kilimo au kazi za ujenzi kwa angalau dakika 10 mfululizo?</label>
                                                         <!-- radio -->
@@ -3850,7 +3842,6 @@ if ($user->isLoggedIn()) {
                                                 <hr>
 
                                                 <div class="row">
-
                                                     <div class="col-sm-2" id="qn45">
                                                         <label for="qn45" class="form-label">45. Je umeshawahi kuambiwa na daktari au mtoa huduma za afya kuwa una ongezeko la shinikizo la damu?</label>
                                                         <!-- radio -->
@@ -3943,7 +3934,6 @@ if ($user->isLoggedIn()) {
                                                 <hr>
 
                                                 <div class="row">
-
                                                     <div class="col-sm-3" id="qn50">
                                                         <label for="qn50" class="form-label">50. Je uliambiwa hivyo kwa mara ya kwanza katika kipindi cha miezi 12 iliyopita?</label>
                                                         <!-- radio -->
@@ -4371,7 +4361,7 @@ if ($user->isLoggedIn()) {
                                             <?php } ?>
 
 
-                                            <?php if ($_GET['sequence'] > 1) { ?>
+                                            <?php if ($_GET['sequence'] >= 1) { ?>
 
                                                 <div class="card card-warning">
                                                     <div class="card-header">
@@ -4501,7 +4491,6 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             <?php } ?>
 
                                             <hr>
@@ -4527,6 +4516,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <hr>
 
                                             <div class="card card-warning">
@@ -4534,6 +4524,7 @@ if ($user->isLoggedIn()) {
                                                     <h3 class="card-title">FORM STATUS</h3>
                                                 </div>
                                             </div>
+
                                             <hr>
 
                                             <div class="row">
@@ -4562,6 +4553,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <hr>
                                         </div>
                                         <!-- /.card-body -->

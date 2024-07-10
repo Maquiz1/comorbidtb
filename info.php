@@ -1000,29 +1000,10 @@ if ($user->isLoggedIn()) {
                                                 $kap = 0;
                                                 $screening = 0;
                                                 $health_care = 0;
-                                                if ($_GET['interview'] == 1) {
-                                                    $interview = 'kap';
-                                                } elseif ($_GET['interview'] == 2) {
-                                                    $interview = 'screening';
-                                                } elseif ($_GET['interview'] == 3) {
-                                                    $interview = 'health_care';
-                                                }
                                                 $x = 1;
                                                 foreach ($clients as $value) {
                                                     $yes_no = $override->get('yes_no', 'status', 1)[0];
-                                                    // $kap = $override->getNews('kap', 'status', 1, 'patient_id', $value['id']);
-                                                    // $history = $override->getNews('history', 'status', 1, 'patient_id', $value['id']);
-
-                                                    // $results1 = $override->get3('results', 'status', 1, 'patient_id', $value['id'], 'sequence', 1);
-                                                    // $results2 = $override->get3('results', 'status', 1, 'patient_id', $value['id'], 'sequence', 2);
-
-                                                    // $classification1 = $override->get3('classification', 'status', 1, 'patient_id', $value['id'], 'sequence', 1);
-                                                    // $classification2 = $override->get3('classification', 'status', 1, 'patient_id', $value['id'], 'sequence', 2);
-
-                                                    // $economic1 = $override->get3('economic', 'status', 1, 'patient_id', $value['id'], 'sequence', 1);
-                                                    // $economic2 = $override->get3('economic', 'status', 1, 'patient_id', $value['id'], 'sequence', 2);
-
-                                                    // $outcome1 = $override->get3('outcome', 'status', 1, 'patient_id', $value['id'], 'sequence', 1);
+                                                    $comorbidtb_tool = $override->get3('comorbidtb_tool', 'status', 1, 'patient_id', $value['id'], 'sequence', 1);
                                                     // $outcome2 = $override->get3('outcome', 'status', 1, 'patient_id', $value['id'], 'sequence', 2);
 
                                                     $sites = $override->getNews('sites', 'status', 1, 'id', $value['site_id'])[0];
@@ -1072,10 +1053,10 @@ if ($user->isLoggedIn()) {
                                                             <br>
                                                             <?php if ($value['respondent'] == 4) { ?>
                                                                 <?php if ($value['age'] >= 0) { ?>
-                                                                    <?php if ($kap && $history && $results1 && $results2 && $classification1 && $classification2 && $economic1 && $economic2 && $outcome1 && $outcome2) { ?>
-                                                                        <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
+                                                                    <?php if ($comorbidtb_tool) { ?>
+                                                                        <a href="add.php?id=5&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
                                                                     <?php   } else { ?>
-                                                                        <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
+                                                                        <a href="add.php?id=5&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
                                                                     <?php   } ?>
                                                                 <?php   } ?>
                                                             <?php   } ?>
