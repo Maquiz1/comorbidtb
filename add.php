@@ -212,19 +212,19 @@ if ($user->isLoggedIn()) {
             }
         } elseif (Input::get('add_client')) {
             $validate = $validate->check($_POST, array(
-                'date_registered' => array(
+                'screening_date' => array(
                     'required' => true,
                 ),
-                'firstname' => array(
+                'tb_id' => array(
                     'required' => true,
                 ),
-                'middlename' => array(
-                    'required' => true,
-                ),
-                'lastname' => array(
+                'dob' => array(
                     'required' => true,
                 ),
                 'sex' => array(
+                    'required' => true,
+                ),
+                'conset' => array(
                     'required' => true,
                 ),
             ));
@@ -233,207 +233,229 @@ if ($user->isLoggedIn()) {
                 try {
                     $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid']);
 
-                    $age = $user->dateDiffYears(Input::get('date_registered'), Input::get('dob'));
+                    $age = $user->dateDiffYears(Input::get('screening_date'), Input::get('dob'));
 
-                    if ($clients) {
-                        $user->updateRecord('clients', array(
-                            'sequence' => -2,
-                            'visit_code' => 'RV',
-                            'visit_name' => 'Registration Visit',
-                            'date_registered' => Input::get('date_registered'),
-                            'tarehe_mahojiano' => Input::get('date_registered'),
-                            'mkoa' => Input::get('region'),
-                            'wilaya' => Input::get('district'),
-                            'kituo' => $clients[0]['site_id'],
-                            'pid' => $clients[0]['study_id'],
-                            'firstname' => Input::get('firstname'),
-                            'middlename' => Input::get('middlename'),
-                            'lastname' => Input::get('lastname'),
-                            'sex' => Input::get('sex'),
-                            'marital_status' => Input::get('marital_status'),
-                            'dob' => Input::get('dob'),
-                            'age' => $age,
-                            // 'years' => Input::get('years'),
-                            // 'ctc_id' => Input::get('ctc_id'),
-                            'patient_phone' => Input::get('patient_phone'),
-                            'patient_phone2' => Input::get('patient_phone2'),
-                            'qn01' => Input::get('dob'),
-                            'qn02' => Input::get('sex'),
-                            'qn03' => Input::get('education'),
-                            'qn04' => Input::get('marital_status'),
-                            'qn05' => Input::get('occupation'),
-                            'supporter_fname' => Input::get('supporter_fname'),
-                            'supporter_mname' => Input::get('supporter_mname'),
-                            'supporter_lname' => Input::get('supporter_lname'),
-                            'supporter_phone' => Input::get('supporter_phone'),
-                            'supporter_phone2' => Input::get('supporter_phone2'),
-                            'relation_patient' => Input::get('relation_patient'),
-                            'relation_patient_other' => Input::get('relation_patient_other'),
-                            'region' => Input::get('region'),
-                            'district' => Input::get('district'),
-                            'ward' => Input::get('ward'),
-                            'street' => Input::get('street'),
-                            'location' => Input::get('location'),
-                            'house_number' => Input::get('house_number'),
-                            'head_household' => 0,
-                            'education' => Input::get('education'),
-                            'occupation' => Input::get('occupation'),
-                            'health_insurance' => Input::get('health_insurance'),
-                            'insurance_name' => Input::get('insurance_name'),
-                            'pay_services' => Input::get('pay_services'),
-                            'insurance_name_other' => Input::get('insurance_name_other'),
-                            'respondent' => 4,
-                            'comments' => Input::get('comments'),
-                            'update_on' => date('Y-m-d H:i:s'),
-                            'update_id' => $user->data()->id,
-                            'site_id' => $clients[0]['site_id'],
-                        ), $_GET['cid']);
+                    if ((Input::get('conset') == 1)) {
+                        $eligible = 1;
+                    } else {
+                        $eligible = 2;
+                    }
 
-                        $visit = $override->get3('visit', 'status', 1, 'patient_id', $clients[0]['id'], 'sequence', -2);
-
-                        if ($visit) {
-                            $user->updateRecord('visit', array(
-                                'sequence' => -2,
+                    if (Input::get('conset') == 2 && !empty(trim(Input::get('conset_date')))) {
+                        $errorMessage = 'Please Remove Conset date before Submit again';
+                    } else {
+                        if ($clients) {
+                            $user->updateRecord('clients', array(
+                                'sequence' => 0,
                                 'visit_code' => 'RV',
                                 'visit_name' => 'Registration Visit',
-                                'respondent' => 4,
-                                'study_id' => $clients[0]['study_id'],
+                                'screening_date' => Input::get('screening_date'),
+                                'tarehe_mahojiano' => Input::get('screening_date'),
+                                'conset' => Input::get('conset'),
+                                'conset_date' => Input::get('conset_date'),
+                                'hospital_id' => Input::get('hospital_id'),
+                                'tb_id' => Input::get('tb_id'),
+                                'mkoa' => Input::get('region'),
+                                'wilaya' => Input::get('district'),
+                                'kituo' => $clients[0]['site_id'],
                                 'pid' => $clients[0]['study_id'],
-                                'expected_date' => Input::get('date_registered'),
-                                'visit_date' => Input::get('date_registered'),
-                                'visit_status' => 1,
+                                'firstname' => Input::get('firstname'),
+                                'middlename' => Input::get('middlename'),
+                                'lastname' => Input::get('lastname'),
+                                'sex' => Input::get('sex'),
+                                'marital_status' => Input::get('marital_status'),
+                                'dob' => Input::get('dob'),
+                                'age' => $age,
+                                // 'years' => Input::get('years'),
+                                // 'ctc_id' => Input::get('ctc_id'),
+                                'patient_phone' => Input::get('patient_phone'),
+                                'patient_phone2' => Input::get('patient_phone2'),
+                                'qn01' => Input::get('dob'),
+                                'qn02' => Input::get('sex'),
+                                'qn03' => Input::get('education'),
+                                'qn04' => Input::get('marital_status'),
+                                'qn05' => Input::get('occupation'),
+                                'supporter_fname' => Input::get('supporter_fname'),
+                                'supporter_mname' => Input::get('supporter_mname'),
+                                'supporter_lname' => Input::get('supporter_lname'),
+                                'supporter_phone' => Input::get('supporter_phone'),
+                                'supporter_phone2' => Input::get('supporter_phone2'),
+                                'relation_patient' => Input::get('relation_patient'),
+                                'relation_patient_other' => Input::get('relation_patient_other'),
+                                'region' => Input::get('region'),
+                                'district' => Input::get('district'),
+                                'ward' => Input::get('ward'),
+                                'street' => Input::get('street'),
+                                'location' => Input::get('location'),
+                                'house_number' => Input::get('house_number'),
+                                'head_household' => 0,
+                                'education' => Input::get('education'),
+                                'occupation' => Input::get('occupation'),
+                                'health_insurance' => Input::get('health_insurance'),
+                                'insurance_name' => Input::get('insurance_name'),
+                                'pay_services' => Input::get('pay_services'),
+                                'insurance_name_other' => Input::get('insurance_name_other'),
+                                'eligible' => $eligible,
+                                'respondent' => 4,
                                 'comments' => Input::get('comments'),
-                                'status' => 1,
-                                'facility_id' => $clients[0]['site_id'],
-                                'table_id' => $clients[0]['id'],
-                                'patient_id' => $clients[0]['id'],
-                                'create_on' => date('Y-m-d H:i:s'),
-                                'staff_id' => $user->data()->id,
                                 'update_on' => date('Y-m-d H:i:s'),
                                 'update_id' => $user->data()->id,
                                 'site_id' => $clients[0]['site_id'],
-                            ), $visit[0]['id']);
+                            ), $_GET['cid']);
+
+                            $visit = $override->get3('visit', 'status', 1, 'patient_id', $clients[0]['id'], 'sequence', -2);
+
+                            if ($visit) {
+                                $user->updateRecord('visit', array(
+                                    'sequence' => 0,
+                                    'visit_code' => 'SV',
+                                    'visit_name' => 'Screening Visit',
+                                    'respondent' => 4,
+                                    'study_id' => $clients[0]['study_id'],
+                                    'pid' => $clients[0]['study_id'],
+                                    'expected_date' => Input::get('screening_date'),
+                                    'visit_date' => Input::get('screening_date'),
+                                    'visit_status' => 1,
+                                    'comments' => Input::get('comments'),
+                                    'status' => 1,
+                                    'facility_id' => $clients[0]['site_id'],
+                                    'table_id' => $clients[0]['id'],
+                                    'patient_id' => $clients[0]['id'],
+                                    'create_on' => date('Y-m-d H:i:s'),
+                                    'staff_id' => $user->data()->id,
+                                    'update_on' => date('Y-m-d H:i:s'),
+                                    'update_id' => $user->data()->id,
+                                    'site_id' => $clients[0]['site_id'],
+                                ), $visit[0]['id']);
+                            } else {
+                                $user->createRecord('visit', array(
+                                    'sequence' => 0,
+                                    'visit_code' => 'SV',
+                                    'visit_name' => 'Screening Visit',
+                                    'respondent' => 4,
+                                    'study_id' => $clients[0]['study_id'],
+                                    'pid' => $clients[0]['study_id'],
+                                    'expected_date' => Input::get('screening_date'),
+                                    'visit_date' => Input::get('screening_date'),
+                                    'visit_status' => 1,
+                                    'comments' => Input::get('comments'),
+                                    'status' => 1,
+                                    'facility_id' => $clients[0]['site_id'],
+                                    'table_id' => $clients[0]['id'],
+                                    'patient_id' => $clients[0]['id'],
+                                    'create_on' => date('Y-m-d H:i:s'),
+                                    'staff_id' => $user->data()->id,
+                                    'update_on' => date('Y-m-d H:i:s'),
+                                    'update_id' => $user->data()->id,
+                                    'site_id' => $clients[0]['site_id'],
+                                ));
+                            }
+
+                            $successMessage = 'Client Updated Successful';
                         } else {
-                            $user->createRecord('visit', array(
-                                'sequence' => -2,
-                                'visit_code' => 'RV',
-                                'visit_name' => 'Registration Visit',
-                                'respondent' => 4,
-                                'study_id' => $clients[0]['study_id'],
-                                'pid' => $clients[0]['study_id'],
-                                'expected_date' => Input::get('date_registered'),
-                                'visit_date' => Input::get('date_registered'),
-                                'visit_status' => 1,
+                            $std_id = $override->getNews('study_id', 'site_id', $_GET['site_id'], 'status', 0)[0];
+
+                            $user->createRecord('clients', array(
+                                'sequence' => 0,
+                                'visit_code' => 'SV',
+                                'visit_name' => 'Screening Visit',
+                                'screening_date' => Input::get('screening_date'),
+                                'conset' => Input::get('conset'),
+                                'conset_date' => Input::get('conset_date'),
+                                'study_id' => $std_id['study_id'],
+                                'tarehe_mahojiano' => Input::get('screening_date'),
+                                'hospital_id' => Input::get('hospital_id'),
+                                'tb_id' => Input::get('tb_id'),
+                                'mkoa' => Input::get('region'),
+                                'wilaya' => Input::get('district'),
+                                'kituo' => $_GET['site_id'],
+                                'pid' => $std_id['study_id'],
+                                'firstname' => Input::get('firstname'),
+                                'middlename' => Input::get('middlename'),
+                                'lastname' => Input::get('lastname'),
+                                'sex' => Input::get('sex'),
+                                'marital_status' => Input::get('marital_status'),
+                                'dob' => Input::get('dob'),
+                                'age' => $age,
+                                // 'years' => Input::get('years'),
+                                // 'ctc_id' => Input::get('ctc_id'),
+                                'patient_phone' => Input::get('patient_phone'),
+                                'patient_phone2' => Input::get('patient_phone2'),
+                                'qn01' => Input::get('dob'),
+                                'qn02' => Input::get('sex'),
+                                'qn03' => Input::get('education'),
+                                'qn04' => Input::get('marital_status'),
+                                'qn05' => Input::get('occupation'),
+                                'supporter_fname' => Input::get('supporter_fname'),
+                                'supporter_mname' => Input::get('supporter_mname'),
+                                'supporter_lname' => Input::get('supporter_lname'),
+                                'supporter_phone' => Input::get('supporter_phone'),
+                                'supporter_phone2' => Input::get('supporter_phone2'),
+                                'relation_patient' => Input::get('relation_patient'),
+                                'relation_patient_other' => Input::get('relation_patient_other'),
+                                'region' => Input::get('region'),
+                                'district' => Input::get('district'),
+                                'ward' => Input::get('ward'),
+                                'street' => Input::get('street'),
+                                'location' => Input::get('location'),
+                                'house_number' => Input::get('house_number'),
+                                'head_household' => 0,
+                                'education' => Input::get('education'),
+                                'occupation' => Input::get('occupation'),
+                                'health_insurance' => Input::get('health_insurance'),
+                                'insurance_name' => Input::get('insurance_name'),
+                                'insurance_name_other' => Input::get('insurance_name_other'),
+                                'pay_services' => Input::get('pay_services'),
                                 'comments' => Input::get('comments'),
+                                'respondent' => 4,
                                 'status' => 1,
-                                'facility_id' => $clients[0]['site_id'],
-                                'table_id' => $clients[0]['id'],
-                                'patient_id' => $clients[0]['id'],
+                                'screened' => 1,
+                                'eligible' => $eligible,
+                                'enrolled' => 0,
+                                'end_study' => 0,
                                 'create_on' => date('Y-m-d H:i:s'),
                                 'staff_id' => $user->data()->id,
                                 'update_on' => date('Y-m-d H:i:s'),
                                 'update_id' => $user->data()->id,
-                                'site_id' => $clients[0]['site_id'],
+                                'site_id' => $_GET['site_id'],
                             ));
+
+                            $last_row = $override->lastRow('clients', 'id')[0];
+
+                            $user->updateRecord('study_id', array(
+                                'status' => 1,
+                                'client_id' => $last_row['id'],
+                            ), $std_id['id']);
+
+                            $user->createRecord('visit', array(
+                                'sequence' => 0,
+                                'visit_code' => 'SV',
+                                'visit_name' => 'Screening Visit',
+                                'respondent' => 4,
+                                'study_id' => $std_id['study_id'],
+                                'pid' => $std_id['study_id'],
+                                'expected_date' => Input::get('screening_date'),
+                                'visit_date' => Input::get('screening_date'),
+                                'visit_status' => 1,
+                                'comments' => Input::get('comments'),
+                                'status' => 1,
+                                'facility_id' => $_GET['site_id'],
+                                'table_id' => $last_row['id'],
+                                'patient_id' => $last_row['id'],
+                                'create_on' => date('Y-m-d H:i:s'),
+                                'staff_id' => $user->data()->id,
+                                'update_on' => date('Y-m-d H:i:s'),
+                                'update_id' => $user->data()->id,
+                                'site_id' => $_GET['site_id'],
+                            ));
+
+                            $successMessage = 'Client  Added Successful';
                         }
 
-                        $successMessage = 'Client Updated Successful';
-                    } else {
-                        $std_id = $override->getNews('study_id', 'site_id', $_GET['site_id'], 'status', 0)[0];
+                        Redirect::to('info.php?id=3&status=7');
 
-                        $user->createRecord('clients', array(
-                            'sequence' => -2,
-                            'visit_code' => 'RV',
-                            'visit_name' => 'Registration Visit',
-                            'date_registered' => Input::get('date_registered'),
-                            'study_id' => $std_id['study_id'],
-                            'tarehe_mahojiano' => Input::get('date_registered'),
-                            'mkoa' => Input::get('region'),
-                            'wilaya' => Input::get('district'),
-                            'kituo' => $_GET['site_id'],
-                            'pid' => $std_id['study_id'],
-                            'firstname' => Input::get('firstname'),
-                            'middlename' => Input::get('middlename'),
-                            'lastname' => Input::get('lastname'),
-                            'sex' => Input::get('sex'),
-                            'marital_status' => Input::get('marital_status'),
-                            'dob' => Input::get('dob'),
-                            'age' => $age,
-                            // 'years' => Input::get('years'),
-                            // 'ctc_id' => Input::get('ctc_id'),
-                            'patient_phone' => Input::get('patient_phone'),
-                            'patient_phone2' => Input::get('patient_phone2'),
-                            'qn01' => Input::get('dob'),
-                            'qn02' => Input::get('sex'),
-                            'qn03' => Input::get('education'),
-                            'qn04' => Input::get('marital_status'),
-                            'qn05' => Input::get('occupation'),
-                            'supporter_fname' => Input::get('supporter_fname'),
-                            'supporter_mname' => Input::get('supporter_mname'),
-                            'supporter_lname' => Input::get('supporter_lname'),
-                            'supporter_phone' => Input::get('supporter_phone'),
-                            'supporter_phone2' => Input::get('supporter_phone2'),
-                            'relation_patient' => Input::get('relation_patient'),
-                            'relation_patient_other' => Input::get('relation_patient_other'),
-                            'region' => Input::get('region'),
-                            'district' => Input::get('district'),
-                            'ward' => Input::get('ward'),
-                            'street' => Input::get('street'),
-                            'location' => Input::get('location'),
-                            'house_number' => Input::get('house_number'),
-                            'head_household' => 0,
-                            'education' => Input::get('education'),
-                            'occupation' => Input::get('occupation'),
-                            'health_insurance' => Input::get('health_insurance'),
-                            'insurance_name' => Input::get('insurance_name'),
-                            'insurance_name_other' => Input::get('insurance_name_other'),
-                            'pay_services' => Input::get('pay_services'),
-                            'comments' => Input::get('comments'),
-                            'respondent' => 4,
-                            'status' => 1,
-                            'screened' => 0,
-                            'eligible' => 0,
-                            'enrolled' => 0,
-                            'end_study' => 0,
-                            'create_on' => date('Y-m-d H:i:s'),
-                            'staff_id' => $user->data()->id,
-                            'update_on' => date('Y-m-d H:i:s'),
-                            'update_id' => $user->data()->id,
-                            'site_id' => $_GET['site_id'],
-                        ));
-
-                        $last_row = $override->lastRow('clients', 'id')[0];
-
-                        $user->updateRecord('study_id', array(
-                            'status' => 1,
-                            'client_id' => $last_row['id'],
-                        ), $std_id['id']);
-
-                        $user->createRecord('visit', array(
-                            'sequence' => -2,
-                            'visit_code' => 'RV',
-                            'visit_name' => 'Registration Visit',
-                            'respondent' => 4,
-                            'study_id' => $std_id['study_id'],
-                            'pid' => $std_id['study_id'],
-                            'expected_date' => Input::get('date_registered'),
-                            'visit_date' => Input::get('date_registered'),
-                            'visit_status' => 1,
-                            'comments' => Input::get('comments'),
-                            'status' => 1,
-                            'facility_id' => $_GET['site_id'],
-                            'table_id' => $last_row['id'],
-                            'patient_id' => $last_row['id'],
-                            'create_on' => date('Y-m-d H:i:s'),
-                            'staff_id' => $user->data()->id,
-                            'update_on' => date('Y-m-d H:i:s'),
-                            'update_id' => $user->data()->id,
-                            'site_id' => $_GET['site_id'],
-                        ));
-
-                        $successMessage = 'Client  Added Successful';
+                        // Redirect::to('info.php?id=4&cid=' . $_GET['cid'] . '&sequence=' . $_GET['sequence'] . '&visit_code=' . $_GET['visit_code'] . '&study_id=' . $_GET['study_id'] . '&status=' . $_GET['status']);
                     }
-                    Redirect::to('info.php?id=3&status=7');
                 } catch (Exception $e) {
                     die($e->getMessage());
                 }
@@ -555,7 +577,7 @@ if ($user->isLoggedIn()) {
                         'visit_code' => $_GET['visit_code'],
                         'pid' => $clients['study_id'],
                         'study_id' => $clients['study_id'],
-                        'visit_date' => Input::get('visit_date'),
+                        // 'visit_date' => Input::get('visit_date'),
                         'tarehe_mahojiano' => Input::get('tarehe_mahojiano'),
                         'tb_kugundulika' => Input::get('tb_kugundulika'),
                         'tb_tarehe' => Input::get('tb_tarehe'),
@@ -2711,52 +2733,38 @@ if ($user->isLoggedIn()) {
                                         <div class="card-body">
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <label>First Name</label>
-                                                            <input class="form-control" type="text" name="firstname" id="firstname" placeholder="Type firstname..." onkeyup="fetchData()" value="<?php if ($clients['firstname']) {
-                                                                                                                                                                                                        print_r($clients['firstname']);
-                                                                                                                                                                                                    }  ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <label>Middle Name</label>
-                                                            <input class="form-control" type="text" name="middlename" id="middlename" placeholder="Type middlename..." onkeyup="fetchData()" value="<?php if ($clients['middlename']) {
-                                                                                                                                                                                                        print_r($clients['middlename']);
-                                                                                                                                                                                                    }  ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <label>Last Name</label>
-                                                            <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Type lastname..." onkeyup="fetchData()" value="<?php if ($clients['lastname']) {
-                                                                                                                                                                                                    print_r($clients['lastname']);
-                                                                                                                                                                                                }  ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Registration Date:</label>
-                                                            <input class="form-control" type="date" max="<?= date('Y-m-d'); ?>" name="date_registered" id="date_registered" value="<?php if ($clients['date_registered']) {
-                                                                                                                                                                                        print_r($clients['date_registered']);
+                                                            <label>Screning Date:</label>
+                                                            <input class="form-control" type="date" max="<?= date('Y-m-d'); ?>" name="screening_date" id="screening_date" value="<?php if ($clients['screening_date']) {
+                                                                                                                                                                                        print_r($clients['screening_date']);
                                                                                                                                                                                     }  ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>TB ID</label>
+                                                            <input class="form-control" type="text" name="tb_id" id="tb_id" placeholder="Type here..." onkeyup="fetchData()" value="<?php if ($clients['tb_id']) {
+                                                                                                                                                                                        print_r($clients['tb_id']);
+                                                                                                                                                                                    }  ?>" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>HOSPITAL ID</label>
+                                                            <input class="form-control" type="text" name="hospital_id" id="hospital_id" placeholder="Type here..." onkeyup="fetchData()" value="<?php if ($clients['hospital_id']) {
+                                                                                                                                                                                                    print_r($clients['hospital_id']);
+                                                                                                                                                                                                }  ?>" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>Namba ya Mshiriki (PID)</label>
@@ -2767,25 +2775,34 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-4">
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <label for="conset" class="form-label">Patient Conset?</label>
+                                                    <!-- radio -->
                                                     <div class="row-form clearfix">
-                                                        <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Date of birth:</label>
-                                                            <input class="form-control" max="<?= date('Y-m-d'); ?>" type="date" name="dob" id="dob" style="width: 100%;" value="<?php if ($clients['dob']) {
-                                                                                                                                                                                    print_r($clients['dob']);
-                                                                                                                                                                                }  ?>" required />
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="conset" id="conset<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($clients['conset'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-4">
+                                                <div class="col-3" id="conset_date1">
+                                                    <div class="mb-2">
+                                                        <label for="results_date" class="form-label">Date of Conset</label>
+                                                        <input type="date" value="<?php if ($clients['conset_date']) {
+                                                                                        print_r($clients['conset_date']);
+                                                                                    } ?>" id="conset_date" name="conset_date" class="form-control" placeholder="Enter date" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
                                                     <label>SEX</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2806,33 +2823,79 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Patient Phone Number</label>
-                                                            <input class="form-control" type="tel" pattern=[0]{1}[0-9]{9} minlength="10" maxlength="10" name="patient_phone" id="patient_phone" value="<?php if ($clients['patient_phone']) {
-                                                                                                                                                                                                            print_r($clients['patient_phone']);
-                                                                                                                                                                                                        }  ?>" required /> <span>Example: 0700 000 111</span>
+                                                            <label>Date of birth:</label>
+                                                            <input class="form-control" max="<?= date('Y-m-d'); ?>" type="date" name="dob" id="dob" style="width: 100%;" value="<?php if ($clients['dob']) {
+                                                                                                                                                                                    print_r($clients['dob']);
+                                                                                                                                                                                }  ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Patient Phone Number</label>
-                                                            <input class="form-control" type="tel" pattern=[0]{1}[0-9]{9} minlength="10" maxlength="10" name="patient_phone2" id="patient_phone2" value="<?php if ($clients['patient_phone2']) {
-                                                                                                                                                                                                                print_r($clients['patient_phone2']);
-                                                                                                                                                                                                            }  ?>" /> <span>Example: 0700 000 111</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </div>
 
+                                            <hr>
 
+                                            <div class="row">
+
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>Ni kiwango gani cha elimu cha juu zaidi ulichomaliza?</label>
+                                                            <select id="education" name="education" class="form-control" required>
+                                                                <option value="<?= $education['id'] ?>"><?php if ($clients['education']) {
+                                                                                                            print_r($education['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select education';
+                                                                                                        } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('education', 'status', 1) as $value) { ?>
+                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>Hali ya Ndoa</label>
+                                                            <select id="marital_status" name="marital_status" class="form-control" required>
+                                                                <option value="<?= $education['id'] ?>"><?php if ($clients['marital_status']) {
+                                                                                                            print_r($education['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select education';
+                                                                                                        } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('marital_status', 'status', 1) as $value) { ?>
+                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Ni ipi kati ya haya yafuatayo yanaelezea vizuri kazi ambayo umekuwa ukifanya katika miezi 12 iliyopita?</label>
+                                                            <select id="occupation" name="occupation" class="form-control" required>
+                                                                <option value="<?= $occupation['id'] ?>"><?php if ($clients['occupation']) {
+                                                                                                                print_r($occupation['name']);
+                                                                                                            } else {
+                                                                                                                echo 'Select Occupation';
+                                                                                                            } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('occupation', 'status', 1) as $value) { ?>
+                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
 
                                             <div class="card card-warning">
@@ -2896,188 +2959,6 @@ if ($user->isLoggedIn()) {
 
                                             <hr>
 
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Residence street</label>
-                                                            <input class="form-control" type="text" name="street" id="street" value="<?php if ($clients['street']) {
-                                                                                                                                            print_r($clients['street']);
-                                                                                                                                        }  ?>" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Physical Address ( Location )</label>
-                                                            <textarea class="form-control" id="location" placeholder="Type physical address here" name="location" rows="3" style="width: 100%;">
-                                                                    <?php if ($clients['location']) {
-                                                                        print_r($clients['location']);
-                                                                    }  ?>
-                                                                </textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>House number, if any</label>
-                                                            <input class="form-control" type="text" name="house_number" id="house_number" value="<?php if ($clients['house_number']) {
-                                                                                                                                                        print_r($clients['house_number']);
-                                                                                                                                                    }  ?>" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Other Details</h3>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <label>Ni kiwango gani cha elimu cha juu zaidi ulichomaliza?</label>
-                                                            <select id="education" name="education" class="form-control" required>
-                                                                <option value="<?= $education['id'] ?>"><?php if ($clients['education']) {
-                                                                                                            print_r($education['name']);
-                                                                                                        } else {
-                                                                                                            echo 'Select education';
-                                                                                                        } ?>
-                                                                </option>
-                                                                <?php foreach ($override->get('education', 'status', 1) as $value) { ?>
-                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <label>Hali ya Ndoa</label>
-                                                            <select id="marital_status" name="marital_status" class="form-control" required>
-                                                                <option value="<?= $education['id'] ?>"><?php if ($clients['marital_status']) {
-                                                                                                            print_r($education['name']);
-                                                                                                        } else {
-                                                                                                            echo 'Select education';
-                                                                                                        } ?>
-                                                                </option>
-                                                                <?php foreach ($override->get('marital_status', 'status', 1) as $value) { ?>
-                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Ni ipi kati ya haya yafuatayo yanaelezea vizuri kazi ambayo umekuwa ukifanya katika miezi 12 iliyopita?</label>
-                                                            <select id="occupation" name="occupation" class="form-control" required>
-                                                                <option value="<?= $occupation['id'] ?>"><?php if ($clients['occupation']) {
-                                                                                                                print_r($occupation['name']);
-                                                                                                            } else {
-                                                                                                                echo 'Select Occupation';
-                                                                                                            } ?>
-                                                                </option>
-                                                                <?php foreach ($override->get('occupation', 'status', 1) as $value) { ?>
-                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">health insurance</h3>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <label>Do you own health insurance?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="health_insurance" id="health_insurance1" value="1" <?php if ($clients['health_insurance'] == 1) {
-                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                        } ?>>
-                                                                <label class="form-check-label">Yes</label>
-                                                            </div>
-
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="health_insurance" id="health_insurance2" value="2" <?php if ($clients['health_insurance'] == 2) {
-                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                        } ?>>
-                                                                <label class="form-check-label">No</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4" id="pay_services">
-                                                    <label>If no, how do you pay for your health care services</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('payments', 'status', 1) as $payment) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="pay_services" id="pay_services<?= $payment['id']; ?>" value="<?= $payment['id']; ?>" <?php if ($clients['pay_services'] == $payment['id']) {
-                                                                                                                                                                                                                echo 'checked';
-                                                                                                                                                                                                            } ?>>
-                                                                    <label class="form-check-label"><?= $payment['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4" id="insurance_name">
-                                                    <label>Name of insurance:</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('insurance', 'status', 1) as $insurance) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="insurance_name" id="insurance_name<?= $insurance['id']; ?>" value="<?= $insurance['id']; ?>" <?php if ($clients['insurance_name'] == $insurance['id']) {
-                                                                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                                                                    } ?>>
-                                                                    <label class="form-check-label"><?= $insurance['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4" id="insurance_name_other">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Other Name of insurance:</label>
-                                                            <textarea class="form-control" name="insurance_name_other" rows="3" placeholder="Type other insurance here...">
-                                                                <?php if ($clients['insurance_name_other']) {
-                                                                    print_r($clients['insurance_name_other']);
-                                                                }  ?>
-                                                            </textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="card card-warning">

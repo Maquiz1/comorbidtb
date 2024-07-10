@@ -981,8 +981,8 @@ if ($user->isLoggedIn()) {
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
                                                     <th>Study Id</th>
+                                                    <th>TB Id</th>
                                                     <th>Age</th>
                                                     <th>Sex</th>
                                                     <?php
@@ -1029,10 +1029,10 @@ if ($user->isLoggedIn()) {
                                                 ?>
                                                     <tr>
                                                         <td class="table-user">
-                                                            <?= $value['firstname'] . '  ' . $value['middlename'] . ' ' . $value['lastname']; ?>
+                                                            <?= $value['study_id']; ?>
                                                         </td>
                                                         <td class="table-user">
-                                                            <?= $value['study_id']; ?>
+                                                            <?= $value['tb_id']; ?>
                                                         </td>
                                                         <td class="table-user">
                                                             <?= $value['age']; ?>
@@ -1053,11 +1053,11 @@ if ($user->isLoggedIn()) {
                                                                 <?= $sites['name']; ?>
                                                             </td>
                                                         <?php } ?>
-                                                        <?php if ($value['age'] >= 18) { ?>
+                                                        <?php if ($value['age'] >= 1) { ?>
                                                             <td class="text-center">
                                                                 <a href="#" class="btn btn-success">
                                                                     <i class="ri-edit-box-line">
-                                                                    </i><?php if ($value['age'] >= 18) {  ?> Eligible For Screening <?php } ?>
+                                                                    </i><?php if ($value['age'] >= 1) {  ?> Eligible For Screening <?php } ?>
                                                                 </a>
                                                             </td>
                                                         <?php  } else { ?>
@@ -1071,11 +1071,11 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                             <br>
                                                             <?php if ($value['respondent'] == 4) { ?>
-                                                                <?php if ($value['age'] >= 18) { ?>
+                                                                <?php if ($value['age'] >= 0) { ?>
                                                                     <?php if ($kap && $history && $results1 && $results2 && $classification1 && $classification2 && $economic1 && $economic2 && $outcome1 && $outcome2) { ?>
-                                                                        <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
+                                                                        <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
                                                                     <?php   } else { ?>
-                                                                        <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
+                                                                        <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
                                                                     <?php   } ?>
                                                                 <?php   } ?>
                                                             <?php   } ?>
@@ -1242,10 +1242,10 @@ if ($user->isLoggedIn()) {
                                                         </td>
 
                                                         <td>
-                                                            <?php if ($visit['visit_status'] == 1) { ?>
-                                                                <?php if ($visit['sequence'] == -2) { ?>
+                                                            <?php if ($visit['visit_status'] == 0) { ?>
+                                                                <?php if ($visit['sequence'] == 0) { ?>
                                                                     <?php if ($clients['age'] >= 18) { ?>
-                                                                        <?php if ($override->getNews('screening', 'patient_id', $_GET['cid'], 'sequence', -1)) { ?>
+                                                                        <?php if ($override->getNews('screening', 'patient_id', $_GET['cid'], 'sequence', 0)) { ?>
                                                                             <a href="add.php?id=7&cid=<?= $_GET['cid'] ?>&sequence=-1&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Screening Data </a>&nbsp;&nbsp; <br><br>
 
                                                                         <?php } else { ?>
@@ -1256,9 +1256,9 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                             <?php if ($visit['visit_status'] == 1) { ?>
-                                                                <?php if ($visit['sequence'] == -1) { ?>
+                                                                <?php if ($visit['sequence'] == 1) { ?>
                                                                     <?php if ($screening['eligible'] == 1) { ?>
-                                                                        <?php if ($override->getNews('enrollment', 'patient_id', $_GET['cid'], 'sequence', 0)) { ?>
+                                                                        <?php if ($override->getNews('enrollment', 'patient_id', $_GET['cid'], 'sequence', 1)) { ?>
                                                                             <a href="#editEnrollment<?= $visit['id'] ?>" role="button" class="btn btn-info" data-toggle="modal">Update Enrollment Data </a>&nbsp;&nbsp; <br><br>
                                                                         <?php } else { ?>
                                                                             <a href="#editEnrollment<?= $visit['id'] ?>" role="button" class="btn btn-warning" data-toggle="modal">Add Enrollment Data </a>&nbsp;&nbsp; <br><br>
