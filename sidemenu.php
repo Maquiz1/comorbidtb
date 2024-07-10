@@ -191,15 +191,17 @@ if ($user->isLoggedIn()) {
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="add.php?id=4&status=7" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Add
-                                    <span class="right badge badge-danger">New Patient</span>
-                                </p>
-                            </a>
-                        </li>
+                        <?php foreach ($override->get('sites', 'status', 1) as $value) { ?>
+                            <li class="nav-item">
+                                <a href="add.php?id=4&site_id=<?= $value['id'] ?>&status=7" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Add <?= $value['name'] ?>
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item">
                             <a href="info.php?id=3&status=7" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

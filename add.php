@@ -227,16 +227,13 @@ if ($user->isLoggedIn()) {
                 'sex' => array(
                     'required' => true,
                 ),
-                'site' => array(
-                    'required' => true,
-                ),
             ));
             if ($validate->passed()) {
                 // $date = date('Y-m-d', strtotime('+1 month', strtotime('2015-01-01')));
                 try {
                     $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid']);
 
-                    $years = $user->dateDiffYears(Input::get('date_registered'), Input::get('dob'));
+                    $age = $user->dateDiffYears(Input::get('date_registered'), Input::get('dob'));
 
                     if ($clients) {
                         $user->updateRecord('clients', array(
@@ -244,16 +241,27 @@ if ($user->isLoggedIn()) {
                             'visit_code' => 'RV',
                             'visit_name' => 'Registration Visit',
                             'date_registered' => Input::get('date_registered'),
+                            'tarehe_mahojiano' => Input::get('date_registered'),
+                            'mkoa' => Input::get('region'),
+                            'wilaya' => Input::get('district'),
+                            'kituo' => $clients[0]['site_id'],
+                            'pid' => $clients[0]['study_id'],
                             'firstname' => Input::get('firstname'),
                             'middlename' => Input::get('middlename'),
                             'lastname' => Input::get('lastname'),
                             'sex' => Input::get('sex'),
+                            'marital_status' => Input::get('marital_status'),
                             'dob' => Input::get('dob'),
-                            'age' => Input::get('age'),
-                            'years' => $years,
-                            'ctc_id' => Input::get('ctc_id'),
+                            'age' => $age,
+                            // 'years' => Input::get('years'),
+                            // 'ctc_id' => Input::get('ctc_id'),
                             'patient_phone' => Input::get('patient_phone'),
                             'patient_phone2' => Input::get('patient_phone2'),
+                            'qn01' => Input::get('dob'),
+                            'qn02' => Input::get('sex'),
+                            'qn03' => Input::get('education'),
+                            'qn04' => Input::get('marital_status'),
+                            'qn05' => Input::get('occupation'),
                             'supporter_fname' => Input::get('supporter_fname'),
                             'supporter_mname' => Input::get('supporter_mname'),
                             'supporter_lname' => Input::get('supporter_lname'),
@@ -274,10 +282,11 @@ if ($user->isLoggedIn()) {
                             'insurance_name' => Input::get('insurance_name'),
                             'pay_services' => Input::get('pay_services'),
                             'insurance_name_other' => Input::get('insurance_name_other'),
-                            'respondent' => Input::get('respondent'),
+                            'respondent' => 4,
                             'comments' => Input::get('comments'),
                             'update_on' => date('Y-m-d H:i:s'),
                             'update_id' => $user->data()->id,
+                            'site_id' => $clients[0]['site_id'],
                         ), $_GET['cid']);
 
                         $visit = $override->get3('visit', 'status', 1, 'patient_id', $clients[0]['id'], 'sequence', -2);
@@ -287,7 +296,7 @@ if ($user->isLoggedIn()) {
                                 'sequence' => -2,
                                 'visit_code' => 'RV',
                                 'visit_name' => 'Registration Visit',
-                                'respondent' => Input::get('respondent'),
+                                'respondent' => 4,
                                 'study_id' => $clients[0]['study_id'],
                                 'pid' => $clients[0]['study_id'],
                                 'expected_date' => Input::get('date_registered'),
@@ -295,21 +304,21 @@ if ($user->isLoggedIn()) {
                                 'visit_status' => 1,
                                 'comments' => Input::get('comments'),
                                 'status' => 1,
-                                'facility_id' => Input::get('site'),
+                                'facility_id' => $clients[0]['site_id'],
                                 'table_id' => $clients[0]['id'],
                                 'patient_id' => $clients[0]['id'],
                                 'create_on' => date('Y-m-d H:i:s'),
                                 'staff_id' => $user->data()->id,
                                 'update_on' => date('Y-m-d H:i:s'),
                                 'update_id' => $user->data()->id,
-                                'site_id' => Input::get('site'),
+                                'site_id' => $clients[0]['site_id'],
                             ), $visit[0]['id']);
                         } else {
                             $user->createRecord('visit', array(
                                 'sequence' => -2,
                                 'visit_code' => 'RV',
                                 'visit_name' => 'Registration Visit',
-                                'respondent' => Input::get('respondent'),
+                                'respondent' => 4,
                                 'study_id' => $clients[0]['study_id'],
                                 'pid' => $clients[0]['study_id'],
                                 'expected_date' => Input::get('date_registered'),
@@ -317,14 +326,14 @@ if ($user->isLoggedIn()) {
                                 'visit_status' => 1,
                                 'comments' => Input::get('comments'),
                                 'status' => 1,
-                                'facility_id' => Input::get('site'),
+                                'facility_id' => $clients[0]['site_id'],
                                 'table_id' => $clients[0]['id'],
                                 'patient_id' => $clients[0]['id'],
                                 'create_on' => date('Y-m-d H:i:s'),
                                 'staff_id' => $user->data()->id,
                                 'update_on' => date('Y-m-d H:i:s'),
                                 'update_id' => $user->data()->id,
-                                'site_id' => Input::get('site'),
+                                'site_id' => $clients[0]['site_id'],
                             ));
                         }
 
@@ -339,16 +348,27 @@ if ($user->isLoggedIn()) {
                             'visit_name' => 'Registration Visit',
                             'date_registered' => Input::get('date_registered'),
                             'study_id' => $std_id['study_id'],
+                            'tarehe_mahojiano' => Input::get('date_registered'),
+                            'mkoa' => Input::get('region'),
+                            'wilaya' => Input::get('district'),
+                            'kituo' => $_GET['site_id'],
+                            'pid' => $std_id['study_id'],
                             'firstname' => Input::get('firstname'),
                             'middlename' => Input::get('middlename'),
                             'lastname' => Input::get('lastname'),
                             'sex' => Input::get('sex'),
+                            'marital_status' => Input::get('marital_status'),
                             'dob' => Input::get('dob'),
-                            'age' => Input::get('age'),
-                            'years' => $years,
+                            'age' => $age,
+                            'years' => Input::get('years'),
                             'ctc_id' => Input::get('ctc_id'),
                             'patient_phone' => Input::get('patient_phone'),
                             'patient_phone2' => Input::get('patient_phone2'),
+                            'qn01' => Input::get('dob'),
+                            'qn02' => Input::get('sex'),
+                            'qn03' => Input::get('education'),
+                            'qn04' => Input::get('marital_status'),
+                            'qn05' => Input::get('occupation'),
                             'supporter_fname' => Input::get('supporter_fname'),
                             'supporter_mname' => Input::get('supporter_mname'),
                             'supporter_lname' => Input::get('supporter_lname'),
@@ -370,7 +390,7 @@ if ($user->isLoggedIn()) {
                             'insurance_name_other' => Input::get('insurance_name_other'),
                             'pay_services' => Input::get('pay_services'),
                             'comments' => Input::get('comments'),
-                            'respondent' => Input::get('respondent'),
+                            'respondent' => 4,
                             'status' => 1,
                             'screened' => 0,
                             'eligible' => 0,
@@ -380,7 +400,7 @@ if ($user->isLoggedIn()) {
                             'staff_id' => $user->data()->id,
                             'update_on' => date('Y-m-d H:i:s'),
                             'update_id' => $user->data()->id,
-                            'site_id' => Input::get('site'),
+                            'site_id' => $_GET['site_id'],
                         ));
 
                         $last_row = $override->lastRow('clients', 'id')[0];
@@ -394,7 +414,7 @@ if ($user->isLoggedIn()) {
                             'sequence' => -2,
                             'visit_code' => 'RV',
                             'visit_name' => 'Registration Visit',
-                            'respondent' => Input::get('respondent'),
+                            'respondent' => 4,
                             'study_id' => $std_id['study_id'],
                             'pid' => $std_id['study_id'],
                             'expected_date' => Input::get('date_registered'),
@@ -402,14 +422,14 @@ if ($user->isLoggedIn()) {
                             'visit_status' => 1,
                             'comments' => Input::get('comments'),
                             'status' => 1,
-                            'facility_id' => Input::get('site'),
+                            'facility_id' => $_GET['site_id'],
                             'table_id' => $last_row['id'],
                             'patient_id' => $last_row['id'],
                             'create_on' => date('Y-m-d H:i:s'),
                             'staff_id' => $user->data()->id,
                             'update_on' => date('Y-m-d H:i:s'),
                             'update_id' => $user->data()->id,
-                            'site_id' => Input::get('site'),
+                            'site_id' => $_GET['site_id'],
                         ));
 
                         $successMessage = 'Client  Added Successful';
@@ -448,20 +468,80 @@ if ($user->isLoggedIn()) {
                         'tb_tarehe' => Input::get('tb_tarehe'),
                         'tb_dawa' => Input::get('tb_dawa'),
                         'tb_dawa_tarehe' => Input::get('tb_dawa_tarehe'),
-                        // 'referred_other' => Input::get('referred_other'),
-                        // 'dot_options' => Input::get('dot_options'),
-                        // 'classification' => Input::get('classification'),
-                        // 'sputum_smear' => Input::get('sputum_smear'),
-                        // 'sputum_gene_xpert' => Input::get('sputum_gene_xpert'),
-                        // 'started_tb' => Input::get('started_tb'),
-                        // 'ctc_date' => Input::get('ctc_date'),
-                        // 'hiv_status' => Input::get('hiv_status'),
-                        // 'diabetic_status' => Input::get('diabetic_status'),
-                        // 'rbg_done' => $rbg_done,
-                        // 'vaccinations_status' => Input::get('vaccinations_status'),
-                        // 'vaccination_date' => Input::get('vaccination_date'),
-                        // 'tuberculosis_outcome' => Input::get('tuberculosis_outcome'),
-                        // 'tb_outcome_date' => Input::get('tb_outcome_date'),
+                        'qn08' => Input::get('qn08'),
+                        'qn09' => Input::get('qn09'),
+                        'qn10' => Input::get('qn10'),
+                        'qn11' => Input::get('qn11'),
+                        'qn12' => Input::get('qn12'),
+                        'qn13' => Input::get('qn13'),
+                        'qn14' => Input::get('qn14'),
+                        'qn15' => Input::get('qn15'),
+                        'qn15_other' => Input::get('qn15_other'),
+                        'qn16' => Input::get('qn16'),
+                        'qn17' => Input::get('qn17'),
+                        'qn18' => Input::get('qn18'),
+                        'qn19' => Input::get('qn19'),
+                        'qn20' => Input::get('qn20'),
+                        'qn21' => Input::get('qn21'),
+                        'qn22' => Input::get('qn22'),
+                        'qn23' => Input::get('qn23'),
+                        'qn24' => Input::get('qn24'),
+                        'qn25' => Input::get('qn25'),
+                        'qn26' => Input::get('qn26'),
+                        'qn27' => Input::get('qn27'),
+                        'qn28' => Input::get('qn28'),
+                        'qn29' => Input::get('qn29'),
+                        'qn30' => Input::get('qn30'),
+                        'qn31' => Input::get('qn31'),
+                        'qn32' => Input::get('qn32'),
+                        'qn33' => Input::get('qn33'),
+                        'qn34' => Input::get('qn34'),
+                        'qn35' => Input::get('qn35'),
+                        'qn36' => Input::get('qn36'),
+                        'qn37' => Input::get('qn37'),
+                        'qn38' => Input::get('qn38'),
+                        'qn39' => Input::get('qn39'),
+                        'qn40' => Input::get('qn40'),
+                        'qn41' => Input::get('qn41'),
+                        'qn42' => Input::get('qn42'),
+                        'qn43' => Input::get('qn43'),
+                        'qn44' => Input::get('qn44'),
+                        'qn45' => Input::get('qn45'),
+                        'qn46' => Input::get('qn46'),
+                        'qn47' => Input::get('qn47'),
+                        'qn48' => Input::get('qn48'),
+                        'qn49' => Input::get('qn49'),
+                        'qn50' => Input::get('qn50'),
+                        'qn51' => Input::get('qn51'),
+                        'qn52' => Input::get('qn52'),
+                        'qn53' => Input::get('qn53'),
+                        'qn54' => Input::get('qn54'),
+                        'qn55' => Input::get('qn55'),
+                        'qn56' => Input::get('qn56'),
+                        'qn57' => Input::get('qn57'),
+                        'qn58' => Input::get('qn58'),
+                        'qn59' => Input::get('qn59'),
+                        'qn60' => Input::get('qn60'),
+                        'qn61' => Input::get('qn61'),
+                        'qn62' => Input::get('qn62'),
+                        'qn63' => Input::get('qn63'),
+                        'qn64' => Input::get('qn64'),
+                        'qn65' => Input::get('qn65'),
+                        'qn66' => Input::get('qn66'),
+                        'qn67' => Input::get('qn67'),
+                        'qn68' => Input::get('qn68'),
+                        'qn69' => Input::get('qn69'),
+                        'qn69_date' => Input::get('qn69_date'),
+                        'qn70' => Input::get('qn70'),
+                        'qn71' => Input::get('qn71'),
+                        'qn71_date' => Input::get('qn71_date'),
+                        'qn72' => Input::get('qn72'),
+                        'qn73' => Input::get('qn73'),
+                        'qn74' => Input::get('qn74'),
+                        'qn76' => Input::get('qn76'),
+                        'qn77' => Input::get('qn77'),
+                        'qn78' => Input::get('qn78'),
+                        'tb_outcome_date' => Input::get('tb_outcome_date'),
                         'tb_complete' => Input::get('tb_complete'),
                         'date_completed' => Input::get('date_completed'),
                         'update_on' => date('Y-m-d H:i:s'),
@@ -482,19 +562,80 @@ if ($user->isLoggedIn()) {
                         'tb_tarehe' => Input::get('tb_tarehe'),
                         'tb_dawa' => Input::get('tb_dawa'),
                         'tb_dawa_tarehe' => Input::get('tb_dawa_tarehe'),
-                        // 'dot_options' => Input::get('dot_options'),
-                        // 'classification' => Input::get('classification'),
-                        // 'sputum_smear' => Input::get('sputum_smear'),
-                        // 'sputum_gene_xpert' => Input::get('sputum_gene_xpert'),
-                        // 'started_tb' => Input::get('started_tb'),
-                        // 'ctc_date' => Input::get('ctc_date'),
-                        // 'hiv_status' => Input::get('hiv_status'),
-                        // 'diabetic_status' => Input::get('diabetic_status'),
-                        // 'rbg_done' => $rbg_done,
-                        // 'vaccinations_status' => Input::get('vaccinations_status'),
-                        // 'vaccination_date' => Input::get('vaccination_date'),
-                        // 'tuberculosis_outcome' => Input::get('tuberculosis_outcome'),
-                        // 'tb_outcome_date' => Input::get('tb_outcome_date'),
+                        'qn08' => Input::get('qn08'),
+                        'qn09' => Input::get('qn09'),
+                        'qn10' => Input::get('qn10'),
+                        'qn11' => Input::get('qn11'),
+                        'qn12' => Input::get('qn12'),
+                        'qn13' => Input::get('qn13'),
+                        'qn14' => Input::get('qn14'),
+                        'qn15' => Input::get('qn15'),
+                        'qn15_other' => Input::get('qn15_other'),
+                        'qn16' => Input::get('qn16'),
+                        'qn17' => Input::get('qn17'),
+                        'qn18' => Input::get('qn18'),
+                        'qn19' => Input::get('qn19'),
+                        'qn20' => Input::get('qn20'),
+                        'qn21' => Input::get('qn21'),
+                        'qn22' => Input::get('qn22'),
+                        'qn23' => Input::get('qn23'),
+                        'qn24' => Input::get('qn24'),
+                        'qn25' => Input::get('qn25'),
+                        'qn26' => Input::get('qn26'),
+                        'qn27' => Input::get('qn27'),
+                        'qn28' => Input::get('qn28'),
+                        'qn29' => Input::get('qn29'),
+                        'qn30' => Input::get('qn30'),
+                        'qn31' => Input::get('qn31'),
+                        'qn32' => Input::get('qn32'),
+                        'qn33' => Input::get('qn33'),
+                        'qn34' => Input::get('qn34'),
+                        'qn35' => Input::get('qn35'),
+                        'qn36' => Input::get('qn36'),
+                        'qn37' => Input::get('qn37'),
+                        'qn38' => Input::get('qn38'),
+                        'qn39' => Input::get('qn39'),
+                        'qn40' => Input::get('qn40'),
+                        'qn41' => Input::get('qn41'),
+                        'qn42' => Input::get('qn42'),
+                        'qn43' => Input::get('qn43'),
+                        'qn44' => Input::get('qn44'),
+                        'qn45' => Input::get('qn45'),
+                        'qn46' => Input::get('qn46'),
+                        'qn47' => Input::get('qn47'),
+                        'qn48' => Input::get('qn48'),
+                        'qn49' => Input::get('qn49'),
+                        'qn50' => Input::get('qn50'),
+                        'qn51' => Input::get('qn51'),
+                        'qn52' => Input::get('qn52'),
+                        'qn53' => Input::get('qn53'),
+                        'qn54' => Input::get('qn54'),
+                        'qn55' => Input::get('qn55'),
+                        'qn56' => Input::get('qn56'),
+                        'qn57' => Input::get('qn57'),
+                        'qn58' => Input::get('qn58'),
+                        'qn59' => Input::get('qn59'),
+                        'qn60' => Input::get('qn60'),
+                        'qn61' => Input::get('qn61'),
+                        'qn62' => Input::get('qn62'),
+                        'qn63' => Input::get('qn63'),
+                        'qn64' => Input::get('qn64'),
+                        'qn65' => Input::get('qn65'),
+                        'qn66' => Input::get('qn66'),
+                        'qn67' => Input::get('qn67'),
+                        'qn68' => Input::get('qn68'),
+                        'qn69' => Input::get('qn69'),
+                        'qn69_date' => Input::get('qn69_date'),
+                        'qn70' => Input::get('qn70'),
+                        'qn71' => Input::get('qn71'),
+                        'qn71_date' => Input::get('qn71_date'),
+                        'qn72' => Input::get('qn72'),
+                        'qn73' => Input::get('qn73'),
+                        'qn74' => Input::get('qn74'),
+                        'qn76' => Input::get('qn76'),
+                        'qn77' => Input::get('qn77'),
+                        'qn78' => Input::get('qn78'),
+                        'tb_outcome_date' => Input::get('tb_outcome_date'),
                         'tb_complete' => Input::get('tb_complete'),
                         'date_completed' => Input::get('date_completed'),
                         'status' => 1,
@@ -2613,10 +2754,11 @@ if ($user->isLoggedIn()) {
                                                 <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <label>CTC ID </label>
-                                                            <input class="form-control" type="text" minlength="14" maxlength="14" size="14" pattern=[0]{1}[0-9]{13} name="ctc_id" id="ctc_id" placeholder="Type CTC ID..." value="<?php if ($clients['ctc_id']) {
-                                                                                                                                                                                                                                        print_r($clients['ctc_id']);
-                                                                                                                                                                                                                                    }  ?>" required />
+                                                            <label>Namba ya Mshiriki (PID)</label>
+                                                            <input class="form-control" type="text" value="<?php if ($clients['study_id']) {
+                                                                                                                print_r($clients['study_id']);
+                                                                                                            }  ?>" readonly />
+                                                            <!-- <input class="form-control" type="text" minlength="14" maxlength="14" size="14" pattern=[0]{1}[0-9]{13} name="ctc_id" id="ctc_id" placeholder="Type CTC ID..." value="" required /> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2638,19 +2780,7 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
 
-                                                <div class="col-sm-3">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Age</label>
-                                                            <input class="form-control" type="number" min=0 max="99" name="age" id="age" value="<?php if ($clients['age']) {
-                                                                                                                                                    print_r($clients['age']);
-                                                                                                                                                }  ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <label>SEX</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2672,7 +2802,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
@@ -2683,7 +2813,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
@@ -2710,7 +2840,7 @@ if ($user->isLoggedIn()) {
                                                 <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <label>Region</label>
+                                                            <label>Mkoa</label>
                                                             <select id="region" name="region" class="form-control" required>
                                                                 <option value="<?= $regions['id'] ?>"><?php if ($clients['region']) {
                                                                                                             print_r($regions['name']);
@@ -2729,7 +2859,7 @@ if ($user->isLoggedIn()) {
                                                 <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <label>District</label>
+                                                            <label>Wilaya</label>
                                                             <select id="district" name="district" class="form-control" required>
                                                                 <option value="<?= $districts['id'] ?>"><?php if ($clients['district']) {
                                                                                                             print_r($districts['name']);
@@ -2746,7 +2876,7 @@ if ($user->isLoggedIn()) {
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>Ward</label>
-                                                            <select id="ward" name="ward" class="form-control" required>
+                                                            <select id="ward" name="ward" class="form-control">
                                                                 <option value="<?= $wards['id'] ?>"><?php if ($clients['ward']) {
                                                                                                         print_r($wards['name']);
                                                                                                     } else {
@@ -2769,7 +2899,7 @@ if ($user->isLoggedIn()) {
                                                             <label>Residence street</label>
                                                             <input class="form-control" type="text" name="street" id="street" value="<?php if ($clients['street']) {
                                                                                                                                             print_r($clients['street']);
-                                                                                                                                        }  ?>" required />
+                                                                                                                                        }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2778,7 +2908,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Physical Address ( Location )</label>
-                                                            <textarea class="form-control" id="location" placeholder="Type physical address here" name="location" rows="3" style="width: 100%;" required>
+                                                            <textarea class="form-control" id="location" placeholder="Type physical address here" name="location" rows="3" style="width: 100%;">
                                                                     <?php if ($clients['location']) {
                                                                         print_r($clients['location']);
                                                                     }  ?>
@@ -2804,111 +2934,17 @@ if ($user->isLoggedIn()) {
 
                                             <div class="card card-warning">
                                                 <div class="card-header">
-                                                    <h3 class="card-title">treatment supporter or next of kin details</h3>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>First Name(Supporter):</label>
-                                                            <input class="form-control" type="text" name="supporter_fname" id="supporter_fname" value="<?php if ($clients['supporter_fname']) {
-                                                                                                                                                            print_r($clients['supporter_fname']);
-                                                                                                                                                        }  ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Middle Name(Supporter):</label>
-                                                            <input class="form-control" type="text" name="supporter_mname" id="supporter_mname" value="<?php if ($clients['supporter_mname']) {
-                                                                                                                                                            print_r($clients['supporter_mname']);
-                                                                                                                                                        }  ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Last Name (Supporter):</label>
-                                                            <input class="form-control" type="text" name="supporter_lname" id="supporter_lname" value="<?php if ($clients['supporter_lname']) {
-                                                                                                                                                            print_r($clients['supporter_lname']);
-                                                                                                                                                        }  ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Mobile number(Supporter)</label>
-                                                            <input class="form-control" type="tel" pattern=[0]{1}[0-9]{9} minlength="10" maxlength="10" name="supporter_phone" id="supporter_phone" value="<?php if ($clients['supporter_phone']) {
-                                                                                                                                                                                                                print_r($clients['supporter_phone']);
-                                                                                                                                                                                                            }  ?>" required />
-                                                        </div>
-                                                        <span>Example: 0700 000 111</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Mobile number 2 (Supporter)</label>
-                                                            <input class="form-control" type="tel" pattern=[0]{1}[0-9]{9} minlength="10" maxlength="10" name="supporter_phone2" id="supporter_phone2" value="<?php if ($clients['supporter_phone2']) {
-                                                                                                                                                                                                                    print_r($clients['supporter_phone2']);
-                                                                                                                                                                                                                }  ?>" />
-                                                        </div>
-                                                        <span>Example: 0700 000 111</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <label>Relation to patient(Supporter)</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('relation', 'status', 1) as $relation) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="relation_patient" id="relation_patient<?= $relation['id']; ?>" value="<?= $relation['id']; ?>" <?php if ($clients['relation_patient'] == $relation['id']) {
-                                                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $relation['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                            <label id="relation_patient_other_label">Other relation patient</label>
-                                                            <textarea class="form-control" name="relation_patient_other" id="relation_patient_other" rows="3" placeholder="Type other relation here...">
-                                                                <?php if ($clients['relation_patient_other']) {
-                                                                    print_r($clients['relation_patient_other']);
-                                                                }  ?>
-                                                            </textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
                                                     <h3 class="card-title">Other Details</h3>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <label>Level of educations</label>
+                                                            <label>Ni kiwango gani cha elimu cha juu zaidi ulichomaliza?</label>
                                                             <select id="education" name="education" class="form-control" required>
-                                                                <option value="<?= $education['id'] ?>"><?php if ($clients) {
+                                                                <option value="<?= $education['id'] ?>"><?php if ($clients['education']) {
                                                                                                             print_r($education['name']);
                                                                                                         } else {
                                                                                                             echo 'Select education';
@@ -2921,13 +2957,31 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>Hali ya Ndoa</label>
+                                                            <select id="marital_status" name="marital_status" class="form-control" required>
+                                                                <option value="<?= $education['id'] ?>"><?php if ($clients['marital_status']) {
+                                                                                                            print_r($education['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select education';
+                                                                                                        } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('marital_status', 'status', 1) as $value) { ?>
+                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Occupation</label>
+                                                            <label>Ni ipi kati ya haya yafuatayo yanaelezea vizuri kazi ambayo umekuwa ukifanya katika miezi 12 iliyopita?</label>
                                                             <select id="occupation" name="occupation" class="form-control" required>
-                                                                <option value="<?= $occupation['id'] ?>"><?php if ($clients) {
+                                                                <option value="<?= $occupation['id'] ?>"><?php if ($clients['occupation']) {
                                                                                                                 print_r($occupation['name']);
                                                                                                             } else {
                                                                                                                 echo 'Select Occupation';
@@ -3020,24 +3074,7 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="card card-warning">
-                                                        <div class="card-header">
-                                                            <h3 class="card-title">Type of Interview</h3>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) { ?>
-                                                    <div class="col-md-3">
-                                                        <div class="card card-warning">
-                                                            <div class="card-header">
-                                                                <h3 class="card-title">Site Name</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="card card-warning">
                                                         <div class="card-header">
                                                             <h3 class="card-title">ANY OTHER COMENT OR REMARKS</h3>
@@ -3045,45 +3082,8 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Patient Type</label>
-                                                            <select id="respondent" name="respondent" class="form-control" required>
-                                                                <option value="<?= $clients['respondent'] ?>"><?php if ($clients['respondent']) {
-                                                                                                                    print_r($override->getNews('respondent_type', 'status', 1, 'id', $clients['respondent'])[0]['name']);
-                                                                                                                } else {
-                                                                                                                    echo 'Select';
-                                                                                                                } ?>
-                                                                </option>
-                                                                <?php foreach ($override->getNews('respondent_type', 'status', 1, 'respondent', 1) as $value) { ?>
-                                                                    <option value="<?= $value['id']; ?>"><?= $value['name']; ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) { ?>
-                                                    <div class="col-sm-3" id="insurance_name">
-                                                        <label>Name Of Site:</label>
-                                                        <!-- radio -->
-                                                        <div class="row-form clearfix">
-                                                            <div class="form-group">
-                                                                <?php foreach ($override->get('sites', 'status', 1) as $site) { ?>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="site" id="site<?= $site['id']; ?>" value="<?= $site['id']; ?>" <?php if ($clients['site_id'] == $site['id']) {
-                                                                                                                                                                                                echo 'checked' . ' ' . 'required';
-                                                                                                                                                                                            } ?>>
-                                                                        <label class="form-check-label"><?= $site['name']; ?></label>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-                                                <div class="col-sm-6">
+                                            <div class="row">                                               
+                                                <div class="col-sm-12">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
@@ -3270,7 +3270,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn09" id="qn09<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn09'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3288,7 +3288,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn10" id="qn10<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn10'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3306,7 +3306,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn11" id="qn11<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn11'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3324,7 +3324,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn12" id="qn12<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn12'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3341,7 +3341,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn13" id="qn13<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn13'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3365,7 +3365,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn14" id="qn14<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn14'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3382,15 +3382,15 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn15" id="qn15<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn15'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
                                                         </div>
-                                                        <label for="qn15_nyingine" class="form-label">15(a). Taja</label>
-                                                        <input type="text" value="<?php if ($individual['qn15_nyingine']) {
-                                                                                        print_r($individual['qn15_nyingine']);
-                                                                                    } ?>" id="qn15_nyingine" name="qn15_nyingine" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        <label for="qn15_other" id="qn15_other1" class="form-label">15(a). Taja</label>
+                                                        <input type="text" value="<?php if ($individual['qn15_other']) {
+                                                                                        print_r($individual['qn15_other']);
+                                                                                    } ?>" id="qn15_other" name="qn15_other" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2" id="qn16">
@@ -3402,7 +3402,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn16" id="qn16<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn16'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3420,7 +3420,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn17" id="qn17<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn17'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4378,17 +4378,15 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
 
-
                                             <hr>
 
                                             <div class="row">
-
                                                 <div class="col-3" id="qn67_1">
                                                     <div class="mb-2">
                                                         <label for="qn67" class="form-label">67. Urefu(cm)</label>
                                                         <input type="number" value="<?php if ($individual['qn67']) {
                                                                                         print_r($individual['qn67']);
-                                                                                    } ?>" id="started_tb" name="started_tb" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                                                    } ?>" id="qn67" name="qn67" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" required />
                                                     </div>
                                                 </div>
 
@@ -4397,7 +4395,7 @@ if ($user->isLoggedIn()) {
                                                         <label for="qn68" class="form-label">68. Uzito (kg)</label>
                                                         <input type="number" value="<?php if ($individual['qn68']) {
                                                                                         print_r($individual['qn68']);
-                                                                                    } ?>" id="qn68" name="qn68" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                                                    } ?>" id="qn68" name="qn68" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" required />
                                                     </div>
                                                 </div>
 
@@ -4419,12 +4417,12 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-3" id="qn69_1">
+                                                <div class="col-3" id="qn69_date_1">
                                                     <div class="mb-2">
-                                                        <label for="qn69" class="form-label">69(a). Tarehe aliyopima;</label>
-                                                        <input type="date" value="<?php if ($individual['qn69']) {
-                                                                                        print_r($individual['qn69']);
-                                                                                    } ?>" id="qn69" name="qn69" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        <label for="qn69_date" class="form-label">69(a). Tarehe aliyopima;</label>
+                                                        <input type="date" value="<?php if ($individual['qn69_date']) {
+                                                                                        print_r($individual['qn69_date']);
+                                                                                    } ?>" id="qn69_date" name="qn69_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -4467,12 +4465,12 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-4" id="qn71_a_1">
+                                                <div class="col-4" id="qn71_date1">
                                                     <div class="mb-2">
-                                                        <label for="qn71_a" class="form-label">71(a). Tarehe aliyoanza dawa:;</label>
-                                                        <input type="date" value="<?php if ($individual['qn71_a']) {
-                                                                                        print_r($individual['qn71_a']);
-                                                                                    } ?>" id="qn71_a" name="qn71_a" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        <label for="qn71_date" class="form-label">71(a). Tarehe aliyoanza dawa:;</label>
+                                                        <input type="date" value="<?php if ($individual['qn71_date']) {
+                                                                                        print_r($individual['qn71_date']);
+                                                                                    } ?>" id="qn71_date" name="qn71_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
                                             </div>

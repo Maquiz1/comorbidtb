@@ -988,7 +988,6 @@ if ($user->isLoggedIn()) {
                                                     <?php
                                                     if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                     ?>
-                                                        <th>Interview Type</th>
                                                         <th>Site</th>
                                                     <?php } ?>
                                                     <th>Status</th>
@@ -1051,9 +1050,6 @@ if ($user->isLoggedIn()) {
                                                         if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                         ?>
                                                             <td class="table-user">
-                                                                <?= $override->getNews('respondent_type', 'status', 1, 'id', $value['respondent'])[0]['name']; ?>
-                                                            </td>
-                                                            <td class="table-user">
                                                                 <?= $sites['name']; ?>
                                                             </td>
                                                         <?php } ?>
@@ -1099,7 +1095,6 @@ if ($user->isLoggedIn()) {
                                                     <?php
                                                     if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                     ?>
-                                                        <th>Interview Type</th>
                                                         <th>Site</th>
                                                     <?php } ?>
                                                     <th>Status</th>
