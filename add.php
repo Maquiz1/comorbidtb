@@ -339,8 +339,7 @@ if ($user->isLoggedIn()) {
 
                         $successMessage = 'Client Updated Successful';
                     } else {
-
-                        $std_id = $override->getNews('study_id', 'site_id', Input::get('site'), 'status', 0)[0];
+                        $std_id = $override->getNews('study_id', 'site_id', $_GET['site_id'], 'status', 0)[0];
 
                         $user->createRecord('clients', array(
                             'sequence' => -2,
@@ -360,8 +359,8 @@ if ($user->isLoggedIn()) {
                             'marital_status' => Input::get('marital_status'),
                             'dob' => Input::get('dob'),
                             'age' => $age,
-                            'years' => Input::get('years'),
-                            'ctc_id' => Input::get('ctc_id'),
+                            // 'years' => Input::get('years'),
+                            // 'ctc_id' => Input::get('ctc_id'),
                             'patient_phone' => Input::get('patient_phone'),
                             'patient_phone2' => Input::get('patient_phone2'),
                             'qn01' => Input::get('dob'),
@@ -444,14 +443,14 @@ if ($user->isLoggedIn()) {
                 'tarehe_mahojiano' => array(
                     'required' => true,
                 ),
-                'tb_kugundulika' => array(
-                    'required' => true,
-                ),
+                // 'tb_kugundulika' => array(
+                //     'required' => true,
+                // ),
             ));
             if ($validate->passed()) {
                 // print_r($_POST);
                 $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid'])[0];
-                $individual = $override->getNews('comorbidtb_tool', 'status', 1, 'patient_id', $_GET['cid']);
+                $individual = $override->get3('comorbidtb_tool', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
                 $rbg_done = 0;
                 $enrolled = 0;
                 $end_study = 0;
@@ -885,30 +884,30 @@ if ($user->isLoggedIn()) {
                 'screening_date' => array(
                     'required' => true,
                 ),
-                'above18' => array(
-                    'required' => true,
-                ),
-                'new_tb' => array(
-                    'required' => true,
-                ),
+                // 'above18' => array(
+                //     'required' => true,
+                // ),
+                // 'new_tb' => array(
+                //     'required' => true,
+                // ),
                 'conset' => array(
                     'required' => true,
                 ),
-                'start_anti_b' => array(
-                    'required' => true,
-                ),
-                'diabetes_type1' => array(
-                    'required' => true,
-                ),
-                'extrapulmonary_tb' => array(
-                    'required' => true,
-                ),
-                'mdr_xdr' => array(
-                    'required' => true,
-                ),
-                'stay' => array(
-                    'required' => true,
-                ),
+                // 'start_anti_b' => array(
+                //     'required' => true,
+                // ),
+                // 'diabetes_type1' => array(
+                //     'required' => true,
+                // ),
+                // 'extrapulmonary_tb' => array(
+                //     'required' => true,
+                // ),
+                // 'mdr_xdr' => array(
+                //     'required' => true,
+                // ),
+                // 'stay' => array(
+                //     'required' => true,
+                // ),
             ));
 
             if ($validate->passed()) {
@@ -917,7 +916,13 @@ if ($user->isLoggedIn()) {
                 $screening = $override->get3('screening', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', -1);
                 $eligible = 0;
 
-                if ((Input::get('above18') == 1 && Input::get('new_tb') == 1 && Input::get('conset') == 1 && Input::get('start_anti_b') == 1  && Input::get('diabetes_type1') == 2 && Input::get('extrapulmonary_tb') == 2 && Input::get('mdr_xdr') == 2 && Input::get('stay') == 2)) {
+                // if ((Input::get('above18') == 1 && Input::get('new_tb') == 1 && Input::get('conset') == 1 && Input::get('start_anti_b') == 1  && Input::get('diabetes_type1') == 2 && Input::get('extrapulmonary_tb') == 2 && Input::get('mdr_xdr') == 2 && Input::get('stay') == 2)) {
+                //     $eligible = 1;
+                // } else {
+                //     $eligible = 2;
+                // }
+
+                if ((Input::get('conset') == 1)) {
                     $eligible = 1;
                 } else {
                     $eligible = 2;
@@ -927,10 +932,10 @@ if ($user->isLoggedIn()) {
                     $errorMessage = 'Screaning Date Can not be less than Registration date';
                 } elseif (Input::get('conset') == 2 && !empty(trim(Input::get('conset_date')))) {
                     $errorMessage = 'Please Remove Screening date before Submit again';
-                } elseif (Input::get('new_tb') == 2 && !empty(trim(Input::get('new_tb_date')))) {
-                    $errorMessage = 'Please Remove Diagnosed TB date before Submit again';
-                } elseif (Input::get('start_anti_b') == 2 && !empty(trim(Input::get('start_anti_b_date')))) {
-                    $errorMessage = 'Please Remove Started Anti-TB date before Submit again';
+                    // } elseif (Input::get('new_tb') == 2 && !empty(trim(Input::get('new_tb_date')))) {
+                    //     $errorMessage = 'Please Remove Diagnosed TB date before Submit again';
+                    // } elseif (Input::get('start_anti_b') == 2 && !empty(trim(Input::get('start_anti_b_date')))) {
+                    //     $errorMessage = 'Please Remove Started Anti-TB date before Submit again';
                 } else {
 
                     if ($screening) {
@@ -3082,7 +3087,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">                                               
+                                            <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
@@ -3165,8 +3170,10 @@ if ($user->isLoggedIn()) {
                                     <form id="validation" enctype="multipart/form-data" method="post" autocomplete="off">
                                         <div class="card-body">
                                             <hr>
+
                                             <div class="row">
-                                                <div class="col-2">
+
+                                                <div class="col-6">
                                                     <div class="mb-2">
                                                         <label for="tarehe_mahojiano" class="form-label">Tarehe ya Mahojiano:</label>
                                                         <input type="date" value="<?php if ($individual['tarehe_mahojiano']) {
@@ -3174,1439 +3181,1450 @@ if ($user->isLoggedIn()) {
                                                                                     } ?>" id="tarehe_mahojiano" name="tarehe_mahojiano" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-3" id="tb_kugundulika">
-                                                    <label for="tb_kugundulika" class="form-label">6. TB iligundulika kwa njia gani</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('tb_methods', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="tb_kugundulika" id="tb_kugundulika<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_kugundulika'] == $value['id']) {
-                                                                                                                                                                                                                echo 'checked';
-                                                                                                                                                                                                            } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <div class="mb-2">
-                                                        <label for="tb_tarehe" id="tb_tarehe1" class="form-label">6(a) Tarehe TB iliyogundulika: </label>
-                                                        <input type="date" value="<?php if ($individual['tb_tarehe']) {
-                                                                                        print_r($individual['tb_tarehe']);
-                                                                                    } ?>" id="tb_tarehe" name="tb_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-sm-3" id="tb_dawa">
-                                                    <label for="tb_dawa" class="form-label">7. Ameanza dawa za TB</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="tb_dawa" id="tb_dawa<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_dawa'] == $value['id']) {
-                                                                                                                                                                                                    echo 'checked';
-                                                                                                                                                                                                } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <div class="mb-2">
-                                                        <label for="tb_dawa_tarehe" id="tb_dawa_tarehe1" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
-                                                        <input type="date" value="<?php if ($individual['tb_dawa_tarehe']) {
-                                                                                        print_r($individual['tb_dawa_tarehe']);
-                                                                                    } ?>" id="tb_dawa_tarehe" name="tb_dawa_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
-                                                    </div>
-                                                </div>
-
                                             </div>
 
+                                            <?php if ($_GET['sequence'] == 1) { ?>
+
+                                                <div class="row">
+                                                    <div class="col-sm-3" id="tb_kugundulika">
+                                                        <label for="tb_kugundulika" class="form-label">6. TB iligundulika kwa njia gani</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('tb_methods', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="tb_kugundulika" id="tb_kugundulika<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_kugundulika'] == $value['id']) {
+                                                                                                                                                                                                                    echo 'checked';
+                                                                                                                                                                                                                } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-2">
+                                                        <div class="mb-2">
+                                                            <label for="tb_tarehe" id="tb_tarehe1" class="form-label">6(a) Tarehe TB iliyogundulika: </label>
+                                                            <input type="date" value="<?php if ($individual['tb_tarehe']) {
+                                                                                            print_r($individual['tb_tarehe']);
+                                                                                        } ?>" id="tb_tarehe" name="tb_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-sm-3" id="tb_dawa">
+                                                        <label for="tb_dawa" class="form-label">7. Ameanza dawa za TB</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="tb_dawa" id="tb_dawa<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_dawa'] == $value['id']) {
+                                                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                                                    } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-2">
+                                                        <div class="mb-2">
+                                                            <label for="tb_dawa_tarehe" id="tb_dawa_tarehe1" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
+                                                            <input type="date" value="<?php if ($individual['tb_dawa_tarehe']) {
+                                                                                            print_r($individual['tb_dawa_tarehe']);
+                                                                                        } ?>" id="tb_dawa_tarehe" name="tb_dawa_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Sasa nitakuuliza maswali yanayohusiana na tabia/mazoea mbalimbali yanayohusu afya. Tuanze na sigara/tumbaku.</h3>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-2" id="qn08">
+                                                        <label for="qn08" class="form-label">8. Je, kwa sasa unavuta aina yoyote ya tumbaku kama vile sigara, kiko, sigara ya kusokota n.k? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn08" id="qn08<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn08'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn09">
+                                                        <label for="tumbaku_kilasiku" class="form-label">9. Kama ndiyo, Kwa sasa unavuta sigara au tumbaku kila siku? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn09" id="qn09<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn09'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn10">
+                                                        <label for="sigara_umri" class="form-label">10. Ulikuwa na umri gani ulipoanza kuvuta sigara kwa mara ya kwanza? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn10" id="qn10<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn10'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn11">
+                                                        <label for="kuacha_sigara" class="form-label">11. Kwa kipindi cha mieazi 12 iliyopita,ulijaribu kuacha kuvuta sigara? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn11" id="qn11<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn11'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn12">
+                                                        <label for="tumbaku_zamani" class="form-label">12. Hapo zamani, ulishawahi kuvuta aina yoyote ya tumbaku?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn12" id="qn12<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn12'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn13">
+                                                        <label for="qn13" class="form-label">13. Kwa sasa unatumia aina yoyote ya tumbaku isiyo ya kuvuta kama vile ugoro, ‘kuber’ n.k.? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn13" id="qn13<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn13'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-2" id="qn14">
+                                                        <label for="qn14" class="form-label">14. Kama ndiyo, Kwa sasa, unatumia tumbaku isiyo ya kuvuta kila siku? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn14" id="qn14<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn14'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn15">
+                                                        <label for="qn15" class="form-label">15. Kama ndiyo , Kwa wastani, ni mara ngapi kwa siku/wiki unatumia ;</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn15" id="qn15<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn15'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <label for="qn15_other" id="qn15_other1" class="form-label">15(a). Taja</label>
+                                                            <input type="text" value="<?php if ($individual['qn15_other']) {
+                                                                                            print_r($individual['qn15_other']);
+                                                                                        } ?>" id="qn15_other" name="qn15_other" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn16">
+                                                        <label for="qn16" class="form-label">16. Uliishawahi kutumia tumbaku isiyo ya kuvuta kama vile ugoro, ‘kuber’ n.k. </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn16" id="qn16<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn16'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn17">
+                                                        <label for="qn17" class="form-label">17. Kama ndiyo, Uliishawahi kutumia tumbaku isiyo ya kuvuta kama vile ugoro, ‘kuber’ n.k kila siku? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn17" id="qn17<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn17'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn18">
+                                                        <label for="qn18" class="form-label">18. Ndani ya siku 30 zilizopita kuna mtu yeyote alievuta tumbaku ndani ya nyumba yako? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn18" id="qn18<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn18'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn19">
+                                                        <label for="diabetic_status" class="form-label">19. Ndani ya siku 30 zilizopita, kuna mtu yeyote amevuta sigara kwenye eneo ambalo si la wazi katika sehemu yako ya kazi? DADISI ZAIDI </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn19" id="qn19<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn19'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Utumiaji wa Pombe / Vileo: Maswali yafuatayo yanauliza kuhusu utumiaji wa Pombe/Vileo</h3>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-3" id="qn20">
+                                                        <label for="diabetic_status" class="form-label">20. Je, umewahi kutumia kinywaji chenye kilevi (kama vile bia, mvinyo, pombe kali au pombe ya kienyeji)?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn20" id="qn20<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn20'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn21">
+                                                        <label for="qn21" class="form-label">21. Je umekunywa kinywaji chenye kilevi ndani ya miezi 12 iliyopita?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn21" id="qn21<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn21'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn22">
+                                                        <label for="qn22" class="form-label">22. Kama Hapana Swali 20, Umeacha kunywa pombe kwa sababu za kiafya, kama vile athari mbaya kuhusu afya yako au ushauri kutoka kwa daktari/mfanyakazi wa afya?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn22" id="qn22<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn22'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" id="qn23">
+                                                        <label for="qn23" class="form-label">23. Umetumia kinywaji chenye kilevi (kama vile bia, mvinyo, pombe kali au pombe ya kienyeji) katika siku 30 zilizopita? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn23" id="qn23<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn23'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-3" id="qn24">
+                                                        <label for="qn24" class="form-label">24. Katika siku 30 zilizopita, ni mara ngapi umekunywa vinywaji 6 au Zaidi vyenye kilevi (standard drink) kwenye mkupuo mmoja? (1 Beer=1 Glass of Wine= 1 Shot of Spirit)</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn24" id="qn24<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn24'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn25">
+                                                        <label for="qn25" class="form-label">25. Kwa kipindi cha miezi 12 iliyopita, ni mara ngapi umeshindwa kujizuia kunywa pombe mara baada ya kuanza kunywa? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn25" id="qn25<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn25'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn26">
+                                                        <label for="qn26" class="form-label">26. Kwa kipindi cha miezi 12 iliyopita, ni mara ngapi ulishindwa kufanya ulichotarajiwa kwa sababu ya pombe?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn26" id="qn26<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn26'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn27">
+                                                        <label for="qn27" class="form-label">27. Kwa kipindi cha miezi 12 iliyopita, ni mara ngapi ulihitaji pombe asubuhi ili uweze kuendelea na ratiba za siku baada ya kunywa pombe nyingi (kuzimua)?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn27" id="qn27<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn27'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn28">
+                                                        <label for="qn28" class="form-label">28. Kwa kipindi cha miezi 12 iliyopita, umewahi kuwa na tatizo la kifamilia au na mwenza wako kutokana na mtu mwingine kunywa pombe?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn28" id="qn28<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn28'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">LISHE: Maswali yafuatayo yanauliza kuhusu matunda na mbogamboga ambazo unakula mara kwa mara.</h3>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-3" id="qn29">
+                                                        <label for="qn29" class="form-label">29. Kwa kawaida ni siku ngapi ndani ya wiki moja unakula matunda? (TUMIA SHOWCARD) </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn29" id="qn29<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn29'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn30">
+                                                        <label for="qn30" class="form-label">30. Unakula matunda kiasi gani katika moja ya siku hizo? ?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn30" id="qn30<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn30'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn31">
+                                                        <label for="qn31" class="form-label">31. Kwa kawaida ni siku ngapi ndani ya wiki moja unakula mboga za majani? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn31" id="qn31<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn31'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn32">
+                                                        <label for="qn32" class="form-label">32. Unakula kiasi gani cha mboga za majani katika moja ya siku hizo? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn32" id="qn32<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn32'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Dietary Salt
+                                                            <br>
+                                                            <br>
+
+                                                            Kwa maswali yanayofuata, tungependa kupata uzoefu wako juu ya matumizi ya chumvi kwenye chakula chako. Chumvi kwenye chakula ni pamoja na chumvi ya mezani, chumvi isiyosafishwa kama chumvi ya bahari, chumvi iliyo na madini joto, chumvi ya poda, na chumvi iliyowekwa kwenye mchuzi mfano mchuzi wa samaki
+                                                        </h3>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr>
+
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-3" id="qn33">
+                                                        <label for="diabetic_status" class="form-label">33. Je! Ni mara ngapi unaongeza chumvi au mchuzi wa chumvi kama vile siki, chachandu, Soya Sauce, chachandu au achali, ajinomoto kwenye chakula chako kabla ya kula au unapokula? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn33" id="qn33<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn33'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn34">
+                                                        <label for="qn34" class="form-label">34. Ni mara ngapi unakula chakula kilichosindikwa na chumvi nyingi?
+                                                            (Ninamaanisha vyakula ambavyo vimebadilishwa kutoka kwa hali yake ya asili, kama vile vitafunio vyenye chumvi, vyakula vya chumvi vilivyosindikwa)</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn34" id="qn34<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn34'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn35">
+                                                        <label for="qn35" class="form-label">35. Je, unafikiri matumizi yako ya chumvi kwenye chakula, siki, soya sauce, achali au chachandu ni makubwa kiasi gani? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn35" id="qn35<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn35'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn36">
+                                                        <label for="qn36" class="form-label">36. Je! Unafikiri ni muhimu kiasi gani kwako kupunguza kiasi cha chumvi unachotumia kwenye mlo wako? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn36" id="qn36<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn36'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn37">
+                                                        <label for="qn37" class="form-label">37. Je! Unafikiri kuwa matumizi ya chumvi nyingi kwenye chakula yanaweza yakasababisha matatizo ya kiafya?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn37" id="qn37<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn37'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Mazoezi ya Viungo
+                                                            <br>
+                                                            <br>
+                                                            Sasa nitaendelea kukuuliza kuhusu muda unaotumia kufanya shughuli mbalimbali zinazohusu mazoezi ya viungo katika wiki moja ya kawaida. Tafadhali ujibu maswali haya hata kama unadhani wewe si mtu wa kufanya mazoezi mara kwa mara.
+                                                        </h3>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr>
+                                                <div class="row">
+
+                                                    <div class="col-4" id="qn38">
+                                                        <label for="qn38" class="form-label">38. Je, kazi yako inahusisha shughuli za kutumia nguvu ambazo zinaongeza kasi ya kupumua na mapigo ya moyo kama vile kubeba mizigo mizito, kumwaga zege, kupiga kokoto, kuchota maji, kusomba mazao, kilimo au kazi za ujenzi kwa angalau dakika 10 mfululizo?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn38" id="qn38<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn38'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3" id="qn39_1">
+                                                        <div class="mb-2">
+                                                            <label for="qn39" class="form-label">39. Katika wiki ya kawaida, ni kwa siku ngapi unafanya shughuli hizo za kutumia nguvu kiasi katika kazi yako?</label>
+                                                            <input type="number" value="<?php if ($individual['qn39']) {
+                                                                                            print_r($individual['qn39']);
+                                                                                        } ?>" id="qn39" name="qn39" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3" id="qn40">
+                                                        <label for="qn40" class="form-label">40. Una kawaida ya kutembea kwa miguu au kwa kutumia baiskeli kwa angalau dakika 10 mfululizo wakati unapokwenda na kurudi mahali fulani?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn40" id="qn40<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn40'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-2" id="qn41_1">
+                                                        <div class="mb-2">
+                                                            <label for="qn41" class="form-label">41. Unatumia muda gani kutembea kwa miguu au kwa kutumia baiskeli katika siku ya kawaida?</label>
+                                                            <input type="number" value="<?php if ($individual['qn41']) {
+                                                                                            print_r($individual['qn41']);
+                                                                                        } ?>" id="qn41" name="qn41" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-4" id="qn42_1">
+                                                        <div class="mb-2">
+                                                            <label for="qn42" class="form-label">42. Katika wiki ya kawaida, ni siku ngapi unatembea kwa miguu au kwa kutumia baiskeli kwa angalau dakika 10 mfululizo wakati unapokwenda mahali fulani? </label>
+                                                            <input type="number" value="<?php if ($individual['qn42']) {
+                                                                                            print_r($individual['qn42']);
+                                                                                        } ?>" id="qn42" name="qn42" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-5" id="qn43_1">
+                                                        <label for="qn43" class="form-label">43. Una kawaida ya kushiriki katika shughuli za michezo au mazoezi ambazo zinaongeza kwa kiasi kikubwa kasi ya kupumua au mapigo ya moyo kama vile kukimbia, kuruka kichura, kuinama na kuinuka, kuruka viunzi, kucheza mpira kwa angalau dakika 10 mfululizo? </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn43" id="qn43<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn43'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3" id="qn44_1">
+                                                        <div class="mb-2">
+                                                            <label for="qn44" class="form-label">44. Katika wiki ya kawaida, unatumia siku ngapi kufanya shughuli hizo za michezo au mazoezi? </label>
+                                                            <input type="number" value="<?php if ($individual['qn44']) {
+                                                                                            print_r($individual['qn44']);
+                                                                                        } ?>" id="qn44" name="qn44" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Clinical History</h3>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-2" id="qn45">
+                                                        <label for="qn45" class="form-label">45. Je umeshawahi kuambiwa na daktari au mtoa huduma za afya kuwa una ongezeko la shinikizo la damu?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn45" id="qn45<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn45'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn46">
+                                                        <label for="qn46" class="form-label">46. Je umeambiwa hivyo ndani ya miezi 12 iliyopita?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn46" id="qn46<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn46'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-4" id="qn47">
+                                                        <label for="qn47" class="form-label">47. Katika wiki mbili zilizopita, umetumia vidonge kwa ajili ya ongezeko la shinikizo la damu, au presha kama ilivyoshauriwa na daktari au mtoa huduma za afya?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn47" id="qn47<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn47'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn48">
+                                                        <label for="qn48" class="form-label">48. Kwa sasa unatumia aina yoyote ya mitidawa kwa ajili ya ongezeko la shinikizo la damu, au presha?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn48" id="qn48<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn48'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn49">
+                                                        <label for="qn49" class="form-label">49. Umewahi kuambiwa na daktari au mtoa huduma za afya kuwa sukari yako imepanda au una ugonjwa wa kisukari?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn49" id="qn49<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn49'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-3" id="qn50">
+                                                        <label for="qn50" class="form-label">50. Je uliambiwa hivyo kwa mara ya kwanza katika kipindi cha miezi 12 iliyopita?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn50" id="qn50<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn50'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn51">
+                                                        <label for="qn51" class="form-label">51. Katika wiki mbili zilizopita, umetumia dawa yoyote kwa ajili ya ugonjwa wa kisukari kama ulivyoandikiwa na daktari au mtoa huduma za afya?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn51" id="qn51<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn51'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn52">
+                                                        <label for="qn52" class="form-label">52. Kwa sasa unatumia aina yoyote ya mitidawa kwa ajili ya kisukari?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn52" id="qn52<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn52'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn53">
+                                                        <label for="qn53" class="form-label">53. Umewahi kupimwa Lehemu (Ongezeko la Mafuta kwenye damu) na daktari au mtoa huduma za afya?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn53" id="qn53<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn53'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-3" id="qn54">
+                                                        <label for="qn54" class="form-label">54. Je umwahi kuambiwa na daktari au mtoa huduma za afya kuwa kiwango chako cha Lehemu (Ongezeko la Mafuta kwenye damu) kiomeongezeka?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn54" id="qn54<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn54'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" id="qn55">
+                                                        <label for="qn55" class="form-label">55. Je kwa mara ya kwanza uliambiwa hivyo ndani ya miezi 12 iliyopita?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn55" id="qn55<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn55'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn56">
+                                                        <label for="qn56" class="form-label">56. Je, katika wiki mbili zilizopita umetumia vidonge vyovyote kwa ajili ya ongezeko la Lehemu (Ongezeko la Mafuta kwenye damu) kama ulivyoandikiwa na daktari au mtoa huduma za afya?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn56" id="qn56<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn56'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn57">
+                                                        <label for="qn57" class="form-label">57. Kwa sasa unatumia aina yoyote ya mitidawa kwa ajili ya ongezeko la Lehemu (Ongezeko la Mafuta kwenye damu?)</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn57" id="qn57<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn57'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <h2>Je kwa kipindi cha angalau majuma mawili, ni mara ngapi umesumbuliwa na hali zifuatazo:</h2>
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-3" id="qn58">
+                                                        <label for="qn58" class="form-label">58. Ulikuwa na shauku kidogo au kukosa hamu ya kufanya vitu ambavyo kwa kawaida umekuwa ukivifanya na kuvifurahia </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn58" id="qn58<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn58'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" id="qn59">
+                                                        <label for="qn59" class="form-label">59. Uliona hisia kushuka/kupoteza shauku/kutokufurahia mambo ambayo umekuwa ukiyafurahia</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn59" id="qn59<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn59'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn60">
+                                                        <label for="qn60" class="form-label">60. Ulikuwa na shida ya usingizi zaidi ya ilivyokuwa kawaida (kwa mfano, kupata usingizi, kuendelea kuwa na usingizi) au kulala sana zaidi ya ilivyokawaida </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn60" id="qn60<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn60'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn61">
+                                                        <label for="qn61" class="form-label">61. Ulikuwa na nguvu kidogo kuliko ilivyokuwa kabla au kuchoka zaidi kuliko kawaida hata ukifanya shughuli ndogondogo </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn61" id="qn61<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn61'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-2" id="qn62">
+                                                        <label for="qn62" class="form-label">62. Hukutaka kula hata pale ambapo chakula kilikuwepo au ulikula zaidi kuliko ilivyokukuwa </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn62" id="qn62<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn62'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" id="qn63">
+                                                        <label for="qn63" class="form-label">63. Umehisi umejiangusha mwenyewe au kuwaangusha wengine </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn63" id="qn63<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn63'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn64">
+                                                        <label for="qn64" class="form-label">64. Umepata shida zaidi kuwa makini na kuendelea kuwa makini kwenye vitu, (mfano: kusikiliza redio, kuangalia luninga) kuliko ilivyo kawaida </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn64" id="qn64<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn64'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn65">
+                                                        <label for="qn65" class="form-label">65. Ulitembea/kujongea taratibu zaidi kuliko kawaida au kinyume chake, kukosa utulivu?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn65" id="qn65<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn65'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn66">
+                                                        <label for="qn66" class="form-label">66. Swali linalofuata linaweza kuwa swali nyeti/ linalokugusa hisia zako. Umekuwa uliifikiria kuhusu kifo, kujiua au kujaribu kusitisha uhai wako </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn66" id="qn66<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn66'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">MEASUREMENTS AND INVESTIGATIONS</h3>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-3" id="qn67_1">
+                                                        <div class="mb-2">
+                                                            <label for="qn67" class="form-label">67. Urefu(cm)</label>
+                                                            <input type="number" value="<?php if ($individual['qn67']) {
+                                                                                            print_r($individual['qn67']);
+                                                                                        } ?>" id="qn67" name="qn67" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" required />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3" id="qn68_1">
+                                                        <div class="mb-2">
+                                                            <label for="qn68" class="form-label">68. Uzito (kg)</label>
+                                                            <input type="number" value="<?php if ($individual['qn68']) {
+                                                                                            print_r($individual['qn68']);
+                                                                                        } ?>" id="qn68" name="qn68" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" required />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn69">
+                                                        <label for="qn69" class="form-label">69. Hali ya HIV</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('hiv_status', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn69" id="qn69<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn69'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3" id="qn69_date_1">
+                                                        <div class="mb-2">
+                                                            <label for="qn69_date" class="form-label">69(a). Tarehe aliyopima;</label>
+                                                            <input type="date" value="<?php if ($individual['qn69_date']) {
+                                                                                            print_r($individual['qn69_date']);
+                                                                                        } ?>" id="qn69_date" name="qn69_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-4" id="qn70">
+                                                        <label for="qn70" class="form-label">70. Hali ya Kisukari </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn70" id="qn70<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn70'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4" id="qn71">
+                                                        <label for="qn71" class="form-label">71. Ameanza dawa za Kisukari </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn71" id="qn71<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn71'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-4" id="qn71_date1">
+                                                        <div class="mb-2">
+                                                            <label for="qn71_date" class="form-label">71(a). Tarehe aliyoanza dawa:;</label>
+                                                            <input type="date" value="<?php if ($individual['qn71_date']) {
+                                                                                            print_r($individual['qn71_date']);
+                                                                                        } ?>" id="qn71_date" name="qn71_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                            <?php } ?>
+
+
+                                            <?php if ($_GET['sequence'] > 1) { ?>
+
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Follow-Up And Treatment Outcome (At Month 6)</h3>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-3" id="qn72">
+                                                        <label for="qn72" class="form-label">72. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn72" id="qn72<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn72'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-2" id="qn73">
+                                                        <label for="qn73" class="form-label">73. If Ndiyo Qn 68, Majibu ya Smear</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn73" id="qn73<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn73'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3" id="qn74">
+                                                        <label for="qn74" class="form-label">74. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa tano yamefanyika </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn74" id="qn74<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn74'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-sm-2" id="qn76">
+                                                        <label for="qn76" class="form-label">76. Kama Ndiyo Qn 74, Majibu </label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn76" id="qn76<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn76'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                        <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-2" id="qn77">
+                                                        <div class="mb-2">
+                                                            <label for="qn77" class="form-label">77. Tarehe ya mwisho ya mshiriki:</label>
+                                                            <input type="date" value="<?php if ($individual['qn77']) {
+                                                                                            print_r($individual['qn77']);
+                                                                                        } ?>" id="qn77" name="qn77" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-6" id="qn78">
+                                                        <label for="qn78" class="form-label">78. Matokeo ya matumizi yad awa za TB (Tuberculosis Treatment Outcome )</label>
+                                                        <!-- radio -->
+                                                        <div class="row-form clearfix">
+                                                            <div class="form-group">
+                                                                <?php foreach ($override->get('tuberculosis_treatment', 'status', 1) as $value) { ?>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="qn78" id="qn78<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn78'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?>>
+                                                                        <label class="form-check-label"><?= $value['name2']; ?></label>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6" id="tb_outcome_date_1">
+                                                        <div class="mb-2">
+                                                            <label for="tb_outcome_date_cured" id="tb_outcome_date_cured" class="form-label">Tarehe ya kupona(Cured)</label>
+                                                            <label for="tb_outcome_date_completed" id="tb_outcome_date_completed" class="form-label">Tarehe ya kumaliza matibabu (Completed treatment) </label>
+                                                            <label for="tb_outcome_date_death" id="tb_outcome_date_death" class="form-label">Tarehe ya kufariki (Died)</label>
+                                                            <label for="tb_outcome_date_last_seen" id="tb_outcome_date_last_seen" class="form-label">Tarehe ya kupotea kwenye ufuatiliaji (Lost to follow up) / Date last seen (Last visit date) </label>
+                                                            <input type="date" value="<?php if ($individual['tb_outcome_date']) {
+                                                                                            print_r($individual['tb_outcome_date']);
+                                                                                        } ?>" id="tb_outcome_date" name="tb_outcome_date" class="form-control" placeholder="Enter here" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            <?php } ?>
+
                                             <hr>
 
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Sasa nitakuuliza maswali yanayohusiana na tabia/mazoea mbalimbali yanayohusu afya. Tuanze na sigara/tumbaku.</h3>
-                                                </div>
-                                            </div>
-
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-2" id="qn08">
-                                                    <label for="qn08" class="form-label">8. Je, kwa sasa unavuta aina yoyote ya tumbaku kama vile sigara, kiko, sigara ya kusokota n.k? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn08" id="qn08<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn08'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn09">
-                                                    <label for="tumbaku_kilasiku" class="form-label">9. Kama ndiyo, Kwa sasa unavuta sigara au tumbaku kila siku? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn09" id="qn09<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn09'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn10">
-                                                    <label for="sigara_umri" class="form-label">10. Ulikuwa na umri gani ulipoanza kuvuta sigara kwa mara ya kwanza? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn10" id="qn10<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn10'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn11">
-                                                    <label for="kuacha_sigara" class="form-label">11. Kwa kipindi cha mieazi 12 iliyopita,ulijaribu kuacha kuvuta sigara? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn11" id="qn11<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn11'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn12">
-                                                    <label for="tumbaku_zamani" class="form-label">12. Hapo zamani, ulishawahi kuvuta aina yoyote ya tumbaku?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn12" id="qn12<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn12'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn13">
-                                                    <label for="qn13" class="form-label">13. Kwa sasa unatumia aina yoyote ya tumbaku isiyo ya kuvuta kama vile ugoro, ‘kuber’ n.k.? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn13" id="qn13<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn13'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-2" id="qn14">
-                                                    <label for="qn14" class="form-label">14. Kama ndiyo, Kwa sasa, unatumia tumbaku isiyo ya kuvuta kila siku? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn14" id="qn14<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn14'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn15">
-                                                    <label for="qn15" class="form-label">15. Kama ndiyo , Kwa wastani, ni mara ngapi kwa siku/wiki unatumia ;</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn15" id="qn15<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn15'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                        <label for="qn15_other" id="qn15_other1" class="form-label">15(a). Taja</label>
-                                                        <input type="text" value="<?php if ($individual['qn15_other']) {
-                                                                                        print_r($individual['qn15_other']);
-                                                                                    } ?>" id="qn15_other" name="qn15_other" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn16">
-                                                    <label for="qn16" class="form-label">16. Uliishawahi kutumia tumbaku isiyo ya kuvuta kama vile ugoro, ‘kuber’ n.k. </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn16" id="qn16<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn16'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn17">
-                                                    <label for="qn17" class="form-label">17. Kama ndiyo, Uliishawahi kutumia tumbaku isiyo ya kuvuta kama vile ugoro, ‘kuber’ n.k kila siku? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn17" id="qn17<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn17'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn18">
-                                                    <label for="qn18" class="form-label">18. Ndani ya siku 30 zilizopita kuna mtu yeyote alievuta tumbaku ndani ya nyumba yako? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn18" id="qn18<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn18'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn19">
-                                                    <label for="diabetic_status" class="form-label">19. Ndani ya siku 30 zilizopita, kuna mtu yeyote amevuta sigara kwenye eneo ambalo si la wazi katika sehemu yako ya kazi? DADISI ZAIDI </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn19" id="qn19<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn19'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Utumiaji wa Pombe / Vileo: Maswali yafuatayo yanauliza kuhusu utumiaji wa Pombe/Vileo</h3>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-3" id="qn20">
-                                                    <label for="diabetic_status" class="form-label">20. Je, umewahi kutumia kinywaji chenye kilevi (kama vile bia, mvinyo, pombe kali au pombe ya kienyeji)?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn20" id="qn20<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn20'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn21">
-                                                    <label for="qn21" class="form-label">21. Je umekunywa kinywaji chenye kilevi ndani ya miezi 12 iliyopita?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn21" id="qn21<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn21'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn22">
-                                                    <label for="qn22" class="form-label">22. Kama Hapana Swali 20, Umeacha kunywa pombe kwa sababu za kiafya, kama vile athari mbaya kuhusu afya yako au ushauri kutoka kwa daktari/mfanyakazi wa afya?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn22" id="qn22<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn22'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3" id="qn23">
-                                                    <label for="qn23" class="form-label">23. Umetumia kinywaji chenye kilevi (kama vile bia, mvinyo, pombe kali au pombe ya kienyeji) katika siku 30 zilizopita? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn23" id="qn23<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn23'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-                                                <div class="col-sm-3" id="qn24">
-                                                    <label for="qn24" class="form-label">24. Katika siku 30 zilizopita, ni mara ngapi umekunywa vinywaji 6 au Zaidi vyenye kilevi (standard drink) kwenye mkupuo mmoja? (1 Beer=1 Glass of Wine= 1 Shot of Spirit)</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn24" id="qn24<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn24'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn25">
-                                                    <label for="qn25" class="form-label">25. Kwa kipindi cha miezi 12 iliyopita, ni mara ngapi umeshindwa kujizuia kunywa pombe mara baada ya kuanza kunywa? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn25" id="qn25<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn25'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn26">
-                                                    <label for="qn26" class="form-label">26. Kwa kipindi cha miezi 12 iliyopita, ni mara ngapi ulishindwa kufanya ulichotarajiwa kwa sababu ya pombe?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn26" id="qn26<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn26'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn27">
-                                                    <label for="qn27" class="form-label">27. Kwa kipindi cha miezi 12 iliyopita, ni mara ngapi ulihitaji pombe asubuhi ili uweze kuendelea na ratiba za siku baada ya kunywa pombe nyingi (kuzimua)?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn27" id="qn27<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn27'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn28">
-                                                    <label for="qn28" class="form-label">28. Kwa kipindi cha miezi 12 iliyopita, umewahi kuwa na tatizo la kifamilia au na mwenza wako kutokana na mtu mwingine kunywa pombe?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn28" id="qn28<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn28'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">LISHE: Maswali yafuatayo yanauliza kuhusu matunda na mbogamboga ambazo unakula mara kwa mara.</h3>
-                                                </div>
-                                            </div>
-
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-3" id="qn29">
-                                                    <label for="qn29" class="form-label">29. Kwa kawaida ni siku ngapi ndani ya wiki moja unakula matunda? (TUMIA SHOWCARD) </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn29" id="qn29<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn29'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn30">
-                                                    <label for="qn30" class="form-label">30. Unakula matunda kiasi gani katika moja ya siku hizo? ?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn30" id="qn30<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn30'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn31">
-                                                    <label for="qn31" class="form-label">31. Kwa kawaida ni siku ngapi ndani ya wiki moja unakula mboga za majani? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn31" id="qn31<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn31'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn32">
-                                                    <label for="qn32" class="form-label">32. Unakula kiasi gani cha mboga za majani katika moja ya siku hizo? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn32" id="qn32<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn32'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Dietary Salt
-                                                        <br>
-                                                        <br>
-
-                                                        Kwa maswali yanayofuata, tungependa kupata uzoefu wako juu ya matumizi ya chumvi kwenye chakula chako. Chumvi kwenye chakula ni pamoja na chumvi ya mezani, chumvi isiyosafishwa kama chumvi ya bahari, chumvi iliyo na madini joto, chumvi ya poda, na chumvi iliyowekwa kwenye mchuzi mfano mchuzi wa samaki
-                                                    </h3>
-                                                </div>
-                                            </div>
-
-
-                                            <hr>
-
-
-                                            <div class="row">
-
-                                                <div class="col-sm-3" id="qn33">
-                                                    <label for="diabetic_status" class="form-label">33. Je! Ni mara ngapi unaongeza chumvi au mchuzi wa chumvi kama vile siki, chachandu, Soya Sauce, chachandu au achali, ajinomoto kwenye chakula chako kabla ya kula au unapokula? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn33" id="qn33<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn33'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn34">
-                                                    <label for="qn34" class="form-label">34. Ni mara ngapi unakula chakula kilichosindikwa na chumvi nyingi?
-                                                        (Ninamaanisha vyakula ambavyo vimebadilishwa kutoka kwa hali yake ya asili, kama vile vitafunio vyenye chumvi, vyakula vya chumvi vilivyosindikwa)</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn34" id="qn34<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn34'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn35">
-                                                    <label for="qn35" class="form-label">35. Je, unafikiri matumizi yako ya chumvi kwenye chakula, siki, soya sauce, achali au chachandu ni makubwa kiasi gani? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn35" id="qn35<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn35'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn36">
-                                                    <label for="qn36" class="form-label">36. Je! Unafikiri ni muhimu kiasi gani kwako kupunguza kiasi cha chumvi unachotumia kwenye mlo wako? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn36" id="qn36<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn36'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn37">
-                                                    <label for="qn37" class="form-label">37. Je! Unafikiri kuwa matumizi ya chumvi nyingi kwenye chakula yanaweza yakasababisha matatizo ya kiafya?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn37" id="qn37<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn37'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Mazoezi ya Viungo
-                                                        <br>
-                                                        <br>
-                                                        Sasa nitaendelea kukuuliza kuhusu muda unaotumia kufanya shughuli mbalimbali zinazohusu mazoezi ya viungo katika wiki moja ya kawaida. Tafadhali ujibu maswali haya hata kama unadhani wewe si mtu wa kufanya mazoezi mara kwa mara.
-                                                    </h3>
-                                                </div>
-                                            </div>
-
-
-                                            <hr>
-                                            <div class="row">
-
-                                                <div class="col-4" id="qn38">
-                                                    <label for="qn38" class="form-label">38. Je, kazi yako inahusisha shughuli za kutumia nguvu ambazo zinaongeza kasi ya kupumua na mapigo ya moyo kama vile kubeba mizigo mizito, kumwaga zege, kupiga kokoto, kuchota maji, kusomba mazao, kilimo au kazi za ujenzi kwa angalau dakika 10 mfululizo?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn38" id="qn38<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn38'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-3" id="qn39_1">
-                                                    <div class="mb-2">
-                                                        <label for="qn39" class="form-label">39. Katika wiki ya kawaida, ni kwa siku ngapi unafanya shughuli hizo za kutumia nguvu kiasi katika kazi yako?</label>
-                                                        <input type="number" value="<?php if ($individual['qn39']) {
-                                                                                        print_r($individual['qn39']);
-                                                                                    } ?>" id="qn39" name="qn39" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-3" id="qn40">
-                                                    <label for="qn40" class="form-label">40. Una kawaida ya kutembea kwa miguu au kwa kutumia baiskeli kwa angalau dakika 10 mfululizo wakati unapokwenda na kurudi mahali fulani?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn40" id="qn40<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn40'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-2" id="qn41_1">
-                                                    <div class="mb-2">
-                                                        <label for="qn41" class="form-label">41. Unatumia muda gani kutembea kwa miguu au kwa kutumia baiskeli katika siku ya kawaida?</label>
-                                                        <input type="number" value="<?php if ($individual['qn41']) {
-                                                                                        print_r($individual['qn41']);
-                                                                                    } ?>" id="qn41" name="qn41" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-4" id="qn42_1">
-                                                    <div class="mb-2">
-                                                        <label for="qn42" class="form-label">42. Katika wiki ya kawaida, ni siku ngapi unatembea kwa miguu au kwa kutumia baiskeli kwa angalau dakika 10 mfululizo wakati unapokwenda mahali fulani? </label>
-                                                        <input type="number" value="<?php if ($individual['qn42']) {
-                                                                                        print_r($individual['qn42']);
-                                                                                    } ?>" id="qn42" name="qn42" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5" id="qn43_1">
-                                                    <label for="qn43" class="form-label">43. Una kawaida ya kushiriki katika shughuli za michezo au mazoezi ambazo zinaongeza kwa kiasi kikubwa kasi ya kupumua au mapigo ya moyo kama vile kukimbia, kuruka kichura, kuinama na kuinuka, kuruka viunzi, kucheza mpira kwa angalau dakika 10 mfululizo? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn43" id="qn43<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn43'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3" id="qn44_1">
-                                                    <div class="mb-2">
-                                                        <label for="qn44" class="form-label">44. Katika wiki ya kawaida, unatumia siku ngapi kufanya shughuli hizo za michezo au mazoezi? </label>
-                                                        <input type="number" value="<?php if ($individual['qn44']) {
-                                                                                        print_r($individual['qn44']);
-                                                                                    } ?>" id="qn44" name="qn44" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Clinical History</h3>
-                                                </div>
-                                            </div>
-
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-2" id="qn45">
-                                                    <label for="qn45" class="form-label">45. Je umeshawahi kuambiwa na daktari au mtoa huduma za afya kuwa una ongezeko la shinikizo la damu?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn45" id="qn45<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn45'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn46">
-                                                    <label for="qn46" class="form-label">46. Je umeambiwa hivyo ndani ya miezi 12 iliyopita?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn46" id="qn46<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn46'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4" id="qn47">
-                                                    <label for="qn47" class="form-label">47. Katika wiki mbili zilizopita, umetumia vidonge kwa ajili ya ongezeko la shinikizo la damu, au presha kama ilivyoshauriwa na daktari au mtoa huduma za afya?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn47" id="qn47<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn47'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn48">
-                                                    <label for="qn48" class="form-label">48. Kwa sasa unatumia aina yoyote ya mitidawa kwa ajili ya ongezeko la shinikizo la damu, au presha?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn48" id="qn48<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn48'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn49">
-                                                    <label for="qn49" class="form-label">49. Umewahi kuambiwa na daktari au mtoa huduma za afya kuwa sukari yako imepanda au una ugonjwa wa kisukari?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn49" id="qn49<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn49'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-3" id="qn50">
-                                                    <label for="qn50" class="form-label">50. Je uliambiwa hivyo kwa mara ya kwanza katika kipindi cha miezi 12 iliyopita?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn50" id="qn50<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn50'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn51">
-                                                    <label for="qn51" class="form-label">51. Katika wiki mbili zilizopita, umetumia dawa yoyote kwa ajili ya ugonjwa wa kisukari kama ulivyoandikiwa na daktari au mtoa huduma za afya?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn51" id="qn51<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn51'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn52">
-                                                    <label for="qn52" class="form-label">52. Kwa sasa unatumia aina yoyote ya mitidawa kwa ajili ya kisukari?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn52" id="qn52<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn52'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn53">
-                                                    <label for="qn53" class="form-label">53. Umewahi kupimwa Lehemu (Ongezeko la Mafuta kwenye damu) na daktari au mtoa huduma za afya?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn53" id="qn53<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn53'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-                                                <div class="col-sm-3" id="qn54">
-                                                    <label for="qn54" class="form-label">54. Je umwahi kuambiwa na daktari au mtoa huduma za afya kuwa kiwango chako cha Lehemu (Ongezeko la Mafuta kwenye damu) kiomeongezeka?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn54" id="qn54<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn54'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3" id="qn55">
-                                                    <label for="qn55" class="form-label">55. Je kwa mara ya kwanza uliambiwa hivyo ndani ya miezi 12 iliyopita?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn55" id="qn55<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn55'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn56">
-                                                    <label for="qn56" class="form-label">56. Je, katika wiki mbili zilizopita umetumia vidonge vyovyote kwa ajili ya ongezeko la Lehemu (Ongezeko la Mafuta kwenye damu) kama ulivyoandikiwa na daktari au mtoa huduma za afya?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn56" id="qn56<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn56'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn57">
-                                                    <label for="qn57" class="form-label">57. Kwa sasa unatumia aina yoyote ya mitidawa kwa ajili ya ongezeko la Lehemu (Ongezeko la Mafuta kwenye damu?)</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn57" id="qn57<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn57'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-                                            <h2>Je kwa kipindi cha angalau majuma mawili, ni mara ngapi umesumbuliwa na hali zifuatazo:</h2>
-                                            <hr>
-
-                                            <div class="row">
-                                                <div class="col-sm-3" id="qn58">
-                                                    <label for="qn58" class="form-label">58. Ulikuwa na shauku kidogo au kukosa hamu ya kufanya vitu ambavyo kwa kawaida umekuwa ukivifanya na kuvifurahia </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn58" id="qn58<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn58'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3" id="qn59">
-                                                    <label for="qn59" class="form-label">59. Uliona hisia kushuka/kupoteza shauku/kutokufurahia mambo ambayo umekuwa ukiyafurahia</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn59" id="qn59<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn59'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn60">
-                                                    <label for="qn60" class="form-label">60. Ulikuwa na shida ya usingizi zaidi ya ilivyokuwa kawaida (kwa mfano, kupata usingizi, kuendelea kuwa na usingizi) au kulala sana zaidi ya ilivyokawaida </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn60" id="qn60<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn60'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn61">
-                                                    <label for="qn61" class="form-label">61. Ulikuwa na nguvu kidogo kuliko ilivyokuwa kabla au kuchoka zaidi kuliko kawaida hata ukifanya shughuli ndogondogo </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn61" id="qn61<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn61'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-                                                <div class="col-sm-2" id="qn62">
-                                                    <label for="qn62" class="form-label">62. Hukutaka kula hata pale ambapo chakula kilikuwepo au ulikula zaidi kuliko ilivyokukuwa </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn62" id="qn62<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn62'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" id="qn63">
-                                                    <label for="qn63" class="form-label">63. Umehisi umejiangusha mwenyewe au kuwaangusha wengine </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn63" id="qn63<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn63'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn64">
-                                                    <label for="qn64" class="form-label">64. Umepata shida zaidi kuwa makini na kuendelea kuwa makini kwenye vitu, (mfano: kusikiliza redio, kuangalia luninga) kuliko ilivyo kawaida </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn64" id="qn64<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn64'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn65">
-                                                    <label for="qn65" class="form-label">65. Ulitembea/kujongea taratibu zaidi kuliko kawaida au kinyume chake, kukosa utulivu?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn65" id="qn65<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn65'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn66">
-                                                    <label for="qn66" class="form-label">66. Swali linalofuata linaweza kuwa swali nyeti/ linalokugusa hisia zako. Umekuwa uliifikiria kuhusu kifo, kujiua au kujaribu kusitisha uhai wako </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn66" id="qn66<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn66'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">MEASUREMENTS AND INVESTIGATIONS</h3>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-                                                <div class="col-3" id="qn67_1">
-                                                    <div class="mb-2">
-                                                        <label for="qn67" class="form-label">67. Urefu(cm)</label>
-                                                        <input type="number" value="<?php if ($individual['qn67']) {
-                                                                                        print_r($individual['qn67']);
-                                                                                    } ?>" id="qn67" name="qn67" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" required />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-3" id="qn68_1">
-                                                    <div class="mb-2">
-                                                        <label for="qn68" class="form-label">68. Uzito (kg)</label>
-                                                        <input type="number" value="<?php if ($individual['qn68']) {
-                                                                                        print_r($individual['qn68']);
-                                                                                    } ?>" id="qn68" name="qn68" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" required />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn69">
-                                                    <label for="qn69" class="form-label">69. Hali ya HIV</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('hiv_status', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn69" id="qn69<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn69'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-3" id="qn69_date_1">
-                                                    <div class="mb-2">
-                                                        <label for="qn69_date" class="form-label">69(a). Tarehe aliyopima;</label>
-                                                        <input type="date" value="<?php if ($individual['qn69_date']) {
-                                                                                        print_r($individual['qn69_date']);
-                                                                                    } ?>" id="qn69_date" name="qn69_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-                                                <div class="col-4" id="qn70">
-                                                    <label for="qn70" class="form-label">70. Hali ya Kisukari </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn70" id="qn70<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn70'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-4" id="qn71">
-                                                    <label for="qn71" class="form-label">71. Ameanza dawa za Kisukari </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn71" id="qn71<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn71'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-4" id="qn71_date1">
-                                                    <div class="mb-2">
-                                                        <label for="qn71_date" class="form-label">71(a). Tarehe aliyoanza dawa:;</label>
-                                                        <input type="date" value="<?php if ($individual['qn71_date']) {
-                                                                                        print_r($individual['qn71_date']);
-                                                                                    } ?>" id="qn71_date" name="qn71_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Follow-Up And Treatment Outcome (At Month 6)</h3>
-                                                </div>
-                                            </div>
-
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-3" id="qn72">
-                                                    <label for="qn72" class="form-label">72. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn72" id="qn72<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn72'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-2" id="qn73">
-                                                    <label for="qn73" class="form-label">73. If Ndiyo Qn 68, Majibu ya Smear</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn73" id="qn73<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn73'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn74">
-                                                    <label for="qn74" class="form-label">74. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa tano yamefanyika </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn74" id="qn74<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn74'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-sm-2" id="qn76">
-                                                    <label for="qn76" class="form-label">76. Kama Ndiyo Qn 74, Majibu </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn76" id="qn76<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn76'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-2" id="qn77">
-                                                    <div class="mb-2">
-                                                        <label for="qn77" class="form-label">77. Tarehe ya mwisho ya mshiriki:</label>
-                                                        <input type="date" value="<?php if ($individual['qn77']) {
-                                                                                        print_r($individual['qn77']);
-                                                                                    } ?>" id="qn77" name="qn77" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-6" id="qn78">
-                                                    <label for="qn78" class="form-label">78. Matokeo ya matumizi yad awa za TB (Tuberculosis Treatment Outcome )</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('tuberculosis_treatment', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn78" id="qn78<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn78'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $value['name2']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-6" id="tb_outcome_date_1">
-                                                    <div class="mb-2">
-                                                        <label for="tb_outcome_date_cured" id="tb_outcome_date_cured" class="form-label">Tarehe ya kupona(Cured)</label>
-                                                        <label for="tb_outcome_date_completed" id="tb_outcome_date_completed" class="form-label">Tarehe ya kumaliza matibabu (Completed treatment) </label>
-                                                        <label for="tb_outcome_date_death" id="tb_outcome_date_death" class="form-label">Tarehe ya kufariki (Died)</label>
-                                                        <label for="tb_outcome_date_last_seen" id="tb_outcome_date_last_seen" class="form-label">Tarehe ya kupotea kwenye ufuatiliaji (Lost to follow up) / Date last seen (Last visit date) </label>
-                                                        <input type="date" value="<?php if ($individual['tb_outcome_date']) {
-                                                                                        print_r($individual['tb_outcome_date']);
-                                                                                    } ?>" id="tb_outcome_date" name="tb_outcome_date" class="form-control" placeholder="Enter here" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
 
                                             <div class="card card-warning">
                                                 <div class="card-header">
@@ -5051,20 +5069,12 @@ if ($user->isLoggedIn()) {
                                         <div class="card-body">
                                             <hr>
                                             <div class="row">
-                                                <div class="col-3">
-                                                    <div class="mb-2">
-                                                        <label for="test_date" class="form-label">Date of Screening</label>
-                                                        <input type="date" value="<?php if ($screening['screening_date']) {
-                                                                                        print_r($screening['screening_date']);
-                                                                                    } ?>" id="screening_date" name="screening_date" class="form-control" placeholder="Enter date" required />
-                                                    </div>
-                                                </div>
 
 
-                                                <div class="col-sm-3">
-                                                    <label for="date_status" class="form-label">18 years or above ?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
+                                                <!-- <div class="col-sm-3">
+                                                    <label for="date_status" class="form-label">18 years or above ?</label> -->
+                                                <!-- radio -->
+                                                <!-- <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
@@ -5076,11 +5086,10 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
-                                                <div class="col-sm-3">
+                                                <!-- <div class="col-sm-3">
                                                     <label for="new_tb" class="form-label">Newly diagnosed TB patient</label>
-                                                    <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
@@ -5102,12 +5111,21 @@ if ($user->isLoggedIn()) {
                                                                                         print_r($screening['new_tb_date']);
                                                                                     } ?>" id="new_tb_date" name="new_tb_date" class="form-control" placeholder="Enter date" required />
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-3">
+
+                                                <div class="col-4">
+                                                    <div class="mb-2">
+                                                        <label for="test_date" class="form-label">Date of Screening</label>
+                                                        <input type="date" value="<?php if ($screening['screening_date']) {
+                                                                                        print_r($screening['screening_date']);
+                                                                                    } ?>" id="screening_date" name="screening_date" class="form-control" placeholder="Enter date" required />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
                                                     <label for="conset" class="form-label">Patient Conset?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -5123,7 +5141,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-3" id="conset_date1">
+                                                <div class="col-4" id="conset_date1">
                                                     <div class="mb-2">
                                                         <label for="results_date" class="form-label">Date of Conset</label>
                                                         <input type="date" value="<?php if ($screening['conset_date']) {
@@ -5132,9 +5150,8 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3">
+                                                <!-- <div class="col-sm-3">
                                                     <label for="start_anti_b" class="form-label">Started Anti-TB</label>
-                                                    <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
@@ -5165,12 +5182,11 @@ if ($user->isLoggedIn()) {
                                                     <h3 class="card-title">Exclusion Criteria</h3>
                                                 </div>
                                             </div>
-                                            <hr>
+                                            <hr> -->
 
-                                            <div class="row">
+                                                <!-- <div class="row">
                                                 <div class="col-sm-3">
                                                     <label for="diabetes_type1" class="form-label">Diabetes Type 1</label>
-                                                    <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
@@ -5183,13 +5199,12 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <?php
                                                 //  if ($override->get3('clients', 'status', 1, 'sex', 2, 'id', $_GET['cid'])) {
                                                 ?>
-                                                <div class="col-sm-3">
+                                                <!-- <div class="col-sm-3">
                                                     <label for="extrapulmonary_tb" class="form-label">Extrapulmonary TB</label>
-                                                    <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
@@ -5202,14 +5217,13 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <?php
                                                 //  }
                                                 ?>
 
-                                                <div class="col-sm-3">
+                                                <!-- <div class="col-sm-3">
                                                     <label for="mdr_xdr" class="form-label">MDR and XDR patients</label>
-                                                    <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
@@ -5223,9 +5237,8 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3">
-                                                    <label for="stay" class="form-label">Expected to stay at study area for more than 12 months?</label>
-                                                    <!-- radio -->
+                                                <div class="col-sm-3"> -->
+                                                <!-- <label for="stay" class="form-label">Expected to stay at study area for more than 12 months?</label>
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
@@ -5238,7 +5251,7 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <hr>
 
