@@ -247,8 +247,8 @@ if ($user->isLoggedIn()) {
                         if ($clients) {
                             $user->updateRecord('clients', array(
                                 'sequence' => 0,
-                                'visit_code' => 'RV',
-                                'visit_name' => 'Registration Visit',
+                                'visit_code' => 'SV',
+                                'visit_name' => 'Screening Visit',
                                 'screening_date' => Input::get('screening_date'),
                                 'tarehe_mahojiano' => Input::get('screening_date'),
                                 'conset' => Input::get('conset'),
