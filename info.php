@@ -1187,6 +1187,7 @@ if ($user->isLoggedIn()) {
                                             <tbody>
                                                 <?php
                                                 $x = 1;
+                                                $i = 1;
                                                 foreach ($override->getNews('visit', 'status', 1, 'patient_id', $_GET['cid']) as $visit) {
                                                     $clients = $override->getNews('clients', 'status', 1, 'id',  $_GET['cid'])[0];
                                                     $screening = $override->getNews('screening', 'status', 1, 'patient_id', $_GET['cid'])[0];
@@ -1223,11 +1224,11 @@ if ($user->isLoggedIn()) {
                                                             <?php if ($visit['visit_status'] == 1) { ?>
                                                                 <?php if ($visit['sequence'] == 1) { ?>
                                                                     <?php if ($clients['age'] >= 0) { ?>
-                                                                        <?php if ($override->getNews('clients', 'id', $_GET['cid'], 'sequence', 1)) { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Enrollment Data </a>&nbsp;&nbsp; <br><br>
+                                                                        <?php if ($override->getNews('clients', 'id', $_GET['cid'], 'sequence', 0)) { ?>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Baseline Data </a>&nbsp;&nbsp; <br><br>
 
                                                                         <?php } else { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Enrollment Data</a>&nbsp;&nbsp; <br><br>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Baseline Data</a>&nbsp;&nbsp; <br><br>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } ?>
@@ -1236,7 +1237,7 @@ if ($user->isLoggedIn()) {
                                                             <?php if ($visit['visit_status'] == 1) { ?>
                                                                 <?php if ($visit['sequence'] > 1) { ?>
                                                                     <?php if ($clients['eligible'] == 1) {
-                                                                        $i = 1; ?>
+                                                                    ?>
                                                                         <?php if ($override->getNews('comorbidtb_tool', 'patient_id', $_GET['cid'], 'sequence', $i)) { ?>
                                                                             <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Follow-Up Data</a>&nbsp;&nbsp; <br><br>
 
