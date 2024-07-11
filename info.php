@@ -1053,7 +1053,6 @@ if ($user->isLoggedIn()) {
                                                             <?php if ($value['age'] >= 0) { ?>
                                                                 <?php if ($comorbidtb_tool) { ?>
                                                                     <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
-                                                                    <hr>
                                                                 <?php   } else { ?>
                                                                     <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
                                                                 <?php   } ?>
@@ -1207,54 +1206,42 @@ if ($user->isLoggedIn()) {
                                                         <td>
                                                             <?php if ($visit['visit_status'] == 1) { ?>
                                                                 <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-success" data-toggle="modal">
-                                                                    Done <?php if ($screening['eligible'] == 1) {  ?> & ELigible for Enrollment <?php } elseif ($screening['eligible'] == 2) {  ?><p style="color:red" ;>&nbsp;&nbsp; & Not ELigible for Enrollment </p><?php } else { ?>& <p style="color:yellow" ;>&nbsp;&nbsp;Pending For Screening</p> <?php } ?>
+                                                                    Done
                                                                 </a>
                                                             <?php } elseif ($visit['visit_status'] == 2) { ?>
                                                                 <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-danger" data-toggle="modal">
-                                                                    Missed <?php if ($screening['eligible'] == 1) {  ?> & ELigible for Enrollment <?php } elseif ($screening['eligible'] == 2) {  ?><p style="color:red" ;>&nbsp;&nbsp; & Not ELigible for Enrollment </p><?php } else { ?>& <p style="color:yellow" ;>&nbsp;&nbsp;Pending For Screening</p> <?php } ?>
+                                                                    Missed
                                                                 </a>
                                                             <?php } elseif ($visit['visit_status'] == 0) { ?>
                                                                 <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-warning" data-toggle="modal">
-                                                                    Pending <?php if ($screening['eligible'] == 1) {  ?> & ELigible for Enrollment <?php } elseif ($screening['eligible'] == 2) {  ?><p style="color:red" ;>&nbsp;&nbsp; & Not ELigible for Enrollment </p><?php } else { ?>& <p style="color:yellow" ;>&nbsp;&nbsp;Pending For Screening</p> <?php } ?>
+                                                                    Pending
                                                                 </a>
                                                             <?php } ?>
                                                         </td>
 
                                                         <td>
                                                             <?php if ($visit['visit_status'] == 1) { ?>
-                                                                <?php if ($visit['sequence'] >= 0) { ?>
-                                                                    <?php if ($clients['age'] >= 0) { ?>
-                                                                        <?php if ($override->getNews('clients', 'id', $_GET['cid'], 'sequence', 0)) { ?>
-                                                                            <a href="add.php?id=4&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Screening Data </a>&nbsp;&nbsp; <br><br>
-
-                                                                        <?php } else { ?>
-                                                                            <a href="add.php?id=4&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Screening Data</a>&nbsp;&nbsp; <br><br>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                <?php } ?>
-                                                            <?php } ?>
-
-                                                            <?php if ($visit['visit_status'] == 1) { ?>
                                                                 <?php if ($visit['sequence'] == 1) { ?>
-                                                                    <?php if ($screening['eligible'] == 1) { ?>
-                                                                        <?php if ($override->getNews('enrollment', 'patient_id', $_GET['cid'], 'sequence', 1)) { ?>
-                                                                            <a href="#editEnrollment<?= $visit['id'] ?>" role="button" class="btn btn-info" data-toggle="modal">Update Enrollment Data </a>&nbsp;&nbsp; <br><br>
+                                                                    <?php if ($clients['age'] >= 0) { ?>
+                                                                        <?php if ($override->getNews('clients', 'id', $_GET['cid'], 'sequence', 1)) { ?>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Enrollment Data </a>&nbsp;&nbsp; <br><br>
+
                                                                         <?php } else { ?>
-                                                                            <a href="#editEnrollment<?= $visit['id'] ?>" role="button" class="btn btn-warning" data-toggle="modal">Add Enrollment Data </a>&nbsp;&nbsp; <br><br>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Enrollment Data</a>&nbsp;&nbsp; <br><br>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } ?>
                                                             <?php } ?>
 
                                                             <?php if ($visit['visit_status'] == 1) { ?>
-                                                                <?php if ($visit['sequence'] >= 1) { ?>
-                                                                    <?php if ($screening['eligible'] == 1) {
+                                                                <?php if ($visit['sequence'] > 1) { ?>
+                                                                    <?php if ($clients['eligible'] == 1) {
                                                                         $i = 1; ?>
                                                                         <?php if ($override->getNews('comorbidtb_tool', 'patient_id', $_GET['cid'], 'sequence', $i)) { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Swahili Quantitative tool_TB Comorbidity Data</a>&nbsp;&nbsp; <br><br>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Follow-Up Data</a>&nbsp;&nbsp; <br><br>
 
                                                                         <?php } else { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Swahili Quantitative tool_TB Comorbidity Data </a>&nbsp;&nbsp; <br><br>
+                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Follow-Up Data </a>&nbsp;&nbsp; <br><br>
 
                                                                         <?php } ?>
                                                                     <?php } ?>

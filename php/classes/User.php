@@ -250,13 +250,14 @@ class User
     function visit_updates($sequence, $study_id, $screening_date, $comments, $patient_id, $staff_id, $site_id, $eligible)
     {
         $sequence++;
-        $visit_id = $this->_override->get3('visit',  'status', 1, 'patient_id', $patient_id, 'sequence', $sequence);
+        $visit_id = $this->_override->getNews('visit',  'status', 1, 'patient_id', $patient_id);
         if ($eligible == 1) {
             if ($visit_id) {
-                if ($visit_id[0]['visit_date'] == $screening_date) {
+                if (($visit_id[0]['sequence'] == $sequence) && ($visit_id[0]['visit_date'] == $screening_date)) {
                     foreach ($visit_id as $value) {
                         $this->updateRecord('visit', array(
-                            'visit_status' => 1,
+                            'visit_date' => $visit_id[0]['visit_date'],
+                            'visit_status' => $visit_id[0]['visit_status'],
                             'comments' => $comments,
                             'update_id' => $staff_id,
                             'site_id' => $site_id,
@@ -274,8 +275,8 @@ class User
                             'study_id' => $study_id,
                             'pid' => $study_id,
                             'expected_date' => $screening_date,
-                            'visit_date' => $screening_date,
-                            'visit_status' => 1,
+                            'visit_date' => '',
+                            'visit_status' => 0,
                             'comments' => $comments,
                             'status' => 1,
                             'patient_id' => $patient_id,
@@ -298,8 +299,8 @@ class User
                         'study_id' => $study_id,
                         'pid' => $study_id,
                         'expected_date' => $screening_date,
-                        'visit_date' => $screening_date,
-                        'visit_status' => 1,
+                        'visit_date' => '',
+                        'visit_status' => 0,
                         'comments' => $comments,
                         'status' => 1,
                         'patient_id' => $patient_id,
