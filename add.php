@@ -596,11 +596,11 @@ if ($user->isLoggedIn()) {
             ));
             if ($validate->passed()) {
                 $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid'])[0];
-                $individual = $override->get3('comorbidtb_tool', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
+                $individual = $override->get3('comorbidtb_follow_up', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
 
                 if ($individual) {
 
-                    $user->updateRecord('comorbidtb_tool', array(
+                    $user->updateRecord('comorbidtb_follow_up', array(
                         'vid' => $_GET['vid'],
                         'sequence' => $_GET['sequence'],
                         'visit_code' => $_GET['visit_code'],
@@ -625,7 +625,7 @@ if ($user->isLoggedIn()) {
 
                     $successMessage = 'Follow Up Data Successful Updated';
                 } else {
-                    $user->createRecord('comorbidtb_tool', array(
+                    $user->createRecord('comorbidtb_follow_up', array(
                         'vid' => $_GET['vid'],
                         'sequence' => $_GET['sequence'],
                         'visit_code' => $_GET['visit_code'],
@@ -1804,9 +1804,9 @@ if ($user->isLoggedIn()) {
                                             Go to screening list > </a>
                                     </li>&nbsp;&nbsp;
                                     <?php if (!$individual) { ?>
-                                        <li class="breadcrumb-item active">Add New Quantitative Tool</li>
+                                        <li class="breadcrumb-item active">Add New Follow Up Data</li>
                                     <?php } else { ?>
-                                        <li class="breadcrumb-item active">Update Quantitative Tool</li>
+                                        <li class="breadcrumb-item active">Update Follow Up Data</li>
                                     <?php } ?>
                                 </ol>
                             </div>
@@ -1823,7 +1823,7 @@ if ($user->isLoggedIn()) {
                                 <!-- general form elements disabled -->
                                 <div class="card card-warning">
                                     <div class="card-header">
-                                        <h3 class="card-title">Taarifa za mshiriki</h3>
+                                        <h3 class="card-title">Follow-Up And Treatment Outcome (At Month 6)</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <form id="validation" enctype="multipart/form-data" method="post" autocomplete="off">
@@ -1897,7 +1897,7 @@ if ($user->isLoggedIn()) {
 
                                             <div class="card card-warning">
                                                 <div class="card-header">
-                                                    <h3 class="card-title">Sasa nitakuuliza maswali yanayohusiana na tabia/mazoea mbalimbali yanayohusu afya. Tuanze na sigara/tumbaku.</h3>
+                                                    <h3 class="card-title">Follow-Up And Treatment Outcome (At Month 6).</h3>
                                                 </div>
                                             </div>
 
@@ -3077,7 +3077,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                     
+
                                                 <div class="col-sm-3" id="tb_complete">
                                                     <label>Complete?</label>
                                                     <!-- radio -->
@@ -3124,7 +3124,7 @@ if ($user->isLoggedIn()) {
             <!-- /.content-wrapper -->
         <?php } elseif ($_GET['id'] == 6) { ?>
             <?php
-            $individual = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence'])[0];
+            $individual = $override->get3('comorbidtb_follow_up', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence'])[0];
             ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -3134,9 +3134,9 @@ if ($user->isLoggedIn()) {
                         <div class="row mb-2">
                             <div class="col-sm-6">
                                 <?php if (!$individual) { ?>
-                                    <h1>Add New Swahili Quantitative tool TB Comorbidity</h1>
+                                    <h1>Add Follow Up Data</h1>
                                 <?php } else { ?>
-                                    <h1>Update Swahili Quantitative tool TB Comorbidity</h1>
+                                    <h1>Update Follow Up Data</h1>
                                 <?php } ?>
                             </div>
                             <div class="col-sm-6">
@@ -3175,19 +3175,6 @@ if ($user->isLoggedIn()) {
                                         <div class="card-body">
                                             <hr>
 
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="mb-2">
-                                                        <label for="tarehe_mahojiano" class="form-label">Tarehe ya Mahojiano:</label>
-                                                        <input type="date" value="<?php if ($individual['tarehe_mahojiano']) {
-                                                                                        print_r($individual['tarehe_mahojiano']);
-                                                                                    } ?>" id="tarehe_mahojiano" name="tarehe_mahojiano" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
                                             <div class="card card-warning">
                                                 <div class="card-header">
                                                     <h3 class="card-title">Follow-Up And Treatment Outcome (At Month 6)</h3>
@@ -3198,8 +3185,16 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
+                                                <div class="col-3">
+                                                    <div class="mb-2">
+                                                        <label for="tarehe_mahojiano" class="form-label">Tarehe ya Mahojiano:</label>
+                                                        <input type="date" value="<?php if ($individual['tarehe_mahojiano']) {
+                                                                                        print_r($individual['tarehe_mahojiano']);
+                                                                                    } ?>" id="tarehe_mahojiano" name="tarehe_mahojiano" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
+                                                    </div>
+                                                </div>
 
-                                                <div class="col-sm-3" id="qn64">
+                                                <div class="col-sm-6" id="qn64">
                                                     <label for="qn64" class="form-label">64. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -3217,7 +3212,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-2" id="qn6">
+                                                <div class="col-sm-3" id="qn65">
                                                     <label for="qn65" class="form-label">65. If Ndiyo Qn 63, Majibu ya Smear</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -3235,7 +3230,14 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="qn66">
+                                            </div>
+
+
+                                            <hr>
+
+                                            <div class="row">
+
+                                                <div class="col-sm-6" id="qn66">
                                                     <label for="qn66" class="form-label">66. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa tano yamefanyika </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -3254,7 +3256,7 @@ if ($user->isLoggedIn()) {
                                                 </div>
 
 
-                                                <div class="col-sm-2" id="qn68">
+                                                <div class="col-sm-3" id="qn68">
                                                     <label for="qn68" class="form-label">68. Kama Ndiyo Qn 67, Majibu </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -3272,7 +3274,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-2" id="qn69_1">
+                                                <div class="col-3" id="qn69_1">
                                                     <div class="mb-2">
                                                         <label for="qn69" class="form-label">69. Tarehe ya mwisho ya mshiriki:</label>
                                                         <input type="date" value="<?php if ($individual['qn69']) {
