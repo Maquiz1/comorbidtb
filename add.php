@@ -303,53 +303,7 @@ if ($user->isLoggedIn()) {
                                 'site_id' => $clients[0]['site_id'],
                             ), $_GET['cid']);
 
-                            $visit = $override->get3('visit', 'status', 1, 'patient_id', $clients[0]['id'], 'sequence', -2);
-
-                            if ($visit) {
-                                $user->updateRecord('visit', array(
-                                    'sequence' => 0,
-                                    'visit_code' => 'SV',
-                                    'visit_name' => 'Screening Visit',
-                                    'respondent' => 4,
-                                    'study_id' => $clients[0]['study_id'],
-                                    'pid' => $clients[0]['study_id'],
-                                    'expected_date' => Input::get('screening_date'),
-                                    'visit_date' => Input::get('screening_date'),
-                                    'visit_status' => 1,
-                                    'comments' => Input::get('comments'),
-                                    'status' => 1,
-                                    'facility_id' => $clients[0]['site_id'],
-                                    'table_id' => $clients[0]['id'],
-                                    'patient_id' => $clients[0]['id'],
-                                    'create_on' => date('Y-m-d H:i:s'),
-                                    'staff_id' => $user->data()->id,
-                                    'update_on' => date('Y-m-d H:i:s'),
-                                    'update_id' => $user->data()->id,
-                                    'site_id' => $clients[0]['site_id'],
-                                ), $visit[0]['id']);
-                            } else {
-                                $user->createRecord('visit', array(
-                                    'sequence' => 0,
-                                    'visit_code' => 'SV',
-                                    'visit_name' => 'Screening Visit',
-                                    'respondent' => 4,
-                                    'study_id' => $clients[0]['study_id'],
-                                    'pid' => $clients[0]['study_id'],
-                                    'expected_date' => Input::get('screening_date'),
-                                    'visit_date' => Input::get('screening_date'),
-                                    'visit_status' => 1,
-                                    'comments' => Input::get('comments'),
-                                    'status' => 1,
-                                    'facility_id' => $clients[0]['site_id'],
-                                    'table_id' => $clients[0]['id'],
-                                    'patient_id' => $clients[0]['id'],
-                                    'create_on' => date('Y-m-d H:i:s'),
-                                    'staff_id' => $user->data()->id,
-                                    'update_on' => date('Y-m-d H:i:s'),
-                                    'update_id' => $user->data()->id,
-                                    'site_id' => $clients[0]['site_id'],
-                                ));
-                            }
+                            $user->visit_updates(0, $clients[0]['study_id'], Input::get('screening_date'), Input::get('comments'), $clients[0]['id'], $user->data()->id, $clients[0]['site_id'], $eligible);
 
                             $successMessage = 'Client Updated Successful';
                         } else {
@@ -427,27 +381,8 @@ if ($user->isLoggedIn()) {
                                 'client_id' => $last_row['id'],
                             ), $std_id['id']);
 
-                            $user->createRecord('visit', array(
-                                'sequence' => 0,
-                                'visit_code' => 'SV',
-                                'visit_name' => 'Screening Visit',
-                                'respondent' => 4,
-                                'study_id' => $std_id['study_id'],
-                                'pid' => $std_id['study_id'],
-                                'expected_date' => Input::get('screening_date'),
-                                'visit_date' => Input::get('screening_date'),
-                                'visit_status' => 1,
-                                'comments' => Input::get('comments'),
-                                'status' => 1,
-                                'facility_id' => $_GET['site_id'],
-                                'table_id' => $last_row['id'],
-                                'patient_id' => $last_row['id'],
-                                'create_on' => date('Y-m-d H:i:s'),
-                                'staff_id' => $user->data()->id,
-                                'update_on' => date('Y-m-d H:i:s'),
-                                'update_id' => $user->data()->id,
-                                'site_id' => $_GET['site_id'],
-                            ));
+                            $user->visit_updates(0, $std_id['study_id'], Input::get('screening_date'), Input::get('comments'), $last_row['id'], $user->data()->id, $_GET['site_id'], $eligible);
+
 
                             $successMessage = 'Client  Added Successful';
                         }

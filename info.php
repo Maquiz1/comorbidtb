@@ -1048,20 +1048,14 @@ if ($user->isLoggedIn()) {
                                                             </td>
                                                         <?php } ?>
                                                         <td class="text-center">
-                                                            <?php if ($_GET['status'] == 7) { ?>
-                                                                <a href="add.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>" class="btn btn-info"> <i class="ri-edit-box-line"></i>Update Information</a>&nbsp;&nbsp;<br>
-                                                            <?php } ?>
+                                                            <a href="add.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>" class="btn btn-info"> <i class="ri-edit-box-line"></i>Update Information</a>&nbsp;&nbsp;<br>
                                                             <br>
-                                                            <?php if ($value['respondent'] == 4) { ?>
-                                                                <?php if ($value['age'] >= 0) { ?>
-                                                                    <?php if ($comorbidtb_tool) { ?>
-                                                                        <a href="add.php?id=5&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
-                                                                        <hr>
-                                                                        <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Month 6</a>&nbsp;&nbsp;<br>
-
-                                                                    <?php   } else { ?>
-                                                                        <a href="add.php?id=5&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
-                                                                    <?php   } ?>
+                                                            <?php if ($value['age'] >= 0) { ?>
+                                                                <?php if ($comorbidtb_tool) { ?>
+                                                                    <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
+                                                                    <hr>
+                                                                <?php   } else { ?>
+                                                                    <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
                                                                 <?php   } ?>
                                                             <?php   } ?>
                                                             <br>
@@ -1262,7 +1256,7 @@ if ($user->isLoggedIn()) {
                                                                         <?php } else { ?>
                                                                             <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Swahili Quantitative tool_TB Comorbidity Data </a>&nbsp;&nbsp; <br><br>
 
-                                                                        <?php } ?>                                                                      
+                                                                        <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } ?>
                                                             <?php } ?>
