@@ -1004,8 +1004,8 @@ if ($user->isLoggedIn()) {
                                                 foreach ($clients as $value) {
                                                     $yes_no = $override->get('yes_no', 'status', 1)[0];
                                                     $visit = $override->get3('visit', 'status', 1, 'patient_id', $value['id'], 'sequence', $value['sequence'])[0];
-                                                    $comorbidtb_tool = $override->get3('comorbidtb_tool', 'status', 1, 'patient_id', $value['id'], 'sequence', $value['sequence']);
-                                                    // $outcome2 = $override->get3('outcome', 'status', 1, 'patient_id', $value['id'], 'sequence', 2);
+                                                    $comorbidtb_baseline = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $value['id'], 'sequence', 1);
+                                                    $comorbidtb_follow_up = $override->get3('comorbidtb_follow_up', 'status', 1, 'patient_id', $value['id'], 'sequence', 2);
 
                                                     $sites = $override->getNews('sites', 'status', 1, 'id', $value['site_id'])[0];
                                                 ?>
@@ -1039,22 +1039,22 @@ if ($user->isLoggedIn()) {
                                                             <td class="text-center">
                                                                 <a href="#" class="btn btn-success">
                                                                     <i class="ri-edit-box-line">
-                                                                    </i><?php if ($value['age'] >= 1) {  ?> Eligible For Screening <?php } ?>
+                                                                    </i><?php if ($value['age'] >= 1) {  ?> Eligible For Enrellment <?php } ?>
                                                                 </a>
                                                             </td>
                                                         <?php  } else { ?>
                                                             <td class="text-center">
-                                                                <a href="#" class="btn btn-danger"> <i class="ri-edit-box-line"></i>Not Eligible For Screening</a>
+                                                                <a href="#" class="btn btn-danger"> <i class="ri-edit-box-line"></i>Not Eligible For Enrellment</a>
                                                             </td>
                                                         <?php } ?>
                                                         <td class="text-center">
                                                             <a href="add.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>" class="btn btn-info"> <i class="ri-edit-box-line"></i>Update Information</a>&nbsp;&nbsp;<br>
                                                             <br>
                                                             <?php if ($value['age'] >= 0) { ?>
-                                                                <?php if ($comorbidtb_tool) { ?>
-                                                                    <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
+                                                                <?php if ($comorbidtb_baseline && $comorbidtb_follow_up) { ?>
+                                                                    <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
                                                                 <?php   } else { ?>
-                                                                    <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&sequence=<?= $value['sequence'] ?>&visit_code=<?= $value['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
+                                                                    <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-warning"> <i class="ri-edit-box-line"></i>Add Study CRF's</a>&nbsp;&nbsp;<br>
                                                                 <?php   } ?>
                                                             <?php   } ?>
                                                             <br>
@@ -1190,8 +1190,6 @@ if ($user->isLoggedIn()) {
                                                 $i = 1;
                                                 foreach ($override->getNews('visit', 'status', 1, 'patient_id', $_GET['cid']) as $visit) {
                                                     $clients = $override->getNews('clients', 'status', 1, 'id',  $_GET['cid'])[0];
-                                                    $screening = $override->getNews('screening', 'status', 1, 'patient_id', $_GET['cid'])[0];
-                                                    $enrollment = $override->get3('enrollment', 'status', 1, 'patient_id', Input::get('id'), 'sequence', 0);
                                                     $site = $override->get('sites', 'id', $visit['site_id'])[0];
                                                 ?>
                                                     <tr>
@@ -1223,28 +1221,21 @@ if ($user->isLoggedIn()) {
                                                         <td>
                                                             <?php if ($visit['visit_status'] == 1) { ?>
                                                                 <?php if ($visit['sequence'] == 1) { ?>
-                                                                    <?php if ($clients['age'] >= 0) { ?>
-                                                                        <?php if ($override->getNews('clients', 'id', $_GET['cid'], 'sequence', 0)) { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Baseline Data </a>&nbsp;&nbsp; <br><br>
+                                                                    <?php if ($override->getNews('comorbidtb_baseline', 'patient_id', $_GET['cid'], 'sequence', $i)) { ?>
+                                                                        <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Baseline Data </a>&nbsp;&nbsp; <br><br>
 
-                                                                        <?php } else { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=0&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Baseline Data</a>&nbsp;&nbsp; <br><br>
-                                                                        <?php } ?>
+                                                                    <?php } else { ?>
+                                                                        <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Baseline Data</a>&nbsp;&nbsp; <br><br>
                                                                     <?php } ?>
                                                                 <?php } ?>
-                                                            <?php } ?>
 
-                                                            <?php if ($visit['visit_status'] == 1) { ?>
                                                                 <?php if ($visit['sequence'] > 1) { ?>
-                                                                    <?php if ($clients['eligible'] == 1) {
-                                                                    ?>
-                                                                        <?php if ($override->getNews('comorbidtb_tool', 'patient_id', $_GET['cid'], 'sequence', $i)) { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Follow-Up Data</a>&nbsp;&nbsp; <br><br>
+                                                                    <?php if ($override->getNews('comorbidtb_follow_up', 'patient_id', $_GET['cid'], 'sequence', $i)) { ?>
+                                                                        <a href="add.php?id=6&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-info"> Update Follow-Up Data</a>&nbsp;&nbsp; <br><br>
 
-                                                                        <?php } else { ?>
-                                                                            <a href="add.php?id=5&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Follow-Up Data </a>&nbsp;&nbsp; <br><br>
+                                                                    <?php } else { ?>
+                                                                        <a href="add.php?id=6&cid=<?= $_GET['cid'] ?>&sequence=<?= $visit['sequence'] ?>&visit_code=<?= $visit['visit_code'] ?>&vid=<?= $visit['id'] ?>&study_id=<?= $visit['study_id'] ?>&status=<?= $_GET['status'] ?>" role=" button" class="btn btn-warning"> Add Follow-Up Data </a>&nbsp;&nbsp; <br><br>
 
-                                                                        <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } ?>
                                                             <?php } ?>

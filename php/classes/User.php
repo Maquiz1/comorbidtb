@@ -249,13 +249,13 @@ class User
 
     function visit_updates($sequence, $study_id, $screening_date, $comments, $patient_id, $staff_id, $site_id, $eligible)
     {
-        $sequence++;
         $visit_id = $this->_override->getNews('visit',  'status', 1, 'patient_id', $patient_id);
         if ($eligible == 1) {
             if ($visit_id) {
                 if (($visit_id[0]['sequence'] == $sequence) && ($visit_id[0]['visit_date'] == $screening_date)) {
                     foreach ($visit_id as $value) {
                         $this->updateRecord('visit', array(
+                            'sequence' => $sequence,
                             'visit_date' => $visit_id[0]['visit_date'],
                             'visit_status' => $visit_id[0]['visit_status'],
                             'comments' => $comments,
