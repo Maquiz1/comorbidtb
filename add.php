@@ -3214,7 +3214,7 @@ if ($user->isLoggedIn()) {
                                                 </div>
 
                                                 <div class="col-sm-3" id="qn67">
-                                                    <label for="qn67" class="form-label">67. If Ndiyo Qn 63, Majibu ya Smear</label>
+                                                    <label for="qn67" class="form-label">67. If Ndiyo Qn 66, Majibu ya Smear</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
@@ -3258,7 +3258,7 @@ if ($user->isLoggedIn()) {
 
 
                                                 <div class="col-sm-3" id="qn69">
-                                                    <label for="qn69" class="form-label">68. Kama Ndiyo Qn 67, Majibu </label>
+                                                    <label for="qn69" class="form-label">69. Kama Ndiyo Qn 68, Majibu </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">

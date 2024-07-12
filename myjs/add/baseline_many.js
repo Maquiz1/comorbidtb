@@ -4,7 +4,7 @@ function checkRadioButtonsMany() {
       1: ["tb_outcome_date_cured", "tb_outcome_date"],
       2: ["tb_outcome_date_completed", "tb_outcome_date"],
       3: ["tb_outcome_date_death", "tb_outcome_date"],
-      4: ["tb_outcome_date_last_seen", "tb_outcome_date"],
+      5: ["tb_outcome_date_last_seen", "tb_outcome_date"],
     },
     // phenotypic_method: {
     //   1: ["apm_date_1", "apm_date"],
