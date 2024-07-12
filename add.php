@@ -3191,7 +3191,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6" id="qn66">
+                                                <div class="col-sm-6">
                                                     <label for="qn66" class="form-label">66. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">

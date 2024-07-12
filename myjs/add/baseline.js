@@ -1,7 +1,7 @@
 function RadiosBaseline() {
   const elementsToHideBaseline = {
+    // tb_kugundulika: ["tb_tarehe1", "tb_tarehe"],
     // tb_dawa: ["tb_dawa_tarehe1", "tb_dawa_tarehe"],
-    // qn08: ["qn09", "qn10"],
     qn08: ["qn09"],
     qn10: ["qn10_miaka_1"],
     qn12: ["qn13"],

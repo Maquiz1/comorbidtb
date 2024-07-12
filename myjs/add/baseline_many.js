@@ -6,14 +6,17 @@ function checkRadioButtonsMany() {
       3: ["tb_outcome_date_death", "tb_outcome_date"],
       5: ["tb_outcome_date_last_seen", "tb_outcome_date"],
     },
-    // phenotypic_method: {
-    //   1: ["apm_date_1", "apm_date"],
-    //   2: ["mgit_date2_1", "mgit_date2"],
-    // },
-    // question2: {
-    //     '1': ['element4'],
-    //     '2': ['element5']
-    // },
+
+    tb_dawa: {
+      1: ["tb_dawa_tarehe1", "tb_dawa_tarehe"],
+      2: ["mgit_date2_1", "mgit_date2"],
+    },
+    qn66: {
+      1: ["qn67"],
+    },
+    qn68: {
+      1: ["qn69"],
+    },
     // question3: {
     //     '1': [],
     //     '0': []
