@@ -33,7 +33,6 @@ include_once "php/phpMailer/SMTP.php";
 include_once "php/phpMailer/POP3.php";
 include_once "php/phpMailer/OAuth.php";
 
-
 if (Cookie::exists(config::get('remember/cookie_name')) && !Session::exists(config::get('session/session_name'))) {
     $hash = Cookie::get(config::get('remember/cookie_name'));
     $hashCheck = DB::getInstance()->get('user_session', array('hash', '=', $hash));
