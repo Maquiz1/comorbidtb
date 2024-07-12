@@ -3218,7 +3218,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('tb_results', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn67" id="qn67<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn67'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -3262,7 +3262,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('tb_results', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn69" id="qn69<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn69'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
