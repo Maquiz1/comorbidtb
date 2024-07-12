@@ -400,7 +400,8 @@ if ($user->isLoggedIn()) {
                         'qn34' => Input::get('qn34'),
                         'qn35' => Input::get('qn35'),
                         'qn36' => Input::get('qn36'),
-                        'qn37' => Input::get('qn37'),
+                        'qn37_saa' => Input::get('qn37_saa'),
+                        'qn37_dakika' => Input::get('qn37_dakika'),
                         'qn38' => Input::get('qn38'),
                         'qn39' => Input::get('qn39'),
                         'qn40' => Input::get('qn40'),
@@ -487,7 +488,8 @@ if ($user->isLoggedIn()) {
                         'qn34' => Input::get('qn34'),
                         'qn35' => Input::get('qn35'),
                         'qn36' => Input::get('qn36'),
-                        'qn37' => Input::get('qn37'),
+                        'qn37_saa' => Input::get('qn37_saa'),
+                        'qn37_dakika' => Input::get('qn37_dakika'),
                         'qn38' => Input::get('qn38'),
                         'qn39' => Input::get('qn39'),
                         'qn40' => Input::get('qn40'),
@@ -2319,7 +2321,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('kuongeza_chumvi', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn29" id="qn29<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn29'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2338,7 +2340,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('kuongeza_chumvi', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn30" id="qn30<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn30'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2356,7 +2358,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('chumvi_matumizi', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn31" id="qn31<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn31'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2373,7 +2375,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('chumvi_umuhimu', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn32" id="qn32<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn32'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2390,7 +2392,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('yes_no_don', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn33" id="qn33<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn33'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2419,12 +2421,12 @@ if ($user->isLoggedIn()) {
 
                                             <hr>
                                             <div class="row">
-                                                <div class="col-4" id="qn34">
+                                                <div class="col-6" id="qn34">
                                                     <label for="qn34" class="form-label">34. Je, kazi yako inahusisha shughuli za kutumia nguvu ambazo zinaongeza kasi ya kupumua na mapigo ya moyo kama vile kubeba mizigo mizito, kumwaga zege, kupiga kokoto, kuchota maji, kusomba mazao, kilimo au kazi za ujenzi kwa angalau dakika 10 mfululizo?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('yes_no_don', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn34" id="qn34<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn34'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2442,7 +2444,7 @@ if ($user->isLoggedIn()) {
                                                         <label for="qn39" class="form-label">35. Katika wiki ya kawaida, ni kwa siku ngapi unafanya shughuli hizo za kutumia nguvu kiasi katika kazi yako?</label>
                                                         <input type="number" value="<?php if ($individual['qn35']) {
                                                                                         print_r($individual['qn35']);
-                                                                                    } ?>" id="qn35" name="qn35" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                                                    } ?>" id="qn35" name="qn35" min="0" max="100" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
 
@@ -2451,7 +2453,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('yes_no_don', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn36" id="qn36<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn36'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2463,13 +2465,29 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <div class="col-2" id="qn37_1">
+
+                                            <hr>
+                                            <label for="qn37" class="form-label">37. Unatumia muda gani kutembea kwa miguu au kwa kutumia baiskeli katika siku ya kawaida?</label>
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col-6">
                                                     <div class="mb-2">
-                                                        <label for="qn37" class="form-label">37. Unatumia muda gani kutembea kwa miguu au kwa kutumia baiskeli katika siku ya kawaida?</label>
-                                                        <input type="number" value="<?php if ($individual['qn37']) {
-                                                                                        print_r($individual['qn37']);
-                                                                                    } ?>" id="qn37" name="qn37" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                        <label for="qn37_saa" class="form-label">Ingiza masaa (Kama chini ya lisaa andika '0')</label>
+                                                        <input type="number" value="<?php if ($individual['qn37_saa']) {
+                                                                                        print_r($individual['qn37_saa']);
+                                                                                    } ?>" id="qn37_saa" name="qn37_saa" min="0" max="24" class="form-control" placeholder="Enter here" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <div class="mb-2">
+                                                        <label for="qn37_saa" class="form-label">Ingiza dakika (Kama masaa Bila dakaika andika '0')</label>
+                                                        <input type="number" value="<?php if ($individual['qn37_dakika']) {
+                                                                                        print_r($individual['qn37_dakika']);
+                                                                                    } ?>" id="qn37_dakika" name="qn37_dakika" min="0" max="60" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -2491,7 +2509,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('yes_no_don', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn39" id="qn39<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn39'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
