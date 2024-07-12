@@ -6,6 +6,10 @@ function RadiosBaseline() {
     qn10: ["qn10_miaka_1"],
     qn12: ["qn13"],
     qn13: ["qn14"],
+    qn25: ["qn25_idadi"],
+    qn26: ["qn26_idadi"],
+    qn27: ["qn27_idadi"],
+    qn28: ["qn28_idadi"],
   };
 
   const elementsToHideBaselineOther = {
@@ -14,6 +18,10 @@ function RadiosBaseline() {
 
   const elementsToHideBaselineHapana = {
     qn18: ["qn19"],
+  };
+
+  const elementsToHideBaseline1_2 = {
+    qn25: ["qn26"],
   };
 
   Object.keys(elementsToHideBaseline).forEach((question) => {
@@ -28,9 +36,11 @@ function RadiosBaseline() {
       radio.addEventListener("change", () => {
         elementsToHideBaseline[question].forEach((elementId) => {
           if (radio.value === "1" && radio.checked) {
-            document.getElementById(elementId).classList.remove("hidden");
+              document.getElementById(elementId).classList.remove("hidden");
+            //   qn10_miaka.setAttribute("required", "required");
           } else {
-            document.getElementById(elementId).classList.add("hidden");
+              document.getElementById(elementId).classList.add("hidden");
+            //   qn10_miaka.removeAttribute("required");
           }
         });
       });
@@ -98,6 +108,36 @@ function RadiosBaseline() {
 
     elementsToHideBaselineOther[question].forEach((elementId) => {
       if (value === "96") {
+        document.getElementById(elementId).classList.remove("hidden");
+      } else {
+        document.getElementById(elementId).classList.add("hidden");
+      }
+    });
+  });
+
+  // SHOW IF 1 Or 2
+  Object.keys(elementsToHideBaseline1_2).forEach((question) => {
+    const radios = document.getElementsByName(question);
+    let value = "";
+
+    radios.forEach((radio) => {
+      if (radio.checked) {
+        value = radio.value;
+      }
+
+      radio.addEventListener("change", () => {
+        elementsToHideBaseline1_2[question].forEach((elementId) => {
+          if ((radio.value === "1" || radio.value === "2") && radio.checked) {
+            document.getElementById(elementId).classList.remove("hidden");
+          } else {
+            document.getElementById(elementId).classList.add("hidden");
+          }
+        });
+      });
+    });
+
+    elementsToHideBaseline1_2[question].forEach((elementId) => {
+      if (value === "1" || value === "2") {
         document.getElementById(elementId).classList.remove("hidden");
       } else {
         document.getElementById(elementId).classList.add("hidden");

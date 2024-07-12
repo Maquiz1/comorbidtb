@@ -385,9 +385,13 @@ if ($user->isLoggedIn()) {
                         'qn23' => Input::get('qn23'),
                         'qn24' => Input::get('qn24'),
                         'qn25' => Input::get('qn25'),
+                        'qn25_idadi' => Input::get('qn25_idadi'),
                         'qn26' => Input::get('qn26'),
+                        'qn26_idadi' => Input::get('qn26_idadi'),
                         'qn27' => Input::get('qn27'),
+                        'qn27_idadi' => Input::get('qn27_idadi'),
                         'qn28' => Input::get('qn28'),
+                        'qn28_idadi' => Input::get('qn28_idadi'),
                         'qn29' => Input::get('qn29'),
                         'qn30' => Input::get('qn30'),
                         'qn31' => Input::get('qn31'),
@@ -468,9 +472,13 @@ if ($user->isLoggedIn()) {
                         'qn23' => Input::get('qn23'),
                         'qn24' => Input::get('qn24'),
                         'qn25' => Input::get('qn25'),
+                        'qn25_idadi' => Input::get('qn25_idadi'),
                         'qn26' => Input::get('qn26'),
+                        'qn26_idadi' => Input::get('qn26_idadi'),
                         'qn27' => Input::get('qn27'),
+                        'qn27_idadi' => Input::get('qn27_idadi'),
                         'qn28' => Input::get('qn28'),
+                        'qn28_idadi' => Input::get('qn28_idadi'),
                         'qn29' => Input::get('qn29'),
                         'qn30' => Input::get('qn30'),
                         'qn31' => Input::get('qn31'),
@@ -2208,7 +2216,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('kula_matunda', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn25" id="qn25<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn25'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2216,6 +2224,9 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
+                                                            <input type="number" value="<?php if ($individual['qn25_idadi']) {
+                                                                                            print_r($individual['qn25_idadi']);
+                                                                                        } ?>" id="qn25_idadi" name="qn25_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
@@ -2226,7 +2237,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('matunda_kiasi', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn26" id="qn26<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn26'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2234,6 +2245,9 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
+                                                            <input type="number" value="<?php if ($individual['qn26_idadi']) {
+                                                                                            print_r($individual['qn26_idadi']);
+                                                                                        } ?>" id="qn26_idadi" name="qn26_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
@@ -2244,7 +2258,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('kula_matunda2', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn27" id="qn27<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn27'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2252,17 +2266,20 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
+                                                            <input type="number" value="<?php if ($individual['qn27_idadi']) {
+                                                                                            print_r($individual['qn27_idadi']);
+                                                                                        } ?>" id="qn27_idadi" name="qn27_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-3" id="qn28">
-                                                    <label for="qn28" class="form-label">32. Unakula kiasi gani cha mboga za majani katika moja ya siku hizo? </label>
+                                                    <label for="qn28" class="form-label">28. Unakula kiasi gani cha mboga za majani katika moja ya siku hizo? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('matunda_kiasi', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn28" id="qn28<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn28'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2270,6 +2287,9 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
+                                                            <input type="number" value="<?php if ($individual['qn28_idadi']) {
+                                                                                            print_r($individual['qn28_idadi']);
+                                                                                        } ?>" id="qn28_idadi" name="qn28_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
