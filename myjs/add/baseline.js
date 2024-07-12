@@ -10,6 +10,7 @@ function RadiosBaseline() {
     qn26: ["qn26_idadi"],
     qn27: ["qn27_idadi"],
     qn28: ["qn28_idadi"],
+    qn64: ["qn65"],
   };
 
   const elementsToHideBaselineOther = {
