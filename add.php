@@ -4577,7 +4577,7 @@ if ($user->isLoggedIn()) {
 
     <!-- BASELINE -->
     <script src="myjs/add/baseline.js"></script>
-    <script src="myjs/add/baseline_other.js"></script>
+    <script src="myjs/add/baseline_many.js"></script>
     <script src="myjs/add/baseline/qn10.js"></script>
     <script src="myjs/add/baseline"></script>
     <script src="myjs/add/baseline"></script>
