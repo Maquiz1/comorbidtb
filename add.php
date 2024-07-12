@@ -2140,7 +2140,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('pombe', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn22" id="qn22<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn22'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2158,7 +2158,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('pombe', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn23" id="qn23<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn23'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2176,7 +2176,7 @@ if ($user->isLoggedIn()) {
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('pombe', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn24" id="qn24<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn24'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';

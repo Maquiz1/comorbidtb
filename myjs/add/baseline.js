@@ -11,7 +11,10 @@ function RadiosBaseline() {
   const elementsToHideBaselineOther = {
     qn14: ["qn14_other", "qn14_other1"],
   };
-    
+
+  const elementsToHideBaselineHapana = {
+    qn18: ["qn19"],
+  };
 
   Object.keys(elementsToHideBaseline).forEach((question) => {
     const radios = document.getElementsByName(question);
@@ -42,7 +45,37 @@ function RadiosBaseline() {
     });
   });
 
-    // HIDE IF OTHER
+  // HIDES HAPANA
+  Object.keys(elementsToHideBaselineHapana).forEach((question) => {
+    const radios = document.getElementsByName(question);
+    let value = "";
+
+    radios.forEach((radio) => {
+      if (radio.checked) {
+        value = radio.value;
+      }
+
+      radio.addEventListener("change", () => {
+        elementsToHideBaselineHapana[question].forEach((elementId) => {
+          if (radio.value === "2" && radio.checked) {
+            document.getElementById(elementId).classList.remove("hidden");
+          } else {
+            document.getElementById(elementId).classList.add("hidden");
+          }
+        });
+      });
+    });
+
+    elementsToHideBaselineHapana[question].forEach((elementId) => {
+      if (value === "2") {
+        document.getElementById(elementId).classList.remove("hidden");
+      } else {
+        document.getElementById(elementId).classList.add("hidden");
+      }
+    });
+  });
+
+  // HIDE IF OTHER
   Object.keys(elementsToHideBaselineOther).forEach((question) => {
     const radios = document.getElementsByName(question);
     let value = "";
