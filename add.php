@@ -3195,51 +3195,8 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6" id="qn64">
-                                                    <label for="qn64" class="form-label">64. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn64" id="qn64<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn64'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3" id="qn65">
-                                                    <label for="qn65" class="form-label">65. If Ndiyo Qn 63, Majibu ya Smear</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn65" id="qn65<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn65'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                            <hr>
-
-                                            <div class="row">
-
                                                 <div class="col-sm-6" id="qn66">
-                                                    <label for="qn66" class="form-label">66. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa tano yamefanyika </label>
+                                                    <label for="qn66" class="form-label">66. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa Pili yamefanyika?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
@@ -3256,9 +3213,33 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
+                                                <div class="col-sm-3" id="qn67">
+                                                    <label for="qn67" class="form-label">67. If Ndiyo Qn 63, Majibu ya Smear</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="qn67" id="qn67<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn67'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
 
-                                                <div class="col-sm-3" id="qn68">
-                                                    <label for="qn68" class="form-label">68. Kama Ndiyo Qn 67, Majibu </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <hr>
+
+                                            <div class="row">
+
+                                                <div class="col-sm-6" id="qn68">
+                                                    <label for="qn68" class="form-label">68. Je, uchunguzi wa smear wa makohozi Mwishoni wa Mwezi wa tano yamefanyika </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
@@ -3275,12 +3256,31 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-3" id="qn69_1">
+
+                                                <div class="col-sm-3" id="qn69">
+                                                    <label for="qn69" class="form-label">68. Kama Ndiyo Qn 67, Majibu </label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="qn69" id="qn69<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn69'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-3" id="qn70_1">
                                                     <div class="mb-2">
-                                                        <label for="qn69" class="form-label">69. Tarehe ya mwisho ya mshiriki:</label>
-                                                        <input type="date" value="<?php if ($individual['qn69']) {
-                                                                                        print_r($individual['qn69']);
-                                                                                    } ?>" id="qn69" name="qn69" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                        <label for="qn70" class="form-label">70. Tarehe ya mwisho ya mshiriki:</label>
+                                                        <input type="date" value="<?php if ($individual['qn70']) {
+                                                                                        print_r($individual['qn70']);
+                                                                                    } ?>" id="qn70" name="qn70" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
                                                     </div>
                                                 </div>
 
@@ -3290,14 +3290,14 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
 
-                                                <div class="col-sm-6" id="qn70">
-                                                    <label for="qn70" class="form-label">70. Matokeo ya matumizi yad awa za TB (Tuberculosis Treatment Outcome )</label>
+                                                <div class="col-sm-6" id="qn71">
+                                                    <label for="qn71" class="form-label">71. Matokeo ya matumizi yad awa za TB (Tuberculosis Treatment Outcome )</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('tuberculosis_treatment', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn70" id="qn70<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn70'] == $value['id']) {
+                                                                    <input class="form-check-input" type="radio" name="qn71" id="qn71<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn71'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
                                                                                                                                                                                         } ?>>
                                                                     <label class="form-check-label"><?= $value['name2']; ?></label>
