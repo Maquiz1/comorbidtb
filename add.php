@@ -1966,7 +1966,7 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-                                                            <button type="button" onclick="unsetRadio('qn09')">Unselect Radio Button</button>
+                                                            <button type="button" onclick="unsetRadio('qn09')">Unselect</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1984,7 +1984,7 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-                                                            <button type="button" onclick="unsetRadio('qn10')">Unselect Radio Button</button>
+                                                            <button type="button" onclick="unsetRadio('qn10')">Unselect</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2019,6 +2019,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn11')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2035,8 +2037,9 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn15')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4" id="qn16">
@@ -2052,8 +2055,8 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn16')">Unselect</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2081,7 +2084,7 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
+                                                            <button type="button" onclick="unsetRadio('qn17')">Unselect</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2099,7 +2102,7 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
+                                                            <button type="button" onclick="unsetRadio('qn18')">Unselect</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2117,8 +2120,8 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn19')">Unselect</button>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3" id="qn20">
@@ -2134,8 +2137,8 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn20')">Unselect</button>
                                                     </div>
                                                 </div>
                                             </div>
