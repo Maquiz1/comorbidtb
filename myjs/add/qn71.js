@@ -20,14 +20,26 @@ function toggleElementVisibility() {
   if (qn711.checked) {
     tb_outcome_date_1.style.display = "block";
     tb_outcome_date_cured.style.display = "block";
+    tb_outcome_date_completed.style.display = "none";
+    tb_outcome_date_death.style.display = "none";
+    tb_outcome_date_last_seen.style.display = "none";
   } else if (qn712.checked) {
     tb_outcome_date_1.style.display = "block";
+    tb_outcome_date_cured.style.display = "none";
     tb_outcome_date_completed.style.display = "block";
+    tb_outcome_date_death.style.display = "none";
+    tb_outcome_date_last_seen.style.display = "none";
   } else if (qn713.checked) {
     tb_outcome_date_1.style.display = "block";
+    tb_outcome_date_cured.style.display = "none";
+    tb_outcome_date_completed.style.display = "none";
     tb_outcome_date_death.style.display = "block";
+    tb_outcome_date_last_seen.style.display = "none";
   } else if (qn715.checked) {
     tb_outcome_date_1.style.display = "block";
+    tb_outcome_date_cured.style.display = "none";
+    tb_outcome_date_completed.style.display = "none";
+    tb_outcome_date_death.style.display = "none";
     tb_outcome_date_last_seen.style.display = "block";
   } else {
     tb_outcome_date_1.style.display = "none";
