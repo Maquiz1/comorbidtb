@@ -33,6 +33,21 @@ function checkRadioButtonsMany() {
     qn45: {
       1: ["qn46", "qn47", "qn48"],
     },
+    qn61: {
+      1: ["qn61_date_1", "qn61_date"],
+    },
+    qn62: {
+      1: ["qn62_i_1", "qn62_i"],
+    },
+    qn63: {
+      1: ["qn63_date1", "qn63_date"],
+    },
+    qn64: {
+      1: ["qn65"],
+    },
+    qn65: {
+      96: ["qn65_other1", "qn65_other"],
+    },
     // qn71: {
     //   1: ["tb_outcome_date_cured", "tb_outcome_date"],
     //   2: ["tb_outcome_date_completed", "tb_outcome_date"],

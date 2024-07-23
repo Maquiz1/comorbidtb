@@ -2420,10 +2420,10 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>                                          
+                                            </div>
 
 
-                                            <hr>                                         
+                                            <hr>
 
                                             <div class="card card-warning">
                                                 <div class="card-header">
@@ -2793,36 +2793,38 @@ if ($user->isLoggedIn()) {
                                                 <div class="col-4" id="qn60_1_1">
                                                     <div class="mb-2">
                                                         <label for="qn60_1" class="form-label">60. First reading(mmHg)</label>
-                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_1']) {
-                                                                                        print_r($individual['qn60_diastolic_1']);
-                                                                                    } ?>" id="qn60_diastolic_1" name="qn60_diastolic_1" step="any" class="form-control" placeholder="Enter Diastolic" required />/
+
                                                         <input type="number" value="<?php if ($individual['qn60_systolic_1']) {
                                                                                         print_r($individual['qn60_systolic_1']);
-                                                                                    } ?>" id="qn60_systolic_1" name="qn60_systolic_1" step="any" class="form-control" placeholder="Enter Systolic" required />
+                                                                                    } ?>" id="qn60_systolic_1" name="qn60_systolic_1" step="any" class="form-control" placeholder="Enter Systolic" required />/
+                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_1']) {
+                                                                                        print_r($individual['qn60_diastolic_1']);
+                                                                                    } ?>" id="qn60_diastolic_1" name="qn60_diastolic_1" step="any" class="form-control" placeholder="Enter Diastolic" required />
                                                     </div>
                                                 </div>
 
                                                 <div class="col-4" id="qn60_2_1">
                                                     <div class="mb-2">
                                                         <label for="qn60_2" class="form-label">60. Second reading(mmHg)</label>
-                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_2']) {
-                                                                                        print_r($individual['qn60_diastolic_2']);
-                                                                                    } ?>" id="qn60_diastolic_2" name="qn60_diastolic_2" step="any" class="form-control" placeholder="Enter Diastolic" required />/
                                                         <input type="number" value="<?php if ($individual['qn60_systolic_2']) {
                                                                                         print_r($individual['qn60_systolic_2']);
-                                                                                    } ?>" id="qn60_systolic_2" name="qn60_systolic_2" step="any" class="form-control" placeholder="Enter Systolic" required />
+                                                                                    } ?>" id="qn60_systolic_2" name="qn60_systolic_2" step="any" class="form-control" placeholder="Enter Systolic" required />/
+                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_2']) {
+                                                                                        print_r($individual['qn60_diastolic_2']);
+                                                                                    } ?>" id="qn60_diastolic_2" name="qn60_diastolic_2" step="any" class="form-control" placeholder="Enter Diastolic" required />
+
                                                     </div>
                                                 </div>
 
                                                 <div class="col-4" id="qn60_3_1">
                                                     <div class="mb-2">
                                                         <label for="qn60_3" class="form-label">60. Third reading(mmHg)</label>
-                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_3']) {
-                                                                                        print_r($individual['qn60_diastolic_3']);
-                                                                                    } ?>" id="qn60_diastolic_3" name="qn60_diastolic_3" step="any" class="form-control" placeholder="Enter Diastolic" required />/
                                                         <input type="number" value="<?php if ($individual['qn60_systolic_3']) {
                                                                                         print_r($individual['qn60_systolic_3']);
-                                                                                    } ?>" id="qn60_systolic_3" name="qn60_systolic_3" step="any" class="form-control" placeholder="Enter Systolic" required />
+                                                                                    } ?>" id="qn60_systolic_3" name="qn60_systolic_3" step="any" class="form-control" placeholder="Enter Systolic" required />/
+                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_3']) {
+                                                                                        print_r($individual['qn60_diastolic_3']);
+                                                                                    } ?>" id="qn60_diastolic_3" name="qn60_diastolic_3" step="any" class="form-control" placeholder="Enter Diastolic" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -2961,14 +2963,14 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" id="qn65_other1">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>If Other Mention:</label>
-                                                            <textarea class="form-control" name="qn65_other" rows="3" placeholder="Type other here..."><?php if ($individual['qn65_other']) {
-                                                                                                                                                            print_r($individual['qn65_other']);
-                                                                                                                                                        }  ?>
+                                                            <textarea class="form-control" name="qn65_other" id="qn65_other" rows="3" placeholder="Type other here..."><?php if ($individual['qn65_other']) {
+                                                                                                                                                                            print_r($individual['qn65_other']);
+                                                                                                                                                                        }  ?>
                                                                 </textarea>
                                                         </div>
                                                     </div>
