@@ -10,7 +10,7 @@ function checkRadioButtonsMany() {
       1: ["qn10_miaka", "qn10_miaka_1"],
     },
     qn17: {
-      1: ["qn18", "qn19", "qn20", "qn21", "qn22", "qn23", "qn24"],
+      1: ["qn18", "qn20", "qn21", "qn22", "qn23", "qn24"],
     },
     qn18: {
       2: ["qn19"],
