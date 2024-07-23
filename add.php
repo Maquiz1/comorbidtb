@@ -350,6 +350,8 @@ if ($user->isLoggedIn()) {
             if ($validate->passed()) {
                 $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid'])[0];
                 $individual = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
+                $qn65 = implode(',', Input::get('qn65'));
+
 
                 if ($individual) {
 
@@ -424,9 +426,12 @@ if ($user->isLoggedIn()) {
                         'qn57' => Input::get('qn57'),
                         'qn58' => Input::get('qn58'),
                         'qn59' => Input::get('qn59'),
-                        'qn60_1' => Input::get('qn60_1'),
-                        'qn60_2' => Input::get('qn60_2'),
-                        'qn60_3' => Input::get('qn60_3'),
+                        'qn60_diastolic_1' => Input::get('qn60_diastolic_1'),
+                        'qn60_systolic_1' => Input::get('qn60_systolic_1'),
+                        'qn60_diastolic_2' => Input::get('qn60_diastolic_2'),
+                        'qn60_systolic_2' => Input::get('qn60_systolic_2'),
+                        'qn60_diastolic_3' => Input::get('qn60_diastolic_3'),
+                        'qn60_systolic_3' => Input::get('qn60_systolic_3'),
                         'qn61' => Input::get('qn61'),
                         'qn61_date' => Input::get('qn61_date'),
                         'qn62' => Input::get('qn62'),
@@ -434,7 +439,8 @@ if ($user->isLoggedIn()) {
                         'qn63' => Input::get('qn63'),
                         'qn63_date' => Input::get('qn63_date'),
                         'qn64' => Input::get('qn64'),
-                        'qn65' => Input::get('qn65'),
+                        'qn65' => $qn65,
+                        'qn65_other' => Input::get('qn65_other'),
                         'tb_complete' => Input::get('tb_complete'),
                         'date_completed' => Input::get('date_completed'),
                         'update_on' => date('Y-m-d H:i:s'),
@@ -514,9 +520,12 @@ if ($user->isLoggedIn()) {
                         'qn57' => Input::get('qn57'),
                         'qn58' => Input::get('qn58'),
                         'qn59' => Input::get('qn59'),
-                        'qn60_1' => Input::get('qn60_1'),
-                        'qn60_2' => Input::get('qn60_2'),
-                        'qn60_3' => Input::get('qn60_3'),
+                        'qn60_diastolic_1' => Input::get('qn60_diastolic_1'),
+                        'qn60_systolic_1' => Input::get('qn60_systolic_1'),
+                        'qn60_diastolic_2' => Input::get('qn60_diastolic_2'),
+                        'qn60_systolic_2' => Input::get('qn60_systolic_2'),
+                        'qn60_diastolic_3' => Input::get('qn60_diastolic_3'),
+                        'qn60_systolic_3' => Input::get('qn60_systolic_3'),
                         'qn61' => Input::get('qn61'),
                         'qn61_date' => Input::get('qn61_date'),
                         'qn62' => Input::get('qn62'),
@@ -524,7 +533,8 @@ if ($user->isLoggedIn()) {
                         'qn63' => Input::get('qn63'),
                         'qn63_date' => Input::get('qn63_date'),
                         'qn64' => Input::get('qn64'),
-                        'qn65' => Input::get('qn65'),
+                        'qn65' => $qn65,
+                        'qn65_other' => Input::get('qn65_other'),
                         'tb_complete' => Input::get('tb_complete'),
                         'date_completed' => Input::get('date_completed'),
                         'status' => 1,
@@ -1641,7 +1651,7 @@ if ($user->isLoggedIn()) {
 
                                             <div id="adress">
                                                 <div class="row">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-6">
                                                         <div class="row-form clearfix">
                                                             <div class="form-group">
                                                                 <label>Mkoa</label>
@@ -1660,7 +1670,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-6">
                                                         <div class="row-form clearfix">
                                                             <div class="form-group">
                                                                 <label>Wilaya</label>
@@ -1670,22 +1680,6 @@ if ($user->isLoggedIn()) {
                                                                                                             } else {
                                                                                                                 echo 'Select district';
                                                                                                             } ?>
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-4">
-                                                        <div class="row-form clearfix">
-                                                            <div class="form-group">
-                                                                <label>Ward</label>
-                                                                <select id="ward" name="ward" class="form-control">
-                                                                    <option value="<?= $wards['id'] ?>"><?php if ($clients['ward']) {
-                                                                                                            print_r($wards['name']);
-                                                                                                        } else {
-                                                                                                            echo 'Select district';
-                                                                                                        } ?>
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -2901,27 +2895,36 @@ if ($user->isLoggedIn()) {
                                                 <div class="col-4" id="qn60_1_1">
                                                     <div class="mb-2">
                                                         <label for="qn60_1" class="form-label">60. First reading(mmHg)</label>
-                                                        <input type="number" value="<?php if ($individual['qn60_1']) {
-                                                                                        print_r($individual['qn60_1']);
-                                                                                    } ?>" id="qn60_1" name="qn60_1" step="any" class="form-control" placeholder="Enter here" required />
+                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_1']) {
+                                                                                        print_r($individual['qn60_diastolic_1']);
+                                                                                    } ?>" id="qn60_diastolic_1" name="qn60_diastolic_1" step="any" class="form-control" placeholder="Enter Diastolic" required />/
+                                                        <input type="number" value="<?php if ($individual['qn60_systolic_1']) {
+                                                                                        print_r($individual['qn60_systolic_1']);
+                                                                                    } ?>" id="qn60_systolic_1" name="qn60_systolic_1" step="any" class="form-control" placeholder="Enter Systolic" required />
                                                     </div>
                                                 </div>
 
                                                 <div class="col-4" id="qn60_2_1">
                                                     <div class="mb-2">
                                                         <label for="qn60_2" class="form-label">60. Second reading(mmHg)</label>
-                                                        <input type="number" value="<?php if ($individual['qn60_2']) {
-                                                                                        print_r($individual['qn60_2']);
-                                                                                    } ?>" id="qn60_2" name="qn60_2" step="any" class="form-control" placeholder="Enter here" required />
+                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_2']) {
+                                                                                        print_r($individual['qn60_diastolic_2']);
+                                                                                    } ?>" id="qn60_diastolic_2" name="qn60_diastolic_2" step="any" class="form-control" placeholder="Enter Diastolic" required />/
+                                                        <input type="number" value="<?php if ($individual['qn60_systolic_2']) {
+                                                                                        print_r($individual['qn60_systolic_2']);
+                                                                                    } ?>" id="qn60_systolic_2" name="qn60_systolic_2" step="any" class="form-control" placeholder="Enter Systolic" required />
                                                     </div>
                                                 </div>
 
                                                 <div class="col-4" id="qn60_3_1">
                                                     <div class="mb-2">
                                                         <label for="qn60_3" class="form-label">60. Third reading(mmHg)</label>
-                                                        <input type="number" value="<?php if ($individual['qn60_3']) {
-                                                                                        print_r($individual['qn60_3']);
-                                                                                    } ?>" id="qn60_3" name="qn60_3" step="any" class="form-control" placeholder="Enter here" required />
+                                                        <input type="number" value="<?php if ($individual['qn60_diastolic_3']) {
+                                                                                        print_r($individual['qn60_diastolic_3']);
+                                                                                    } ?>" id="qn60_diastolic_3" name="qn60_diastolic_3" step="any" class="form-control" placeholder="Enter Diastolic" required />/
+                                                        <input type="number" value="<?php if ($individual['qn60_systolic_3']) {
+                                                                                        print_r($individual['qn60_systolic_3']);
+                                                                                    } ?>" id="qn60_systolic_3" name="qn60_systolic_3" step="any" class="form-control" placeholder="Enter Systolic" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -3022,8 +3025,8 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
 
-                                                <div class="col-6" id="qn64">
-                                                    <label for="qn64" class="form-label">64. . Kutokana na majibu ya maswali yaliyotangulia , Mshiriki ana ugonjwa mwingine zaidi ya TB? </label>
+                                                <div class="col-4" id="qn64">
+                                                    <label for="qn64" class="form-label">64.Je, Mshiriki ana ugonjwa mwingine wa muda mrefu zaidi ya TB? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
@@ -3040,7 +3043,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6" id="qn65">
+                                                <div class="col-4" id="qn65">
                                                     <label for="qn65" class="form-label">65. Kama ndio? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -3054,6 +3057,19 @@ if ($user->isLoggedIn()) {
                                                                 </div>
                                                             <?php } ?>
 
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>If Other Mention:</label>
+                                                            <textarea class="form-control" name="qn65_other" rows="3" placeholder="Type other here..."><?php if ($individual['qn65_other']) {
+                                                                                                                                                        print_r($individual['qn65_other']);
+                                                                                                                                                    }  ?>
+                                                                </textarea>
                                                         </div>
                                                     </div>
                                                 </div>
