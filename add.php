@@ -1966,7 +1966,7 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
+                                                            <button type="button" onclick="unsetRadio('qn09')">Unselect Radio Button</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1984,7 +1984,7 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
+                                                            <button type="button" onclick="unsetRadio('qn10')">Unselect Radio Button</button>
                                                         </div>
                                                     </div>
                                                 </div>
