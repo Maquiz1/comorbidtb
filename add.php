@@ -2420,19 +2420,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="card card-warning">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Mazoezi ya Viungo
-                                                        <br>
-                                                        <br>
-                                                        Sasa nitaendelea kukuuliza kuhusu muda unaotumia kufanya shughuli mbalimbali zinazohusu mazoezi ya viungo katika wiki moja ya kawaida. Tafadhali ujibu maswali haya hata kama unadhani wewe si mtu wa kufanya mazoezi mara kwa mara.
-                                                    </h3>
-                                                </div>
-                                            </div>
+                                            </div>                                          
 
 
                                             <hr>                                         
