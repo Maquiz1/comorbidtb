@@ -2244,7 +2244,7 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                             <input type="number" value="<?php if ($individual['qn25_idadi']) {
                                                                                             print_r($individual['qn25_idadi']);
-                                                                                        } ?>" id="qn25_idadi" name="qn25_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
+                                                                                        } ?>" id="qn25_idadi" name="qn25_idadi" min="0" max="7" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
@@ -2265,7 +2265,7 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                             <input type="number" value="<?php if ($individual['qn26_idadi']) {
                                                                                             print_r($individual['qn26_idadi']);
-                                                                                        } ?>" id="qn26_idadi" name="qn26_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
+                                                                                        } ?>" id="qn26_idadi" name="qn26_idadi" min="0" max="10" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
@@ -2286,7 +2286,7 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                             <input type="number" value="<?php if ($individual['qn27_idadi']) {
                                                                                             print_r($individual['qn27_idadi']);
-                                                                                        } ?>" id="qn27_idadi" name="qn27_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
+                                                                                        } ?>" id="qn27_idadi" name="qn27_idadi" min="0" max="7" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
@@ -2307,7 +2307,7 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
                                                             <input type="number" value="<?php if ($individual['qn28_idadi']) {
                                                                                             print_r($individual['qn28_idadi']);
-                                                                                        } ?>" id="qn28_idadi" name="qn28_idadi" min="0" max="100" class="form-control" placeholder="Ingiza Idadi Hapa" />
+                                                                                        } ?>" id="qn28_idadi" name="qn28_idadi" min="0" max="10" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
                                                     </div>
