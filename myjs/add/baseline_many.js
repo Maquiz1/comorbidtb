@@ -9,6 +9,12 @@ function checkRadioButtonsMany() {
     qn10: {
       1: ["qn10_miaka", "qn10_miaka_1"],
     },
+    qn17: {
+      1: ["qn18", "qn19", "qn20", "qn21", "qn22", "qn23", "qn24"],
+    },
+    qn18: {
+      2: ["qn19"],
+    },
     // qn71: {
     //   1: ["tb_outcome_date_cured", "tb_outcome_date"],
     //   2: ["tb_outcome_date_completed", "tb_outcome_date"],
