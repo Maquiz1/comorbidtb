@@ -2159,8 +2159,8 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn21')">Unselect</button>
                                                     </div>
                                                 </div>
 
@@ -2177,8 +2177,8 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn22')">Unselect</button>
                                                     </div>
                                                 </div>
 
@@ -2195,8 +2195,8 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn23')">Unselect</button>
                                                     </div>
                                                 </div>
 
@@ -2215,6 +2215,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn24')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2250,6 +2252,8 @@ if ($user->isLoggedIn()) {
                                                                                         } ?>" id="qn25_idadi" name="qn25_idadi" min="0" max="7" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn25')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2271,6 +2275,8 @@ if ($user->isLoggedIn()) {
                                                                                         } ?>" id="qn26_idadi" name="qn26_idadi" min="0" max="10" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn26')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2292,6 +2298,8 @@ if ($user->isLoggedIn()) {
                                                                                         } ?>" id="qn27_idadi" name="qn27_idadi" min="0" max="7" class="form-control" placeholder="Ingiza Idadi Hapa" />
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn27')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
