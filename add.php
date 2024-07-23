@@ -2004,7 +2004,7 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
 
-                                                <div class="col-sm-6" id="qn11">
+                                                <div class="col-sm-4" id="qn11">
                                                     <label for="kuacha_sigara" class="form-label">11. Kwa kipindi cha mieazi 12 iliyopita,ulijaribu kuacha kuvuta sigara / kutumia tumbaku? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2022,7 +2022,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6" id="qn15">
+                                                <div class="col-sm-4" id="qn15">
                                                     <label for="qn15" class="form-label">15. Ndani ya siku 30 zilizopita kuna mtu yeyote alievuta tumbaku ndani ya nyumba yako? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2039,7 +2039,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="qn16">
+                                                <div class="col-sm-4" id="qn16">
                                                     <label for="diabetic_status" class="form-label">16. Ndani ya siku 30 zilizopita, kuna mtu yeyote amevuta sigara kwenye eneo ambalo si la wazi katika sehemu yako ya kazi? DADISI ZAIDI </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
