@@ -260,6 +260,10 @@ if ($user->isLoggedIn()) {
                                 'qn03' => Input::get('education'),
                                 'qn04' => Input::get('marital_status'),
                                 'qn05' => Input::get('occupation'),
+                                'age18above' => Input::get('age18above'),
+                                'mdr_xdr' => Input::get('mdr_xdr'),
+                                'new_tb_patient' => Input::get('new_tb_patient'),
+                                'extra_pulmonary' => Input::get('extra_pulmonary'),
                                 'region' => Input::get('region'),
                                 'district' => Input::get('district'),
                                 'ward' => Input::get('ward'),
@@ -299,6 +303,10 @@ if ($user->isLoggedIn()) {
                                 'qn03' => Input::get('education'),
                                 'qn04' => Input::get('marital_status'),
                                 'qn05' => Input::get('occupation'),
+                                'age18above' => Input::get('age18above'),
+                                'mdr_xdr' => Input::get('mdr_xdr'),
+                                'new_tb_patient' => Input::get('new_tb_patient'),
+                                'extra_pulmonary' => Input::get('extra_pulmonary'),
                                 'region' => Input::get('region'),
                                 'district' => Input::get('district'),
                                 'ward' => Input::get('ward'),
@@ -1520,6 +1528,74 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
                                             <hr>
+
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <label for="new_tb_patient" class="form-label">New TB Patient?</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="new_tb_patient" id="new_tb_patient<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($clients['new_tb_patient'] == $value['id']) {
+                                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                                            } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label for="extra_pulmonary" class="form-label">Extra Pulmonary TB?</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="extra_pulmonary" id="extra_pulmonary<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($clients['extra_pulmonary'] == $value['id']) {
+                                                                                                                                                                                                                    echo 'checked';
+                                                                                                                                                                                                                } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label for="mdr_xdr" class="form-label">MDR / XDR Patient ?</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="mdr_xdr" id="mdr_xdr<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($clients['mdr_xdr'] == $value['id']) {
+                                                                                                                                                                                                    echo 'checked';
+                                                                                                                                                                                                } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label for="age18above" class="form-label">18 years and above ?</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="age18above" id="age18above<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($clients['age18above'] == $value['id']) {
+                                                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                                                    } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <label for="conset" class="form-label">Patient Conset?</label>
@@ -1578,6 +1654,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                             </div>
+
 
                                             <hr>
 
@@ -3050,9 +3127,11 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('magonjwa', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn65" id="qn65<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn65'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                    <input class="form-check-input" type="checkbox" name="qn65[]" id="qn65<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php foreach (explode(',', $individual['qn65']) as $qn65) {
+                                                                                                                                                                                                    if ($qn65 == $value['id']) {
+                                                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3067,8 +3146,8 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>If Other Mention:</label>
                                                             <textarea class="form-control" name="qn65_other" rows="3" placeholder="Type other here..."><?php if ($individual['qn65_other']) {
-                                                                                                                                                        print_r($individual['qn65_other']);
-                                                                                                                                                    }  ?>
+                                                                                                                                                            print_r($individual['qn65_other']);
+                                                                                                                                                        }  ?>
                                                                 </textarea>
                                                         </div>
                                                     </div>
