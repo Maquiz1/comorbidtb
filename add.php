@@ -4493,7 +4493,7 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/baseline.js"></script>
     <script src="myjs/add/baseline_many.js"></script>
     <script src="myjs/add/baseline/qn10.js"></script>
-    <script src="myjs/add/baseline"></script>
+    <script src="myjs/add/qn65.js"></script>
     <script src="myjs/add/baseline"></script>
     <script src="myjs/add/baseline"></script>
     <script src="myjs/add/baseline"></script>
