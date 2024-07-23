@@ -2322,6 +2322,8 @@ if ($user->isLoggedIn()) {
 
                                                         </div>
                                                     </div>
+                                                    <button type="button" onclick="unsetRadio('qn28')">Unselect</button>
+
                                                 </div>
                                             </div>
 
@@ -2358,6 +2360,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn29')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2377,6 +2381,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn30')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2395,6 +2401,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn31')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2" id="qn32">
@@ -2412,6 +2420,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn32')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2" id="qn33">
@@ -2429,6 +2439,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn33')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -2461,6 +2473,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn41')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2479,6 +2493,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn42')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2497,6 +2513,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn43')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3" id="qn44">
@@ -2514,6 +2532,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn44')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -2535,8 +2555,9 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn45')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3" id="qn46">
@@ -2554,6 +2575,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn46')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2572,6 +2595,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn47')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2590,6 +2615,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn48')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -2616,6 +2643,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn49')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3" id="qn50">
@@ -2633,6 +2662,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn50')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2651,6 +2682,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn51')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2669,6 +2702,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn52')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -2691,6 +2726,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn53')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2" id="qn54">
@@ -2708,6 +2745,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn54')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2726,6 +2765,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn55')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2744,6 +2785,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn56')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2762,6 +2805,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn57')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -2858,6 +2903,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn61')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2889,6 +2936,8 @@ if ($user->isLoggedIn()) {
                                                             <?php } ?>
 
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn62')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-6" id="qn62_i_1">
@@ -2917,8 +2966,9 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn63')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
@@ -2949,8 +2999,9 @@ if ($user->isLoggedIn()) {
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
-
                                                         </div>
+                                                        <button type="button" onclick="unsetRadio('qn64')">Unselect</button>
+
                                                     </div>
                                                 </div>
 
