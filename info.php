@@ -1035,11 +1035,11 @@ if ($user->isLoggedIn()) {
                                                                 <?= $sites['name']; ?>
                                                             </td>
                                                         <?php } ?>
-                                                        <?php if ($value['age'] >= 1) { ?>
+                                                        <?php if ($value['eligible'] == 1) { ?>
                                                             <td class="text-center">
                                                                 <a href="#" class="btn btn-success">
                                                                     <i class="ri-edit-box-line">
-                                                                    </i><?php if ($value['age'] >= 1) {  ?> Eligible For Enrellment <?php } ?>
+                                                                    </i><?php if ($value['eligible'] == 1) {  ?> Eligible For Enrellment <?php } ?>
                                                                 </a>
                                                             </td>
                                                         <?php  } else { ?>
@@ -1050,7 +1050,7 @@ if ($user->isLoggedIn()) {
                                                         <td class="text-center">
                                                             <a href="add.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>" class="btn btn-info"> <i class="ri-edit-box-line"></i>Update Information</a>&nbsp;&nbsp;<br>
                                                             <br>
-                                                            <?php if ($value['age'] >= 0) { ?>
+                                                            <?php if ($value['eligible'] == 1) { ?>
                                                                 <?php if ($comorbidtb_baseline && $comorbidtb_follow_up) { ?>
                                                                     <a href="info.php?id=4&cid=<?= $value['id'] ?>&status=<?= $_GET['status'] ?>&study_id=<?= $value['study_id'] ?>" class="btn btn-success"> <i class="ri-edit-box-line"></i>Update Study CRF's</a>&nbsp;&nbsp;<br>
                                                                 <?php   } else { ?>

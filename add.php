@@ -227,9 +227,7 @@ if ($user->isLoggedIn()) {
                 try {
                     $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid']);
 
-                    $age = $user->dateDiffYears(Input::get('screening_date'), Input::get('dob'));
-
-                    if ((Input::get('conset') == 1)) {
+                    if ((Input::get('conset') == 1 && Input::get('age18above') == 1)) {
                         $eligible = 1;
                     } else {
                         $eligible = 2;
@@ -241,34 +239,16 @@ if ($user->isLoggedIn()) {
                         if ($clients) {
                             $user->updateRecord('clients', array(
                                 'screening_date' => Input::get('screening_date'),
-                                'tarehe_mahojiano' => Input::get('screening_date'),
                                 'conset' => Input::get('conset'),
                                 'conset_date' => Input::get('conset_date'),
                                 'hospital_id' => Input::get('hospital_id'),
                                 'tb_id' => Input::get('tb_id'),
-                                'mkoa' => Input::get('region'),
-                                'wilaya' => Input::get('district'),
-                                'kituo' => $clients[0]['site_id'],
                                 'study_id' => $clients[0]['study_id'],
                                 'pid' => $clients[0]['study_id'],
-                                'sex' => Input::get('sex'),
-                                'marital_status' => Input::get('marital_status'),
-                                'dob' => Input::get('dob'),
-                                'age' => $age,
-                                'qn01' => Input::get('dob'),
-                                'qn02' => Input::get('sex'),
-                                'qn03' => Input::get('education'),
-                                'qn04' => Input::get('marital_status'),
-                                'qn05' => Input::get('occupation'),
                                 'age18above' => Input::get('age18above'),
                                 'mdr_xdr' => Input::get('mdr_xdr'),
                                 'new_tb_patient' => Input::get('new_tb_patient'),
                                 'extra_pulmonary' => Input::get('extra_pulmonary'),
-                                'region' => Input::get('region'),
-                                'district' => Input::get('district'),
-                                'ward' => Input::get('ward'),
-                                'education' => Input::get('education'),
-                                'occupation' => Input::get('occupation'),
                                 'comments' => Input::get('comments'),
                                 'update_on' => date('Y-m-d H:i:s'),
                                 'update_id' => $user->data()->id,
@@ -284,34 +264,16 @@ if ($user->isLoggedIn()) {
 
                             $user->createRecord('clients', array(
                                 'screening_date' => Input::get('screening_date'),
-                                'tarehe_mahojiano' => Input::get('screening_date'),
                                 'conset' => Input::get('conset'),
                                 'conset_date' => Input::get('conset_date'),
-                                'hospital_id' => Input::get('hospital_id'),
-                                'tb_id' => Input::get('tb_id'),
-                                'mkoa' => Input::get('region'),
-                                'wilaya' => Input::get('district'),
-                                'kituo' => $_GET['site_id'],
-                                'study_id' => $std_id['study_id'],
-                                'pid' => $std_id['study_id'],
-                                'sex' => Input::get('sex'),
-                                'marital_status' => Input::get('marital_status'),
-                                'dob' => Input::get('dob'),
-                                'age' => $age,
-                                'qn01' => Input::get('dob'),
-                                'qn02' => Input::get('sex'),
-                                'qn03' => Input::get('education'),
-                                'qn04' => Input::get('marital_status'),
-                                'qn05' => Input::get('occupation'),
                                 'age18above' => Input::get('age18above'),
                                 'mdr_xdr' => Input::get('mdr_xdr'),
                                 'new_tb_patient' => Input::get('new_tb_patient'),
                                 'extra_pulmonary' => Input::get('extra_pulmonary'),
-                                'region' => Input::get('region'),
-                                'district' => Input::get('district'),
-                                'ward' => Input::get('ward'),
-                                'education' => Input::get('education'),
-                                'occupation' => Input::get('occupation'),
+                                'hospital_id' => Input::get('hospital_id'),
+                                'tb_id' => Input::get('tb_id'),
+                                'study_id' => $std_id['study_id'],
+                                'pid' => $std_id['study_id'],
                                 'comments' => Input::get('comments'),
                                 'create_on' => date('Y-m-d H:i:s'),
                                 'staff_id' => $user->data()->id,
@@ -358,6 +320,8 @@ if ($user->isLoggedIn()) {
             if ($validate->passed()) {
                 $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid'])[0];
                 $individual = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
+                $age = $user->dateDiffYears($clients['screening_date'], Input::get('qn01'));
+
                 $qn65 = implode(',', Input::get('qn65'));
 
 
@@ -369,12 +333,20 @@ if ($user->isLoggedIn()) {
                         'visit_code' => $_GET['visit_code'],
                         'pid' => $_GET['study_id'],
                         'study_id' => $_GET['study_id'],
-                        'visit_date' => Input::get('visit_date'),
+                        'mkoa' => Input::get('mkoa'),
+                        'wilaya' => Input::get('wilaya'),
+                        'kituo' => $clients['site_id'],
                         'tarehe_mahojiano' => Input::get('tarehe_mahojiano'),
-                        'tb_kugundulika' => Input::get('tb_kugundulika'),
-                        'tb_tarehe' => Input::get('tb_tarehe'),
-                        'tb_dawa' => Input::get('tb_dawa'),
-                        'tb_dawa_tarehe' => Input::get('tb_dawa_tarehe'),
+                        'qn01' => Input::get('qn01'),
+                        'age' => $age,
+                        'qn02' => Input::get('qn02'),
+                        'qn03' => Input::get('qn03'),
+                        'qn04' => Input::get('qn04'),
+                        'qn05' => Input::get('qn05'),
+                        'qn06' => Input::get('qn06'),
+                        'qn06_date' => Input::get('qn06_date'),
+                        'qn07' => Input::get('qn07'),
+                        'qn07_date' => Input::get('qn07_date'),
                         'qn08' => Input::get('qn08'),
                         'qn09' => Input::get('qn09'),
                         'qn10' => Input::get('qn10'),
@@ -463,12 +435,20 @@ if ($user->isLoggedIn()) {
                         'visit_code' => $_GET['visit_code'],
                         'pid' => $_GET['study_id'],
                         'study_id' => $_GET['study_id'],
-                        'visit_date' => Input::get('visit_date'),
+                        'mkoa' => Input::get('mkoa'),
+                        'wilaya' => Input::get('wilaya'),
+                        'kituo' => $clients['site_id'],
                         'tarehe_mahojiano' => Input::get('tarehe_mahojiano'),
-                        'tb_kugundulika' => Input::get('tb_kugundulika'),
-                        'tb_tarehe' => Input::get('tb_tarehe'),
-                        'tb_dawa' => Input::get('tb_dawa'),
-                        'tb_dawa_tarehe' => Input::get('tb_dawa_tarehe'),
+                        'qn01' => Input::get('qn01'),
+                        'age' => $age,
+                        'qn02' => Input::get('qn02'),
+                        'qn03' => Input::get('qn03'),
+                        'qn04' => Input::get('qn04'),
+                        'qn05' => Input::get('qn05'),
+                        'qn06' => Input::get('qn06'),
+                        'qn06_date' => Input::get('qn06_date'),
+                        'qn07' => Input::get('qn07'),
+                        'qn07_date' => Input::get('qn07_date'),
                         'qn08' => Input::get('qn08'),
                         'qn09' => Input::get('qn09'),
                         'qn10' => Input::get('qn10'),
@@ -1597,7 +1577,7 @@ if ($user->isLoggedIn()) {
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-6">
                                                     <label for="conset" class="form-label">Patient Conset?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -1613,7 +1593,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-3" id="conset_date1">
+                                                <div class="col-6" id="conset_date1">
                                                     <div class="mb-2">
                                                         <label for="results_date" class="form-label">Date of Conset</label>
                                                         <input type="date" value="<?php if ($clients['conset_date']) {
@@ -1621,150 +1601,8 @@ if ($user->isLoggedIn()) {
                                                                                     } ?>" id="conset_date" name="conset_date" class="form-control" placeholder="Enter date" />
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="sex">
-                                                    <label>SEX</label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="sex" id="sex" value="1" <?php if ($clients['sex'] == 1) {
-                                                                                                                                                echo 'checked';
-                                                                                                                                            } ?>>
-                                                                <label class="form-check-label">Male</label>
-                                                            </div>
 
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="sex" id="sex" value="2" <?php if ($clients['sex'] == 2) {
-                                                                                                                                                echo 'checked';
-                                                                                                                                            } ?>>
-                                                                <label class="form-check-label">Female</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3" id="dob1">
-                                                    <div class="row-form clearfix">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Date of birth:</label>
-                                                            <input class="form-control" max="<?= date('Y-m-d'); ?>" type="date" name="dob" id="dob" style="width: 100%;" value="<?php if ($clients['dob']) {
-                                                                                                                                                                                    print_r($clients['dob']);
-                                                                                                                                                                                }  ?>" />
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
-
-
-                                            <hr>
-
-                                            <div id="other_details">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <div class="row-form clearfix">
-                                                            <div class="form-group">
-                                                                <label>Ni kiwango gani cha elimu cha juu zaidi ulichomaliza?</label>
-                                                                <select id="education" name="education" class="form-control">
-                                                                    <option value="<?= $education['id'] ?>"><?php if ($clients['education']) {
-                                                                                                                print_r($education['name']);
-                                                                                                            } else {
-                                                                                                                echo 'Select education';
-                                                                                                            } ?>
-                                                                    </option>
-                                                                    <?php foreach ($override->get('education', 'status', 1) as $value) { ?>
-                                                                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <div class="row-form clearfix">
-                                                            <div class="form-group">
-                                                                <label>Hali ya Ndoa</label>
-                                                                <select id="marital_status" name="marital_status" class="form-control">
-                                                                    <option value="<?= $education['id'] ?>"><?php if ($clients['marital_status']) {
-                                                                                                                print_r($education['name']);
-                                                                                                            } else {
-                                                                                                                echo 'Select education';
-                                                                                                            } ?>
-                                                                    </option>
-                                                                    <?php foreach ($override->get('marital_status', 'status', 1) as $value) { ?>
-                                                                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="row-form clearfix">
-                                                            <!-- select -->
-                                                            <div class="form-group">
-                                                                <label>Ni ipi kati ya haya yafuatayo yanaelezea vizuri kazi ambayo umekuwa ukifanya katika miezi 12 iliyopita?</label>
-                                                                <select id="occupation" name="occupation" class="form-control">
-                                                                    <option value="<?= $occupation['id'] ?>"><?php if ($clients['occupation']) {
-                                                                                                                    print_r($occupation['name']);
-                                                                                                                } else {
-                                                                                                                    echo 'Select Occupation';
-                                                                                                                } ?>
-                                                                    </option>
-                                                                    <?php foreach ($override->get('occupation', 'status', 1) as $value) { ?>
-                                                                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="card card-warning" id="adress1">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Patient Adress</h3>
-                                                </div>
-                                            </div>
-
-                                            <div id="adress">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="row-form clearfix">
-                                                            <div class="form-group">
-                                                                <label>Mkoa</label>
-                                                                <select id="region" name="region" class="form-control">
-                                                                    <option value="<?= $regions['id'] ?>"><?php if ($clients['region']) {
-                                                                                                                print_r($regions['name']);
-                                                                                                            } else {
-                                                                                                                echo 'Select region';
-                                                                                                            } ?>
-                                                                    </option>
-                                                                    <?php foreach ($override->get('regions', 'status', 1) as $region) { ?>
-                                                                        <option value="<?= $region['id'] ?>"><?= $region['name'] ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-6">
-                                                        <div class="row-form clearfix">
-                                                            <div class="form-group">
-                                                                <label>Wilaya</label>
-                                                                <select id="district" name="district" class="form-control">
-                                                                    <option value="<?= $districts['id'] ?>"><?php if ($clients['district']) {
-                                                                                                                print_r($districts['name']);
-                                                                                                            } else {
-                                                                                                                echo 'Select district';
-                                                                                                            } ?>
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
 
                                             <hr>
 
@@ -1811,6 +1649,14 @@ if ($user->isLoggedIn()) {
         <?php } elseif ($_GET['id'] == 5) { ?>
             <?php
             $individual = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence'])[0];
+            $clients = $override->getNews('clients', 'status', 1, 'id', $_GET['cid'])[0];
+            $marital_status = $override->get('marital_status', 'id', $individual['qn04'])[0];
+            $sex = $override->get('sex', 'id', $individual['qn02'])[0];
+            $education = $override->get('education', 'id', $individual['qn03'])[0];
+            $occupation = $override->get('occupation', 'id', $individual['qn05'])[0];
+            $regions = $override->get('regions', 'id', $individual['mkoa'])[0];
+            $districts = $override->get('districts', 'id', $individual['wilaya'])[0];
+            // $wards = $override->get('wards', 'id', $individual['ward'])[0];
             ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -1859,9 +1705,11 @@ if ($user->isLoggedIn()) {
                                     <!-- /.card-header -->
                                     <form id="validation" enctype="multipart/form-data" method="post" autocomplete="off">
                                         <div class="card-body">
+
                                             <hr>
+
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <div class="mb-2">
                                                         <label for="tarehe_mahojiano" class="form-label">Tarehe ya Mahojiano:</label>
                                                         <input type="date" value="<?php if ($individual['tarehe_mahojiano']) {
@@ -1869,16 +1717,155 @@ if ($user->isLoggedIn()) {
                                                                                     } ?>" id="tarehe_mahojiano" name="tarehe_mahojiano" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="tb_kugundulika">
-                                                    <label for="tb_kugundulika" class="form-label">6. TB iligundulika kwa njia gani</label>
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>Mkoa</label>
+                                                            <select id="region" name="mkoa" class="form-control" required>
+                                                                <option value="<?= $regions['id'] ?>"><?php if ($individual['mkoa']) {
+                                                                                                            print_r($regions['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select region';
+                                                                                                        } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('regions', 'status', 1) as $region) { ?>
+                                                                    <option value="<?= $region['id'] ?>"><?= $region['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>Wilaya</label>
+                                                            <select id="district" name="wilaya" class="form-control" required>
+                                                                <option value="<?= $districts['id'] ?>"><?php if ($individual['wilaya']) {
+                                                                                                            print_r($districts['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select district';
+                                                                                                        } ?>
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+
+
+                                            <div class="row">
+
+                                                <div class="col-sm-4" id="qn01">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>1. Tarehe ya Kuzaliwa:</label>
+                                                            <input class="form-control" max="<?= date('Y-m-d'); ?>" type="date" name="qn01" id="qn01" style="width: 100%;" value="<?php if ($individual['qn01']) {
+                                                                                                                                                                                        print_r($individual['qn01']);
+                                                                                                                                                                                    }  ?>" / required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4" id="sex">
+                                                    <label>2. Jinsia</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="qn02" id="qn02" value="1" <?php if ($individual['qn02'] == 1) {
+                                                                                                                                                    echo 'checked';
+                                                                                                                                                } ?> required>
+                                                                <label class="form-check-label">Male</label>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="qn02" id="qn02" value="2" <?php if ($individual['qn02'] == 2) {
+                                                                                                                                                    echo 'checked';
+                                                                                                                                                } ?>>
+                                                                <label class="form-check-label">Female</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>3. Ni kiwango gani cha elimu cha juu zaidi ulichomaliza?</label>
+                                                            <select id="qn03" name="qn03" class="form-control" required>
+                                                                <option value="<?= $education['id'] ?>"><?php if ($individual['qn03']) {
+                                                                                                            print_r($education['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select education';
+                                                                                                        } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('education', 'status', 1) as $value) { ?>
+                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>4. Hali ya Ndoa</label>
+                                                            <select id="qn04" name="qn04" class="form-control" required>
+                                                                <option value="<?= $marital_status['id'] ?>"><?php if ($individual['qn04']) {
+                                                                                                            print_r($marital_status['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select education';
+                                                                                                        } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('marital_status', 'status', 1) as $value) { ?>
+                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>5. Ni ipi kati ya haya yafuatayo yanaelezea vizuri kazi ambayo umekuwa ukifanya katika miezi 12 iliyopita?</label>
+                                                            <select id="qn05" name="qn05" class="form-control" required>
+                                                                <option value="<?= $occupation['id'] ?>"><?php if ($individual['qn05']) {
+                                                                                                                print_r($occupation['name']);
+                                                                                                            } else {
+                                                                                                                echo 'Select Occupation';
+                                                                                                            } ?>
+                                                                </option>
+                                                                <?php foreach ($override->get('occupation', 'status', 1) as $value) { ?>
+                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+
+                                                <div class="col-sm-3" id="qn06">
+                                                    <label for="qn06" class="form-label">6. TB iligundulika kwa njia gani</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('tb_methods', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="tb_kugundulika" id="tb_kugundulika<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_kugundulika'] == $value['id']) {
-                                                                                                                                                                                                                echo 'checked';
-                                                                                                                                                                                                            } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="qn06" id="qn06<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn06'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -1886,25 +1873,25 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-3">
+                                                <div class="col-3" id="qn06_date_1">
                                                     <div class="mb-2">
-                                                        <label for="tb_tarehe" id="tb_tarehe1" class="form-label">6(a) Tarehe TB iliyogundulika: </label>
-                                                        <input type="date" value="<?php if ($individual['tb_tarehe']) {
-                                                                                        print_r($individual['tb_tarehe']);
-                                                                                    } ?>" id="tb_tarehe" name="tb_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
+                                                        <label for="qn06_date" class="form-label">6(a) Tarehe TB iliyogundulika: </label>
+                                                        <input type="date" value="<?php if ($individual['qn06_date']) {
+                                                                                        print_r($individual['qn06_date']);
+                                                                                    } ?>" id="qn06_date" name="qn06_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" required />
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-2" id="tb_dawa">
-                                                    <label for="tb_dawa" class="form-label">7. Ameanza dawa za TB</label>
+                                                <div class="col-sm-3" id="qn07">
+                                                    <label for="qn07" class="form-label">7. Ameanza dawa za TB</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="tb_dawa" id="tb_dawa<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['tb_dawa'] == $value['id']) {
-                                                                                                                                                                                                    echo 'checked';
-                                                                                                                                                                                                } ?> required>
+                                                                    <input class="form-check-input" type="radio" name="qn07" id="qn07<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn07'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -1912,12 +1899,12 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-2" id="tb_dawa_tarehe1">
+                                                <div class="col-3" id="qn07_date_1">
                                                     <div class="mb-2">
-                                                        <label for="tb_dawa_tarehe" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
-                                                        <input type="date" value="<?php if ($individual['tb_dawa_tarehe']) {
-                                                                                        print_r($individual['tb_dawa_tarehe']);
-                                                                                    } ?>" id="tb_dawa_tarehe" name="tb_dawa_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
+                                                        <label for="qn07_date" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
+                                                        <input type="date" value="<?php if ($individual['qn07_date']) {
+                                                                                        print_r($individual['qn07_date']);
+                                                                                    } ?>" id="qn07_date" name="qn07_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
                                                     </div>
                                                 </div>
 

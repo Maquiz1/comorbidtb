@@ -1,7 +1,7 @@
 function checkRadioButtonsMany() {
   const elementsToControlMany = {
-    tb_dawa: {
-      1: ["tb_dawa_tarehe1", "tb_dawa_tarehe"],
+    qn07: {
+      1: ["qn07_date_1", "qn07_date"],
     },
     qn08: {
       1: ["qn09", "qn10", "qn11"],
