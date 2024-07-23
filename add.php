@@ -1895,7 +1895,6 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-
                                                 <div class="col-sm-2" id="tb_dawa">
                                                     <label for="tb_dawa" class="form-label">7. Ameanza dawa za TB</label>
                                                     <!-- radio -->
@@ -1913,9 +1912,9 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-2">
+                                                <div class="col-2" id="tb_dawa_tarehe1">
                                                     <div class="mb-2">
-                                                        <label for="tb_dawa_tarehe" id="tb_dawa_tarehe1" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
+                                                        <label for="tb_dawa_tarehe" class="form-label">7(b) Tarehe ya kuanza dawa za TB:</label>
                                                         <input type="date" value="<?php if ($individual['tb_dawa_tarehe']) {
                                                                                         print_r($individual['tb_dawa_tarehe']);
                                                                                     } ?>" id="tb_dawa_tarehe" name="tb_dawa_tarehe" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter date" />
