@@ -3,6 +3,9 @@ function checkRadioButtonsMany() {
     tb_dawa: {
       1: ["tb_dawa_tarehe1", "tb_dawa_tarehe"],
     },
+    qn08: {
+      1: ["qn09", "qn10"],
+    },
     // qn71: {
     //   1: ["tb_outcome_date_cured", "tb_outcome_date"],
     //   2: ["tb_outcome_date_completed", "tb_outcome_date"],
