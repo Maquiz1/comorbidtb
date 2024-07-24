@@ -4546,6 +4546,7 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/history/third_line.js"></script>
     <script src="myjs/add/history"></script>
 
+    
     <script src="myjs/add/checkbox1.js"></script>
     <script src="myjs/add/radio.js"></script>
     <script src="myjs/add/radios1.js"></script>
@@ -4553,8 +4554,6 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/radios3.js"></script>
     <script src="myjs/add/radios4.js"></script>
     <script src="myjs/add/radios96.js"></script>
-
-
 
 
 
