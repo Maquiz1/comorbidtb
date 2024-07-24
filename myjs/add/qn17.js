@@ -4,9 +4,6 @@ const qn172 = document.getElementById("qn172");
 const qn18 = document.getElementById("qn18");
 const qn181 = document.getElementById("qn181");
 
-const qn19 = document.getElementById("qn19");
-const qn191 = document.getElementById("qn191");
-
 const qn20 = document.getElementById("qn20");
 const qn201 = document.getElementById("qn201");
 
@@ -26,8 +23,6 @@ function toggleElementVisibility() {
   if (qn171.checked) {
     qn18.style.display = "block";
     qn181.setAttribute("required", "required");
-    qn19.style.display = "none";
-    qn191.removeAttribute("required");
     qn20.style.display = "block";
     qn201.setAttribute("required", "required");
     qn21.style.display = "block";
@@ -38,26 +33,9 @@ function toggleElementVisibility() {
     qn231.setAttribute("required", "required");
     qn24.style.display = "block";
     qn241.setAttribute("required", "required");
-  } else if (qn172.checked) {
+  }else {
     qn18.style.display = "none";
     qn181.removeAttribute("required");
-    qn19.style.display = "block";
-    qn191.setAttribute("required", "required");
-    qn20.style.display = "none";
-    qn201.removeAttribute("required");
-    qn21.style.display = "none";
-    qn211.removeAttribute("required");
-    qn22.style.display = "none";
-    qn221.removeAttribute("required");
-    qn23.style.display = "none";
-    qn231.removeAttribute("required");
-    qn24.style.display = "none";
-    qn241.removeAttribute("required");
-  } else {
-    qn18.style.display = "none";
-    qn181.removeAttribute("required");
-    qn19.style.display = "none";
-    qn191.removeAttribute("required");
     qn20.style.display = "none";
     qn201.removeAttribute("required");
     qn21.style.display = "none";
