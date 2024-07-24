@@ -422,7 +422,7 @@ if ($user->isLoggedIn()) {
                         'qn62_i' => Input::get('qn62_i'),
                         'qn63' => Input::get('qn63'),
                         'qn63_date' => Input::get('qn63_date'),
-                        'qn63_kunywa' => Input::get('qn63_kunywa'),                        
+                        'qn63_kunywa' => Input::get('qn63_kunywa'),
                         'qn64' => Input::get('qn64'),
                         'qn65' => $qn65,
                         'qn65_other' => Input::get('qn65_other'),
@@ -525,7 +525,7 @@ if ($user->isLoggedIn()) {
                         'qn62_i' => Input::get('qn62_i'),
                         'qn63' => Input::get('qn63'),
                         'qn63_date' => Input::get('qn63_date'),
-                        'qn63_kunywa' => Input::get('qn63_kunywa'),                        
+                        'qn63_kunywa' => Input::get('qn63_kunywa'),
                         'qn64' => Input::get('qn64'),
                         'qn65' => $qn65,
                         'qn65_other' => Input::get('qn65_other'),
@@ -2983,7 +2983,7 @@ if ($user->isLoggedIn()) {
                                                                 </div>
                                                             <?php } ?>
                                                         </div>
-                                                        <button type="button" onclick="unsetRadio('qn63')">Unselect</button>
+                                                        <button type="button" onclick="unsetRadio('qn63_kunywa')">Unselect</button>
 
                                                     </div>
                                                 </div>
