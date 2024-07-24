@@ -1,23 +1,21 @@
-const receive_art1 = document.getElementById("receive_art1");
-const receive_art2 = document.getElementById("receive_art2");
+const tb_treatment1 = document.getElementById("tb_treatment1");
+const tb_treatment96 = document.getElementById("tb_treatment96");
 
-const start_art1 = document.getElementById("start_art1");
-const start_art = document.getElementById("start_art");
+const tb_treatment_other1 = document.getElementById("tb_treatment_other1");
+const tb_treatment_other = document.getElementById("tb_treatment_other");
 
 function toggleElementVisibility() {
-  if (receive_art1.checked) {
-    start_art1.style.display = "block";
-    start_art.style.display = "block";
-    start_art.setAttribute("required", "required");
+  if (tb_treatment96.checked) {
+    tb_treatment_other1.style.display = "block";
+    tb_treatment_other.setAttribute("required", "required");
   } else {
-    start_art1.style.display = "none";
-    start_art.style.display = "none";
-    start_art.removeAttribute("required");
+    tb_treatment_other1.style.display = "none";
+    tb_treatment_other.removeAttribute("required");
   }
 }
 
-receive_art1.addEventListener("change", toggleElementVisibility);
-receive_art2.addEventListener("change", toggleElementVisibility);
+tb_treatment1.addEventListener("change", toggleElementVisibility);
+tb_treatment96.addEventListener("change", toggleElementVisibility);
 
 // Initial check
 toggleElementVisibility();

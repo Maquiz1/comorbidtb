@@ -239,6 +239,8 @@ if ($user->isLoggedIn()) {
                         if ($clients) {
                             $user->updateRecord('clients', array(
                                 'screening_date' => Input::get('screening_date'),
+                                'tb_treatment' => Input::get('tb_treatment'),
+                                'tb_treatment_other' => Input::get('tb_treatment_other'),                                
                                 'conset' => Input::get('conset'),
                                 'conset_date' => Input::get('conset_date'),
                                 'hospital_id' => Input::get('hospital_id'),
@@ -264,6 +266,8 @@ if ($user->isLoggedIn()) {
 
                             $user->createRecord('clients', array(
                                 'screening_date' => Input::get('screening_date'),
+                                'tb_treatment' => Input::get('tb_treatment'),
+                                'tb_treatment_other' => Input::get('tb_treatment_other'),  
                                 'conset' => Input::get('conset'),
                                 'conset_date' => Input::get('conset_date'),
                                 'age18above' => Input::get('age18above'),
@@ -1593,9 +1597,9 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="tb_treatment_other">
+                                                <div class="col-sm-3" id="tb_treatment_other1">
                                                     <div class="mb-2">
-                                                        <label for="tb_treatment_other" class="form-label">Date of Conset</label>
+                                                        <label for="tb_treatment_other" class="form-label">If Other Mention</label>
                                                         <input type="text" value="<?php if ($clients['tb_treatment_other']) {
                                                                                         print_r($clients['tb_treatment_other']);
                                                                                     } ?>" id="tb_treatment_other" name="tb_treatment_other" class="form-control" placeholder="Enter here" />
