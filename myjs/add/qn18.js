@@ -1,11 +1,11 @@
-const qn18_1 = document.getElementById("qn18");
-const qn18_2 = document.getElementById("qn181");
+const qn18_1 = document.getElementById("qn181");
+const qn18_2 = document.getElementById("qn182");
 
 const qn19 = document.getElementById("qn19");
 const qn191 = document.getElementById("qn191");
 
 function toggleElementVisibility() {
-  if (qn18_1.checked) {
+  if (qn18_2.checked) {
     qn19.style.display = "block";
     qn191.setAttribute("required", "required");
   } else {
