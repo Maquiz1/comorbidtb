@@ -3002,7 +3002,7 @@ if ($user->isLoggedIn()) {
                                                                                                                                                                                                     if ($qn65 == $value['id']) {
                                                                                                                                                                                                         echo 'checked';
                                                                                                                                                                                                     }
-                                                                                                                                                                                                } ?>>
+                                                                                                                                                                                                } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
