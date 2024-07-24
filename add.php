@@ -1883,7 +1883,7 @@ if ($user->isLoggedIn()) {
 
                                                 <div class="col-sm-4" id="qn05_other1">
                                                     <div class="mb-2">
-                                                        <label for="qn05_other1" class="form-label">10. Ingiza miaka</label>
+                                                        <label for="qn05_other1" class="form-label">Kama nyingine Taja</label>
                                                         <input type="text" value="<?php if ($individual['qn05_other']) {
                                                                                         print_r($individual['qn05_other']);
                                                                                     } ?>" id="qn05_other" name="qn05_other" class="form-control" placeholder="Enter here" />
