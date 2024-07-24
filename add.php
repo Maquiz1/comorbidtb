@@ -1863,22 +1863,20 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+
+                                                <div class="col-sm-4" id="qn05">
+                                                    <label for="qn05" class="form-label">5. Ni ipi kati ya haya yafuatayo yanaelezea vizuri kazi ambayo umekuwa ukifanya katika miezi 12 iliyopita?</label>
+                                                    <!-- radio -->
                                                     <div class="row-form clearfix">
-                                                        <!-- select -->
                                                         <div class="form-group">
-                                                            <label>5. Ni ipi kati ya haya yafuatayo yanaelezea vizuri kazi ambayo umekuwa ukifanya katika miezi 12 iliyopita?</label>
-                                                            <select id="qn05" name="qn05" class="form-control" required>
-                                                                <option value="<?= $occupation['id'] ?>"><?php if ($individual['qn05']) {
-                                                                                                                print_r($occupation['name']);
-                                                                                                            } else {
-                                                                                                                echo 'Select Occupation';
-                                                                                                            } ?>
-                                                                </option>
-                                                                <?php foreach ($override->get('occupation', 'status', 1) as $value) { ?>
-                                                                    <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
+                                                            <?php foreach ($override->get('occupation', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="qn05" id="qn05<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn05'] == $value['id']) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                 </div>
