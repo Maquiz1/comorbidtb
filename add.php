@@ -1949,7 +1949,7 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-                                                <div class="col-sm-3" id="qn08">
+                                                <div class="col-sm-6" id="qn08">
                                                     <label for="qn08" class="form-label">8. Je, kwa sasa unatumia aina yoyote ya tumbaku kama vile sigara, kiko, sigara ya kusokota ,ugoro n.k? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -1967,7 +1967,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="qn09">
+                                                <div class="col-sm-6" id="qn09">
                                                     <label for="tumbaku_kilasiku" class="form-label">9. Kama ndiyo, Kwa sasa unavuta sigara au kutumia tumbaku kila siku? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -1985,7 +1985,12 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="qn10">
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col-sm-4" id="qn10">
                                                     <label for="sigara_umri" class="form-label">10. Ulikuwa na umri gani ulipoanza kuvuta sigara / kutumia tumbaku kwa mara ya kwanza? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2003,7 +2008,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-3" id="qn10_miaka_1">
+                                                <div class="col-sm-4" id="qn10_miaka_1">
                                                     <div class="mb-2">
                                                         <label for="qn39" class="form-label">10. Ingiza miaka</label>
                                                         <input type="number" value="<?php if ($individual['qn10_miaka']) {
@@ -2011,12 +2016,6 @@ if ($user->isLoggedIn()) {
                                                                                     } ?>" id="qn10_miaka" name="qn10_miaka" min="0" max="100" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
-
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row">
 
                                                 <div class="col-sm-4" id="qn11">
                                                     <label for="kuacha_sigara" class="form-label">11. Kwa kipindi cha mieazi 12 iliyopita,ulijaribu kuacha kuvuta sigara / kutumia tumbaku? </label>
