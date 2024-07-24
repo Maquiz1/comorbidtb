@@ -1577,7 +1577,31 @@ if ($user->isLoggedIn()) {
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-3">
+                                                    <label for="conset" class="form-label">Type of TB Treatment Given?</label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('tb_treatment', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="tb_treatment" id="tb_treatment<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($clients['tb_treatment'] == $value['id']) {
+                                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                                        } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3" id="tb_treatment_other">
+                                                    <div class="mb-2">
+                                                        <label for="tb_treatment_other" class="form-label">Date of Conset</label>
+                                                        <input type="text" value="<?php if ($clients['tb_treatment_other']) {
+                                                                                        print_r($clients['tb_treatment_other']);
+                                                                                    } ?>" id="tb_treatment_other" name="tb_treatment_other" class="form-control" placeholder="Enter here" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
                                                     <label for="conset" class="form-label">Patient Conset?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -1593,7 +1617,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6" id="conset_date1">
+                                                <div class="col-sm-3" id="conset_date1">
                                                     <div class="mb-2">
                                                         <label for="results_date" class="form-label">Date of Conset</label>
                                                         <input type="date" value="<?php if ($clients['conset_date']) {
@@ -2007,42 +2031,6 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                         <button type="button" onclick="unsetRadio('qn11')">Unselect</button>
 
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4" id="qn15">
-                                                    <label for="qn15" class="form-label">15. Ndani ya siku 30 zilizopita kuna mtu yeyote alievuta tumbaku ndani ya nyumba yako? </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn15" id="qn15<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn15'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                        <button type="button" onclick="unsetRadio('qn15')">Unselect</button>
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4" id="qn16">
-                                                    <label for="diabetic_status" class="form-label">16. Ndani ya siku 30 zilizopita, kuna mtu yeyote amevuta sigara kwenye eneo ambalo si la wazi katika sehemu yako ya kazi? DADISI ZAIDI </label>
-                                                    <!-- radio -->
-                                                    <div class="row-form clearfix">
-                                                        <div class="form-group">
-                                                            <?php foreach ($override->get('ndio_hapana_eneo', 'status', 1) as $value) { ?>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="qn16" id="qn16<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn16'] == $value['id']) {
-                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                        } ?> required>
-                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                        <button type="button" onclick="unsetRadio('qn16')">Unselect</button>
                                                     </div>
                                                 </div>
                                             </div>
