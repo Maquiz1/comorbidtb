@@ -1821,10 +1821,10 @@ if ($user->isLoggedIn()) {
                                                             <label>4. Hali ya Ndoa</label>
                                                             <select id="qn04" name="qn04" class="form-control" required>
                                                                 <option value="<?= $marital_status['id'] ?>"><?php if ($individual['qn04']) {
-                                                                                                            print_r($marital_status['name']);
-                                                                                                        } else {
-                                                                                                            echo 'Select education';
-                                                                                                        } ?>
+                                                                                                                    print_r($marital_status['name']);
+                                                                                                                } else {
+                                                                                                                    echo 'Select education';
+                                                                                                                } ?>
                                                                 </option>
                                                                 <?php foreach ($override->get('marital_status', 'status', 1) as $value) { ?>
                                                                     <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
@@ -4543,7 +4543,22 @@ if ($user->isLoggedIn()) {
     <!-- BASELINE -->
     <script src="myjs/add/baseline.js"></script>
     <script src="myjs/add/baseline_many.js"></script>
-    <script src="myjs/add/baseline/qn10.js"></script>
+    <!-- <script src="myjs/add/baseline/qn10.js"></script> -->
+    <script src="myjs/add/qn07.js"></script>
+    <script src="myjs/add/qn08.js"></script>
+    <script src="myjs/add/qn10.js"></script>
+    <script src="myjs/add/qn17.js"></script>
+    <script src="myjs/add/qn18.js"></script>
+    <script src="myjs/add/qn25.js"></script>
+    <script src="myjs/add/qn26.js"></script>
+    <script src="myjs/add/qn27.js"></script>
+    <script src="myjs/add/qn28.js"></script>
+    <script src="myjs/add/qn41.js"></script>
+    <script src="myjs/add/qn45.js"></script>
+    <script src="myjs/add/qn61.js"></script>
+    <script src="myjs/add/qn62.js"></script>
+    <script src="myjs/add/qn63.js"></script>
+    <script src="myjs/add/qn64.js"></script>
     <script src="myjs/add/qn65.js"></script>
     <script src="myjs/add/qn66.js"></script>
     <script src="myjs/add/qn67.js"></script>
