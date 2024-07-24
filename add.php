@@ -4564,6 +4564,7 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/baseline.js"></script>
     <script src="myjs/add/baseline_many.js"></script>
     <!-- <script src="myjs/add/baseline/qn10.js"></script> -->
+    <script src="myjs/add/qn05.js"></script>
     <script src="myjs/add/qn07.js"></script>
     <script src="myjs/add/qn08.js"></script>
     <script src="myjs/add/qn10.js"></script>
