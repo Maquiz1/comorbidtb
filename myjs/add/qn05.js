@@ -1,13 +1,13 @@
 const qn051 = document.getElementById("qn051");
-const qn052 = document.getElementById("qn205");
-const qn053 = document.getElementById("qn205");
-const qn054 = document.getElementById("qn205");
-const qn055 = document.getElementById("qn205");
-const qn056 = document.getElementById("qn205");
-const qn057 = document.getElementById("qn205");
-const qn058 = document.getElementById("qn205");
-const qn059 = document.getElementById("qn205");
-const qn0596 = document.getElementById("qn205");
+const qn052 = document.getElementById("qn052");
+const qn053 = document.getElementById("qn053");
+const qn054 = document.getElementById("qn054");
+const qn055 = document.getElementById("qn055");
+const qn056 = document.getElementById("qn056");
+const qn057 = document.getElementById("qn057");
+const qn058 = document.getElementById("qn058");
+const qn059 = document.getElementById("qn059");
+const qn0596 = document.getElementById("qn0596");
 
 
 const qn05_other1 = document.getElementById("qn05_other1");
