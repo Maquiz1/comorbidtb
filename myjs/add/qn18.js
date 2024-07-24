@@ -1,17 +1,21 @@
-const qn6596 = document.getElementById("qn6596");
-const qn65_other1 = document.getElementById("qn65_other1");
+// const qn18 = document.getElementById("qn18");
+// const qn181 = document.getElementById("qn181");
 
-qn6596.addEventListener("change", function () {
-  if (this.checked) {
-    qn65_other1.style.display = "block";
-  } else {
-    qn65_other1.style.display = "none";
-  }
-});
+// // const qn19 = document.getElementById("qn19");
+// // const qn191 = document.getElementById("qn191");
 
-// Initial check
-if (qn6596.checked) {
-  qn65_other1.style.display = "block";
-} else {
-  qn65_other1.style.display = "none";
-}
+// function toggleElementVisibility() {
+//   if (qn171.checked) {
+//     qn19.style.display = "none";
+//     qn191.removeAttribute("required");
+//   } else {
+//     qn19.style.display = "none";
+//     qn191.removeAttribute("required");
+//   }
+// }
+
+// qn171.addEventListener("change", toggleElementVisibility);
+// qn172.addEventListener("change", toggleElementVisibility);
+
+// // Initial check
+// toggleElementVisibility();

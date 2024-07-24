@@ -1,17 +1,23 @@
-const qn6596 = document.getElementById("qn6596");
-const qn65_other1 = document.getElementById("qn65_other1");
+const qn261 = document.getElementById("qn261");
+const qn262 = document.getElementById("qn262");
+const qn263 = document.getElementById("qn263");
 
-qn6596.addEventListener("change", function () {
-  if (this.checked) {
-    qn65_other1.style.display = "block";
+
+const qn26_idadi = document.getElementById("qn26_idadi");
+
+function toggleElementVisibility() {
+  if (qn261.checked) {
+    qn26_idadi.style.display = "block";
+    qn26_idadi.setAttribute("required", "required");
   } else {
-    qn65_other1.style.display = "none";
+    qn26_idadi.style.display = "none";
+    qn26_idadi.removeAttribute("required");
   }
-});
+}
+
+qn261.addEventListener("change", toggleElementVisibility);
+qn262.addEventListener("change", toggleElementVisibility);
+qn263.addEventListener("change", toggleElementVisibility);
 
 // Initial check
-if (qn6596.checked) {
-  qn65_other1.style.display = "block";
-} else {
-  qn65_other1.style.display = "none";
-}
+toggleElementVisibility();

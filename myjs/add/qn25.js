@@ -1,17 +1,20 @@
-const qn6596 = document.getElementById("qn6596");
-const qn65_other1 = document.getElementById("qn65_other1");
+const qn251 = document.getElementById("qn251");
+const qn252 = document.getElementById("qn252");
 
-qn6596.addEventListener("change", function () {
-  if (this.checked) {
-    qn65_other1.style.display = "block";
+const qn25_idadi = document.getElementById("qn25_idadi");
+
+function toggleElementVisibility() {
+  if (qn251.checked) {
+    qn25_idadi.style.display = "block";
+    qn25_idadi.setAttribute("required", "required");
   } else {
-    qn65_other1.style.display = "none";
+    qn25_idadi.style.display = "none";
+    qn25_idadi.removeAttribute("required");
   }
-});
+}
+
+qn251.addEventListener("change", toggleElementVisibility);
+qn252.addEventListener("change", toggleElementVisibility);
 
 // Initial check
-if (qn6596.checked) {
-  qn65_other1.style.display = "block";
-} else {
-  qn65_other1.style.display = "none";
-}
+toggleElementVisibility();

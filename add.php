@@ -1918,7 +1918,6 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
 
-
                                             <hr>
 
                                             <div class="row">

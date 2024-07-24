@@ -1,17 +1,21 @@
-const qn6596 = document.getElementById("qn6596");
-const qn65_other1 = document.getElementById("qn65_other1");
+const qn10_1 = document.getElementById("qn101");
+const qn102 = document.getElementById("qn102");
 
-qn6596.addEventListener("change", function () {
-  if (this.checked) {
-    qn65_other1.style.display = "block";
+const qn10_miaka_1 = document.getElementById("qn10_miaka_1");
+const qn10_miaka = document.getElementById("qn10_miaka");
+
+function toggleElementVisibility() {
+  if (qn10_1.checked) {
+    qn10_miaka_1.style.display = "block";
+    qn10_miaka.setAttribute("required", "required");
   } else {
-    qn65_other1.style.display = "none";
+    qn10_miaka_1.style.display = "none";
+    qn10_miaka.removeAttribute("required");
   }
-});
+}
+
+qn10_1.addEventListener("change", toggleElementVisibility);
+qn102.addEventListener("change", toggleElementVisibility);
 
 // Initial check
-if (qn6596.checked) {
-  qn65_other1.style.display = "block";
-} else {
-  qn65_other1.style.display = "none";
-}
+toggleElementVisibility();
