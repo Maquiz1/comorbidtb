@@ -240,7 +240,7 @@ if ($user->isLoggedIn()) {
                             $user->updateRecord('clients', array(
                                 'screening_date' => Input::get('screening_date'),
                                 'tb_treatment' => Input::get('tb_treatment'),
-                                'tb_treatment_other' => Input::get('tb_treatment_other'),                                
+                                'tb_treatment_other' => Input::get('tb_treatment_other'),
                                 'conset' => Input::get('conset'),
                                 'conset_date' => Input::get('conset_date'),
                                 'hospital_id' => Input::get('hospital_id'),
@@ -267,7 +267,7 @@ if ($user->isLoggedIn()) {
                             $user->createRecord('clients', array(
                                 'screening_date' => Input::get('screening_date'),
                                 'tb_treatment' => Input::get('tb_treatment'),
-                                'tb_treatment_other' => Input::get('tb_treatment_other'),  
+                                'tb_treatment_other' => Input::get('tb_treatment_other'),
                                 'conset' => Input::get('conset'),
                                 'conset_date' => Input::get('conset_date'),
                                 'age18above' => Input::get('age18above'),
@@ -4507,7 +4507,7 @@ if ($user->isLoggedIn()) {
 
     <!-- SCREENING Js -->
     <script src="myjs/add/screening/conset.js"></script>
-    <script src="myjs/add/screening/art.js"></script>
+    <script src="myjs/add/screening/tb_treatment.js"></script>
 
 
 
