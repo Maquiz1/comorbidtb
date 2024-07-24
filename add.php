@@ -422,6 +422,7 @@ if ($user->isLoggedIn()) {
                         'qn62_i' => Input::get('qn62_i'),
                         'qn63' => Input::get('qn63'),
                         'qn63_date' => Input::get('qn63_date'),
+                        'qn63_kunywa' => Input::get('qn63_kunywa'),                        
                         'qn64' => Input::get('qn64'),
                         'qn65' => $qn65,
                         'qn65_other' => Input::get('qn65_other'),
@@ -524,6 +525,7 @@ if ($user->isLoggedIn()) {
                         'qn62_i' => Input::get('qn62_i'),
                         'qn63' => Input::get('qn63'),
                         'qn63_date' => Input::get('qn63_date'),
+                        'qn63_kunywa' => Input::get('qn63_kunywa'),                        
                         'qn64' => Input::get('qn64'),
                         'qn65' => $qn65,
                         'qn65_other' => Input::get('qn65_other'),
@@ -1843,7 +1845,7 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>4. Hali ya Ndoa</label>
@@ -1861,7 +1863,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
@@ -1878,6 +1880,15 @@ if ($user->isLoggedIn()) {
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4" id="qn05_other1">
+                                                    <div class="mb-2">
+                                                        <label for="qn05_other1" class="form-label">10. Ingiza miaka</label>
+                                                        <input type="text" value="<?php if ($individual['qn05_other']) {
+                                                                                        print_r($individual['qn05_other']);
+                                                                                    } ?>" id="qn05_other" name="qn05_other" class="form-control" placeholder="Enter here" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -2930,7 +2941,7 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-                                                <div class="col-6" id="qn63">
+                                                <div class="col-4" id="qn63">
                                                     <label for="qn63" class="form-label">63. Ameanza dawa za Kisukari </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2949,12 +2960,31 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6" id="qn63_date1">
+                                                <div class="col-4" id="qn63_date1">
                                                     <div class="mb-2">
                                                         <label for="qn63_date" class="form-label">63(a). Tarehe aliyoanza dawa:;</label>
                                                         <input type="date" value="<?php if ($individual['qn63_date']) {
                                                                                         print_r($individual['qn63_date']);
                                                                                     } ?>" id="qn63_date" name="qn63_date" max="<?= date('Y-m-d') ?>" class="form-control" placeholder="Enter here" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-4" id="qn63_kunywa1">
+                                                    <label for="qn63_kunywa" class="form-label">63. Amekunywa leo dawa za Kisukari </label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="qn63_kunywa" id="qn63_kunywa<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn63_kunywa'] == $value['id']) {
+                                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                                        } ?>>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                        <button type="button" onclick="unsetRadio('qn63')">Unselect</button>
+
                                                     </div>
                                                 </div>
                                             </div>
