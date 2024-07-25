@@ -1014,9 +1014,6 @@ if ($user->isLoggedIn()) {
                                                         <td class="table-user">
                                                             <?= $value['tb_id']; ?>
                                                         </td>
-                                                        <td class="table-user">
-                                                            <?= $value['age']; ?>
-                                                        </td>
                                                         <?php
                                                         if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                         ?>
