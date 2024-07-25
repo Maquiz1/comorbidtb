@@ -1019,15 +1019,6 @@ if ($user->isLoggedIn()) {
                                                         <td class="table-user">
                                                             <?= $value['age']; ?>
                                                         </td>
-                                                        <?php if ($value['sex'] == 1) { ?>
-                                                            <td class="table-user">
-                                                                Male
-                                                            </td>
-                                                        <?php } elseif ($value['sex'] == 2) { ?>
-                                                            <td class="table-user">
-                                                                Female
-                                                            </td>
-                                                        <?php } ?>
                                                         <?php
                                                         if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                         ?>
@@ -1072,7 +1063,6 @@ if ($user->isLoggedIn()) {
                                                     <th>Name</th>
                                                     <th>Study Id</th>
                                                     <th>Age</th>
-                                                    <th>Sex</th>
                                                     <?php
                                                     if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                     ?>
