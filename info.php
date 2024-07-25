@@ -983,8 +983,6 @@ if ($user->isLoggedIn()) {
                                                 <tr>
                                                     <th>Study Id</th>
                                                     <th>TB Id</th>
-                                                    <th>Age</th>
-                                                    <th>Sex</th>
                                                     <?php
                                                     if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                     ?>
@@ -1060,9 +1058,8 @@ if ($user->isLoggedIn()) {
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Name</th>
                                                     <th>Study Id</th>
-                                                    <th>Age</th>
+                                                    <th>TB Id</th>
                                                     <?php
                                                     if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                                                     ?>
