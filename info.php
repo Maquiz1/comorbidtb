@@ -1006,9 +1006,9 @@ if ($user->isLoggedIn()) {
                                                     $visit = $override->get3('visit', 'status', 1, 'patient_id', $value['id'], 'sequence', $value['sequence'])[0];
                                                     $comorbidtb_baseline = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $value['id'], 'sequence', 1);
                                                     $comorbidtb_follow_up = $override->get3('comorbidtb_follow_up', 'status', 1, 'patient_id', $value['id'], 'sequence', 2);
-
                                                     $sites = $override->getNews('sites', 'status', 1, 'id', $value['site_id'])[0];
                                                 ?>
+
                                                     <tr>
                                                         <td class="table-user">
                                                             <?= $value['study_id']; ?>
@@ -1044,7 +1044,10 @@ if ($user->isLoggedIn()) {
                                                             </td>
                                                         <?php  } else { ?>
                                                             <td class="text-center">
-                                                                <a href="#" class="btn btn-danger"> <i class="ri-edit-box-line"></i>Not Eligible For Enrellment</a>
+                                                                <a href="#" class="btn btn-danger">
+                                                                    <i class="ri-edit-box-line">
+                                                                    </i><?php if ($value['eligible'] == 1) {  ?> Not Eligible For Enrellment <?php } ?>
+                                                                </a>
                                                             </td>
                                                         <?php } ?>
                                                         <td class="text-center">
