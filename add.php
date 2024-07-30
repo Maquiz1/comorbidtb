@@ -2950,8 +2950,8 @@ if ($user->isLoggedIn()) {
                                             <div class="row">
                                                 <!-- <div class="col-6" id="qn62">
                                                     <label for="qn70" class="form-label">62. Kipimo Cha Kisukari </label> -->
-                                                    <!-- radio -->
-                                                    <!-- <div class="row-form clearfix">
+                                                <!-- radio -->
+                                                <!-- <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
@@ -4608,6 +4608,7 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/qn10.js"></script>
     <script src="myjs/add/qn17.js"></script>
     <script src="myjs/add/qn18.js"></script>
+    <script src="myjs/add/qn20.js"></script>
     <script src="myjs/add/qn25_a.js"></script>
     <script src="myjs/add/qn25.js"></script>
     <script src="myjs/add/qn26.js"></script>
