@@ -1963,7 +1963,7 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
                                                 <div class="col-sm-6" id="qn08">
-                                                    <label for="qn08" class="form-label">8. Je, kwa sasa unatumia aina yoyote ya tumbaku kama vile sigara, kiko, sigara ya kusokota ,ugoro n.k? </label>
+                                                    <label for="qn08" class="form-label">8. Je, umewai kutumia aina yoyote ya tumbaku kama vile sigara, kiko, sigara ya kusokota ,ugoro n.k? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
