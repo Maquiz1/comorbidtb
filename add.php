@@ -4608,8 +4608,10 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/qn10.js"></script>
     <script src="myjs/add/qn17.js"></script>
     <script src="myjs/add/qn18.js"></script>
+    <script src="myjs/add/qn25_a.js"></script>
     <script src="myjs/add/qn25.js"></script>
     <script src="myjs/add/qn26.js"></script>
+    <script src="myjs/add/qn27_a.js"></script>
     <script src="myjs/add/qn27.js"></script>
     <script src="myjs/add/qn28.js"></script>
     <script src="myjs/add/qn41.js"></script>
