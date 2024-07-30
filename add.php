@@ -2948,16 +2948,16 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-                                                <div class="col-6" id="qn62">
-                                                    <label for="qn70" class="form-label">62. Hali ya Kisukari </label>
+                                                <!-- <div class="col-6" id="qn62">
+                                                    <label for="qn70" class="form-label">62. Kipimo Cha Kisukari </label> -->
                                                     <!-- radio -->
-                                                    <div class="row-form clearfix">
+                                                    <!-- <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn62" id="qn62<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn62'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -2966,10 +2966,10 @@ if ($user->isLoggedIn()) {
                                                         <button type="button" onclick="unsetRadio('qn62')">Unselect</button>
 
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-6" id="qn62_i_1">
                                                     <div class="mb-2">
-                                                        <label for="qn62_i" class="form-label">62(i). Fasting Blood Glucose (mmol/L);</label>
+                                                        <label for="qn62_i" class="form-label">62(i).Kipimo Cha Kisukari (Fasting Blood Glucose (mmol/L) );</label>
                                                         <input type="number" value="<?php if ($individual['qn62_i']) {
                                                                                         print_r($individual['qn62_i']);
                                                                                     } ?>" id="qn62_i" name="qn62_i" step="any" class="form-control" placeholder="Enter here" />
