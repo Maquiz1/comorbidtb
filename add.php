@@ -370,10 +370,12 @@ if ($user->isLoggedIn()) {
                         'qn22' => Input::get('qn22'),
                         'qn23' => Input::get('qn23'),
                         'qn24' => Input::get('qn24'),
+                        'qn25_a' => Input::get('qn25_a'),
                         'qn25' => Input::get('qn25'),
                         'qn25_idadi' => Input::get('qn25_idadi'),
                         'qn26' => Input::get('qn26'),
                         'qn26_idadi' => Input::get('qn26_idadi'),
+                        'qn27_a' => Input::get('qn27_a'),
                         'qn27' => Input::get('qn27'),
                         'qn27_idadi' => Input::get('qn27_idadi'),
                         'qn28' => Input::get('qn28'),
@@ -473,10 +475,12 @@ if ($user->isLoggedIn()) {
                         'qn22' => Input::get('qn22'),
                         'qn23' => Input::get('qn23'),
                         'qn24' => Input::get('qn24'),
+                        'qn25_a' => Input::get('qn25_a'),
                         'qn25' => Input::get('qn25'),
                         'qn25_idadi' => Input::get('qn25_idadi'),
                         'qn26' => Input::get('qn26'),
                         'qn26_idadi' => Input::get('qn26_idadi'),
+                        'qn27_a' => Input::get('qn27_a'),
                         'qn27' => Input::get('qn27'),
                         'qn27_idadi' => Input::get('qn27_idadi'),
                         'qn28' => Input::get('qn28'),
@@ -2220,8 +2224,25 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-                                                <div class="col-sm-3" id="qn25">
-                                                    <label for="qn25" class="form-label">25. Kwa kawaida ni siku ngapi ndani ya wiki moja unakula matunda? (TUMIA SHOWCARD) </label>
+                                                <div class="col-sm-4" id="qn25_a">
+                                                    <label for="qn25_a" class="form-label">25(a). Je huwa unakula matunda? (TUMIA SHOWCARD) </label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="qn25_a" id="qn25_a<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn25_a'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                        <button type="button" onclick="unsetRadio('qn25_a')">Unselect</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4" id="qn25">
+                                                    <label for="qn25" class="form-label">25(b). Kwa kawaida ni siku ngapi ndani ya wiki moja unakula matunda? (TUMIA SHOWCARD) </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
@@ -2229,7 +2250,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn25" id="qn25<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn25'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -2242,8 +2263,7 @@ if ($user->isLoggedIn()) {
 
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-3" id="qn26">
+                                                <div class="col-sm-4" id="qn26">
                                                     <label for="qn26" class="form-label">26. Unakula matunda kiasi gani katika moja ya siku hizo? ?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2252,7 +2272,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn26" id="qn26<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn26'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -2262,12 +2282,33 @@ if ($user->isLoggedIn()) {
 
                                                         </div>
                                                         <button type="button" onclick="unsetRadio('qn26')">Unselect</button>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col-sm-4" id="qn27_a">
+                                                    <label for="qn27_a" class="form-label">27(a). Je huwa unakula matunda? (TUMIA SHOWCARD) </label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="qn27_a" id="qn27_a<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn27_a'] == $value['id']) {
+                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                            } ?> required>
+                                                                    <label class="form-check-label"><?= $value['name']; ?></label>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                        <button type="button" onclick="unsetRadio('qn27_a')">Unselect</button>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="qn27">
-                                                    <label for="qn31" class="form-label">27. Kwa kawaida ni siku ngapi ndani ya wiki moja unakula mboga za majani? </label>
+                                                <div class="col-sm-4" id="qn27">
+                                                    <label for="qn31" class="form-label">27(b). Kwa kawaida ni siku ngapi ndani ya wiki moja unakula mboga za majani? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
@@ -2275,7 +2316,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn27" id="qn27<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn27'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -2289,7 +2330,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="qn28">
+                                                <div class="col-sm-4" id="qn28">
                                                     <label for="qn28" class="form-label">28. Unakula kiasi gani cha mboga za majani katika moja ya siku hizo? </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -2298,7 +2339,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn28" id="qn28<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn28'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?> required>
+                                                                                                                                                                                        } ?>>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -4546,7 +4587,7 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/history/third_line.js"></script>
     <script src="myjs/add/history"></script>
 
-    
+
     <script src="myjs/add/checkbox1.js"></script>
     <script src="myjs/add/radio.js"></script>
     <script src="myjs/add/radios1.js"></script>
