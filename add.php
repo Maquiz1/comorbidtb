@@ -328,8 +328,10 @@ if ($user->isLoggedIn()) {
 
                 $qn65 = implode(',', Input::get('qn65'));
 
+                print_r($age);
 
                 if ($individual) {
+
 
                     $user->updateRecord('comorbidtb_baseline', array(
                         'vid' => $_GET['vid'],
@@ -551,7 +553,7 @@ if ($user->isLoggedIn()) {
                     'enrolled' => 1,
                 ), $clients['id']);
 
-                Redirect::to('info.php?id=4&cid=' . $_GET['cid'] . '&study_id=' . $_GET['study_id'] . '&status=' . $_GET['status']);
+                // Redirect::to('info.php?id=4&cid=' . $_GET['cid'] . '&study_id=' . $_GET['study_id'] . '&status=' . $_GET['status']);
             } else {
                 $pageError = $validate->errors();
             }
