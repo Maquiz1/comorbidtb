@@ -328,7 +328,7 @@ if ($user->isLoggedIn()) {
 
                 $qn65 = implode(',', Input::get('qn65'));
 
-                print_r($age);
+                print_r($qn65);
 
                 if ($individual) {
 
@@ -2292,7 +2292,7 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
                                                 <div class="col-sm-4" id="qn27_a">
-                                                    <label for="qn27_a" class="form-label">27(a). Je huwa unakula matunda? (TUMIA SHOWCARD) </label>
+                                                    <label for="qn27_a" class="form-label">27(a). Je huwa unakula mbogamboga? (TUMIA SHOWCARD) </label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
@@ -2950,12 +2950,12 @@ if ($user->isLoggedIn()) {
                                             <hr>
 
                                             <div class="row">
-                                                <!-- <div class="col-6" id="qn62">
-                                                    <label for="qn70" class="form-label">62. Kipimo Cha Kisukari </label> -->
+                                                <div class="col-6" id="qn62">
+                                                    <label for="qn70" class="form-label">62. Hali ya kisukari Kisukari </label> 
                                                 <!-- radio -->
-                                                <!-- <div class="row-form clearfix">
+                                                <div class="row-form clearfix">
                                                         <div class="form-group">
-                                                            <?php foreach ($override->get('yes_no', 'status', 1) as $value) { ?>
+                                                            <?php foreach ($override->get('kisukari', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn62" id="qn62<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn62'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
@@ -2968,7 +2968,7 @@ if ($user->isLoggedIn()) {
                                                         <button type="button" onclick="unsetRadio('qn62')">Unselect</button>
 
                                                     </div>
-                                                </div> -->
+                                                </div>
                                                 <div class="col-6" id="qn62_i_1">
                                                     <div class="mb-2">
                                                         <label for="qn62_i" class="form-label">62(i).Majibu ya Kipimo Cha Kisukari (Fasting Blood Glucose (mmol/L) );</label>
@@ -4524,7 +4524,6 @@ if ($user->isLoggedIn()) {
             <!-- /.content-wrapper -->
 
         <?php } elseif ($_GET['id'] == 11) { ?>
-
         <?php } ?>
 
         <?php include 'footer.php'; ?>
