@@ -326,10 +326,10 @@ if ($user->isLoggedIn()) {
                 $individual = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
                 $age = $user->dateDiffYears($clients['screening_date'], Input::get('qn01'));
 
-                $qn65='';
-                if(Input::get('qn65')){
+                // $qn65='';
+                // if(Input::get('qn65')){
                     $qn65 = implode(',', Input::get('qn65'));
-                }
+                // }
 
                 // print_r($qn65);
 
