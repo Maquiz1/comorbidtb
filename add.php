@@ -326,12 +326,10 @@ if ($user->isLoggedIn()) {
                 $individual = $override->get3('comorbidtb_baseline', 'status', 1, 'patient_id', $_GET['cid'], 'sequence', $_GET['sequence']);
                 $age = $user->dateDiffYears($clients['screening_date'], Input::get('qn01'));
 
-                // $qn65='';
-                // if(Input::get('qn65')){
+                $qn65 = '';
+                if (Input::get('qn65')) {
                     $qn65 = implode(',', Input::get('qn65'));
-                // }
-
-                // print_r($qn65);
+                }
 
                 if ($individual) {
 
@@ -556,7 +554,7 @@ if ($user->isLoggedIn()) {
                     'enrolled' => 1,
                 ), $clients['id']);
 
-                // Redirect::to('info.php?id=4&cid=' . $_GET['cid'] . '&study_id=' . $_GET['study_id'] . '&status=' . $_GET['status']);
+                Redirect::to('info.php?id=4&cid=' . $_GET['cid'] . '&study_id=' . $_GET['study_id'] . '&status=' . $_GET['status']);
             } else {
                 $pageError = $validate->errors();
             }
@@ -2954,15 +2952,15 @@ if ($user->isLoggedIn()) {
 
                                             <div class="row">
                                                 <div class="col-6" id="qn62">
-                                                    <label for="qn70" class="form-label">62. Hali ya kisukari Kisukari </label> 
-                                                <!-- radio -->
-                                                <div class="row-form clearfix">
+                                                    <label for="qn62" class="form-label">62. Hali ya kisukari Kisukari </label>
+                                                    <!-- radio -->
+                                                    <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <?php foreach ($override->get('kisukari', 'status', 1) as $value) { ?>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="qn62" id="qn62<?= $value['id']; ?>" value="<?= $value['id']; ?>" <?php if ($individual['qn62'] == $value['id']) {
                                                                                                                                                                                             echo 'checked';
-                                                                                                                                                                                        } ?>>
+                                                                                                                                                                                        } ?> required>
                                                                     <label class="form-check-label"><?= $value['name']; ?></label>
                                                                 </div>
                                                             <?php } ?>
@@ -3089,6 +3087,14 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <hr>
+
+
+                                            <div class="card card-warning">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">ANY COMENT OR REMARKS</h3>
+                                                </div>
+                                            </div>
 
                                             <hr>
 
@@ -3105,8 +3111,23 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <div class="col-sm-3" id="tb_complete">
+
+                                            <hr>
+
+                                            <div class="card card-warning">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">FORM STATUS</h3>
+                                                </div>
+                                            </div>
+
+
+                                            <hr>
+
+                                            <div class="row">
+
+                                                <div class="col-sm-6" id="tb_complete">
                                                     <label>Complete?</label>
                                                     <!-- radio -->
                                                     <div class="row-form clearfix">
@@ -3122,7 +3143,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-6">
                                                     <div class="mb-2">
                                                         <label for="date_completed" class="form-label">Date form completed</label>
                                                         <input type="date" value="<?php if ($individual['date_completed']) {
