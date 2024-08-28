@@ -6,11 +6,11 @@ const qn62_i = document.getElementById("qn62_i");
 
 function toggleElementVisibility() {
   if (qn621.checked) {
-    qn62_i_1.style.display = "block";
-    qn62_i.setAttribute("required", "required");
+    // qn62_i_1.style.display = "block";
+    // qn62_i.setAttribute("required", "required");
   } else {
-    qn62_i_1.style.display = "none";
-    qn62_i.removeAttribute("required");
+    // qn62_i_1.style.display = "none";
+    // qn62_i.removeAttribute("required");
   }
 }
 
