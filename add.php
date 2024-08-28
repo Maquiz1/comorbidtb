@@ -2975,7 +2975,7 @@ if ($user->isLoggedIn()) {
                                                         <label for="qn62_i" class="form-label">62(i).Majibu ya Kipimo Cha Kisukari (Fasting Blood Glucose (mmol/L) );</label>
                                                         <input type="number" value="<?php if ($individual['qn62_i']) {
                                                                                         print_r($individual['qn62_i']);
-                                                                                    } ?>" id="qn62_i" name="qn62_i" step="any" class="form-control" placeholder="Enter here" />
+                                                                                    } ?>" id="qn62_i" name="qn62_i" step="any" class="form-control" placeholder="Enter here" required />
                                                     </div>
                                                 </div>
                                             </div>
