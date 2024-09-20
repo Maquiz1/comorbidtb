@@ -191,26 +191,27 @@ if ($user->isLoggedIn()) {
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <?php foreach ($override->get('sites', 'status', 1) as $value) { ?>
-                            <li class="nav-item">
-                                <a href="add.php?id=4&site_id=<?= $value['id'] ?>&status=7" class="nav-link">
-                                    <?php if ($user->data()->accessLevel == 1) { ?>
-                                        <i class="nav-icon fas fa-th"></i>
-                                        <p>
-                                            Add <?= $value['name'] ?>
-                                            <span class="right badge badge-danger">New</span>
-                                        </p>
-                                    <?php break;
-                                    } elseif ($user->data()->site_id == $value['id']) { ?>
+                        <li class="nav-item">
+                            <a href="add.php?id=4&site_id=<?= $user->data()->site_id ?>&status=7" class="nav-link">
+                                <?php if ($user->data()->accessLevel == 1) { ?>
+                                    <?php foreach ($override->get('sites', 'status', 1) as $value) { ?>
                                         <i class="nav-icon fas fa-th"></i>
                                         <p>
                                             Add <?= $value['name'] ?>
                                             <span class="right badge badge-danger">New</span>
                                         </p>
                                     <?php } ?>
-                                </a>
-                            </li>
-                        <?php } ?>
+                                <?php } else { ?>
+                                    <?php foreach ($override->getNews('sites', 'status', 1, 'id', $user->data()->site_id) as $value) { ?>
+                                        <i class="nav-icon fas fa-th"></i>
+                                        <p>
+                                            Add <?= $value['name'] ?>
+                                            <span class="right badge badge-danger">New</span>
+                                        </p>
+                                    <?php } ?>
+                                <?php } ?>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="info.php?id=3&status=7" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
