@@ -1047,8 +1047,41 @@ if ($user->isLoggedIn()) {
                                                                 <?php   } ?>
                                                             <?php   } ?>
                                                             <br>
+
+                                                            <?php if ($user->data()->power == 1) { ?>
+                                                                <a href="#delete_patient<?= $value['id'] ?>" role="button" class="btn btn-warning" data-toggle="modal">
+                                                                <?php   } ?>
                                                         </td>
                                                     </tr>
+                                                    <div class="modal fade" id="delete_patient<?= $visit['id'] ?>">
+                                                        <div class="modal-dialog">
+                                                            <form method="post">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Update visit Status</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+
+
+                                                                        </div>
+                                                                        <div class="dr"><span></span></div>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <input type="hidden" name="id" value="<?= $visit['id'] ?>">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        <input type="submit" name="delete_patient" class="btn btn-primary" value="Submit">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.modal-content -->
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>
+                                                    <!-- /.modal -->
 
                                                 <?php $x++;
                                                 } ?>
