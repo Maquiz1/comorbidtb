@@ -321,6 +321,25 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
+        } elseif (Input::get('delete_patient')) {
+            $user->updateRecord('clients', array(
+                'status' => 0,
+            ), Input::get('id'));
+
+            $user->updateRecord('clients', array(
+                'status' => 0,
+            ), Input::get('id'));
+
+            $user->updateRecord('clients', array(
+                'status' => 0,
+            ), Input::get('id'));
+
+
+            $user->updateRecord('clients', array(
+                'status' => 0,
+            ), Input::get('id'));
+
+            $successMessage = 'Patient Deleted Successful';
         }
 
 
@@ -1059,16 +1078,16 @@ if ($user->isLoggedIn()) {
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                                        <h4>Delete User</h4>
+                                                                        <h4>Delete Patient</h4>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <strong style="font-weight: bold;color: red">
-                                                                            <p>Are you sure you want to delete this user</p>
+                                                                            <p>Are you sure you want to delete this Delete Patient</p>
                                                                         </strong>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <input type="hidden" name="id" value="<?= $value['id'] ?>">
-                                                                        <input type="submit" name="value" value="Delete" class="btn btn-danger">
+                                                                        <input type="submit" name="delete_patient" value="Delete Patient" class="btn btn-danger">
                                                                         <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
                                                                     </div>
                                                                 </div>
