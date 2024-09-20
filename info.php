@@ -799,7 +799,7 @@ if ($user->isLoggedIn()) {
                             <div class="col-sm-6">
                                 <h1>
                                     <?php
-                                    if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
+                                    if ($user->data()->power == 1 || $user->data()->accessLevel == 1) {
                                         if ($_GET['site_id'] != null) {
                                             if ($_GET['status'] == 1) {
                                                 $clients = $override->getDataDesc3('clients', 'status', 1, 'screened', 1, 'site_id', $_GET['site_id'], 'id');
