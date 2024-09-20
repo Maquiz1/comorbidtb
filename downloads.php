@@ -13,26 +13,13 @@ if ($user->isLoggedIn()) {
     Redirect::to('index.php');
 }
 
-
-$servername = "localhost";
-$username = "root";
-$password = "Data@2020";
-$dbname = "penplus";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $table = $_GET['table'];
 $ext = $_GET['ext'];
 
 $file = $table;
 $ext = $ext;
 
-$sql = "SELECT * FROM $table";
-$result = $conn->query($sql);
+$result = $override->get($table, 'status', 1);
 
 
 require 'vendor/autoload.php';
@@ -47,16 +34,18 @@ $sheet = $spreadsheet->getActiveSheet();
 $columns = array();
 $columnIndex = 'A';
 
-if ($result->num_rows > 0) {
-    while ($fieldinfo = $result->fetch_field()) {
-        $sheet->setCellValue($columnIndex . '1', $fieldinfo->name);
-        $columns[$columnIndex] = $fieldinfo->name;
+if (count($result) > 0) {
+    // Fetch the field names from the first row
+    $fieldinfo = array_keys($result[0]);
+    foreach ($fieldinfo as $fieldname) {
+        $sheet->setCellValue($columnIndex . '1', $fieldname);
+        $columns[$columnIndex] = $fieldname;
         $columnIndex++;
     }
 
     // Fill data
     $rowNumber = 2; // Start on the second row after headers
-    while ($row = $result->fetch_assoc()) {
+    foreach ($result as $row) {
         $columnIndex = 'A';
         foreach ($columns as $column) {
             $sheet->setCellValue($columnIndex . $rowNumber, $row[$column]);
@@ -66,10 +55,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-$conn->close();
-
-
-// $writer = null;
+// Set the appropriate writer based on the file extension
 $filename = $file . '.' . $ext;
 
 switch ($ext) {
@@ -88,7 +74,6 @@ switch ($ext) {
     default:
         throw new Exception('Unsupported file format');
 }
-
 
 // Set the download headers
 header('Content-Disposition: attachment;filename="' . $filename . '"');

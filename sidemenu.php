@@ -265,59 +265,10 @@ if ($user->isLoggedIn()) {
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="info.php?id=5&status=16" class="nav-link">
+                                <a href="data.php?id=1" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $registered; ?></span>
-                                    <p>CLients</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="info.php?id=6&status=16" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $kap; ?></span>
-                                    <p>Kap</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="info.php?id=7&status=16" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $history; ?></span>
-                                    <p>History</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="info.php?id=8&status=16" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $results; ?></span>
-                                    <p>Results</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="info.php?id=9&status=16" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $classification; ?></span>
-                                    <p>Classification</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="info.php?id=10&status=16" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $outcome; ?></span>
-                                    <p>Outcome</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="info.php?id=11&status=16" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $economic; ?></span>
-                                    <p>Economics</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="info.php?id=12&status=16" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="badge badge-info right"><?= $visit; ?></span>
-                                    <p>Visits</p>
+                                    <span class="badge badge-info right"></span>
+                                    <p>Download Data</p>
                                 </a>
                             </li>
                         </ul>
