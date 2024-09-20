@@ -397,7 +397,7 @@ if ($user->isLoggedIn()) {
                     }
                     $data = $override->getWithLimit0($table_name, $page, $numRec);
                 }
-            } else if ($user->data()->power == 1 || $user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
+            } else if ($user->data()->accessLevel == 1 || $user->data()->accessLevel == 2) {
                 if ($_GET['site_id'] != null) {
                     $pagNum = 0;
 
@@ -557,7 +557,7 @@ if ($user->isLoggedIn()) {
                                                                     <div class="col-sm-12">
                                                                         <select class="form-control float-right" name="site_id" style="width: 100%;" autocomplete="off">
                                                                             <option value="">Select Site</option>
-                                                                            <?php foreach ($override->get('site', 'status', 1) as $site) { ?>
+                                                                            <?php foreach ($override->get('sites', 'status', 1) as $site) { ?>
                                                                                 <option value="<?= $site['id'] ?>"><?= $site['name'] ?></option>
                                                                             <?php } ?>
                                                                         </select>
@@ -614,7 +614,7 @@ if ($user->isLoggedIn()) {
                                             <?php
                                             $x = 1;
                                             foreach ($data as $value) {
-                                                $sites = $override->getNews('site', 'status', 1, 'id', $value['site_id'])[0];
+                                                $sites = $override->getNews('sites', 'status', 1, 'id', $value['site_id'])[0];
                                                 $name = $override->get('clients', 'id', $value['patient_id'])[0];
                                                 $name2 = $override->get('clients', 'id', $value['client_id'])[0];
                                             ?>
