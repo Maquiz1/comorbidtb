@@ -253,7 +253,7 @@ if ($user->isLoggedIn()) {
                     </ul>
                 </li>
                 <?php
-                if ($user->data()->power == 1) {
+                if ($user->data()->power == 1 || $user->data()->accessLevel == 1) {
                 ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -273,6 +273,11 @@ if ($user->isLoggedIn()) {
                             </li>
                         </ul>
                     </li>
+                <?php } ?>
+
+                <?php
+                if ($user->data()->power == 1) {
+                ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
