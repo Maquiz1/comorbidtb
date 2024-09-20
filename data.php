@@ -212,22 +212,13 @@ if ($user->isLoggedIn()) {
                                                 $x = 1;
                                                 foreach ($override->AllTables() as $tables) {
 
-                                                    $sites = $override->getNews('site', 'status', 1, 'id', $value['site_id'])[0];
+                                                    // $sites = $override->getNews('site', 'status', 1, 'id', $value['site_id'])[0];
 
                                                     if (
-                                                        $tables['Tables_in_comorbidtb'] == 'clients' || $tables['Tables_in_comorbidtb'] == 'screening' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'demographic' || $tables['Tables_in_comorbidtb'] == 'vital' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'main_diagnosis' || $tables['Tables_in_comorbidtb'] == 'history' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'symptoms' || $tables['Tables_in_comorbidtb'] == 'cardiac' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'diabetic' || $tables['Tables_in_comorbidtb'] == 'sickle_cell' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'results' || $tables['Tables_in_comorbidtb'] == 'cardiac' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'hospitalization' || $tables['Tables_in_comorbidtb'] == 'hospitalization_details' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'treatment_plan' || $tables['Tables_in_comorbidtb'] == 'dgns_complctns_comorbdts' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'risks' || $tables['Tables_in_comorbidtb'] == 'lab_details' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'social_economic' || $tables['Tables_in_comorbidtb'] == 'summary' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'medication_treatments' || $tables['Tables_in_comorbidtb'] == 'hospitalization_detail_id' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'sickle_cell_status_table' || $tables['Tables_in_comorbidtb'] == 'visit' ||
-                                                        $tables['Tables_in_comorbidtb'] == 'lab_requests'
+                                                        $tables['Tables_in_comorbidtb'] == 'clients' ||
+                                                        $tables['Tables_in_comorbidtb'] == 'comorbidtb_baseline' ||
+                                                        $tables['Tables_in_comorbidtb'] == 'comorbidtb_follow_up' ||
+                                                        $tables['Tables_in_comorbidtb'] == 'visit'
                                                     ) {
                                                 ?>
                                                         <tr>
@@ -235,27 +226,27 @@ if ($user->isLoggedIn()) {
                                                                 <?= $x; ?>
                                                             </td>
                                                             <td>
-                                                                <input type="hidden" name="table_id" value="<?= $tables['Tables_in_penplus']; ?>">
+                                                                <input type="hidden" name="table_id" value="<?= $tables['Tables_in_comorbidtb']; ?>">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" name="table_name[]" id="table_name[]" value="<?= $tables['Tables_in_penplus']; ?>" <?php if ($tables['Tables_in_penplus'] != '') {
-                                                                                                                                                                                                            echo 'checked';
-                                                                                                                                                                                                        } ?>>
-                                                                    <label class="form-check-label"><?= $tables['Tables_in_penplus']; ?></label>
+                                                                    <input class="form-check-input" type="checkbox" name="table_name[]" id="table_name[]" value="<?= $tables['Tables_in_comorbidtb']; ?>" <?php if ($tables['Tables_in_comorbidtb'] != '') {
+                                                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                                                            } ?>>
+                                                                    <label class="form-check-label"><?= $tables['Tables_in_comorbidtb']; ?></label>
                                                                 </div>
                                                             </td>
                                                             <td class="table-user">
-                                                                <?= $override->getCount($tables['Tables_in_penplus'], 'status', 1); ?>
+                                                                <?= $override->getCount($tables['Tables_in_comorbidtb'], 'status', 1); ?>
                                                             </td>
                                                             <td class="table-user text-center">
                                                                 <form method="post">
                                                                     <input type="hidden" name="data" value="<?= $x; ?>">
-                                                                    <input type="hidden" name="table" value="<?= $tables['Tables_in_penplus']; ?>">
+                                                                    <input type="hidden" name="table" value="<?= $tables['Tables_in_comorbidtb']; ?>">
                                                                     <button type="submit" name="download_xls">Download xls</button>&nbsp;&nbsp;&nbsp;
                                                                     <button type="submit" name="download_xlsx">Download xlsx</button>&nbsp;&nbsp;&nbsp;
                                                                     <button type="submit" name="download_csv">Download csv</button>&nbsp;&nbsp;&nbsp;
                                                                     <!-- <button type="submit" name="download_stata">Download stata Data</button>&nbsp;&nbsp;&nbsp; -->
                                                                     <hr>
-                                                                    <a href="data.php?id=2&table=<?= $tables['Tables_in_penplus'] ?>" role=" button" class="btn btn-info"> View Recoreds </a>
+                                                                    <a href="data.php?id=2&table=<?= $tables['Tables_in_comorbidtb'] ?>" role=" button" class="btn btn-info"> View Recoreds </a>
                                                                 </form>
                                                             </td>
                                                         </tr>
