@@ -322,24 +322,55 @@ if ($user->isLoggedIn()) {
                 $pageError = $validate->errors();
             }
         } elseif (Input::get('delete_patient')) {
-            $user->updateRecord('clients', array(
-                'status' => 0,
-            ), Input::get('id'));
+            $validate = $validate->check($_POST, array(
+                'id' => array(
+                    'required' => true,
+                ),
+            ));
+            if ($validate->passed()) {
+                try {
+                    $user->updateRecord('clients', array(
+                        'status' => 0,
+                    ), Input::get('id'));
 
-            $user->updateRecord('clients', array(
-                'status' => 0,
-            ), Input::get('id'));
+                    $comorbidtb_baseline = $override->get('comorbidtb_baseline', 'patient_id', Input::get('id'));
 
-            $user->updateRecord('clients', array(
-                'status' => 0,
-            ), Input::get('id'));
+                    if ($comorbidtb_baseline) {
+                        foreach ($comorbidtb_baseline as $value1) {
+                            $user->updateRecord('comorbidtb_baseline', array(
+                                'status' => 0,
+                            ), $value1['id']);
+                        }
+                    }
+
+                    $comorbidtb_follow_up = $override->get('comorbidtb_follow_up', 'patient_id', Input::get('id'));
+
+                    if ($comorbidtb_follow_up) {
+                        foreach ($comorbidtb_follow_up as $value2) {
+                            $user->updateRecord('comorbidtb_follow_up', array(
+                                'status' => 0,
+                            ), $value2['id']);
+                        }
+                    }
 
 
-            $user->updateRecord('clients', array(
-                'status' => 0,
-            ), Input::get('id'));
+                    $visit = $override->get('visit', 'patient_id', Input::get('id'));
 
-            $successMessage = 'Patient Deleted Successful';
+                    if ($visit) {
+                        foreach ($visit as $value3) {
+                            $user->updateRecord('visit', array(
+                                'status' => 0,
+                            ), $value3['id']);
+                        }
+                    }
+
+                    $successMessage = 'Patient Deleted Successful';
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                $pageError = $validate->errors();
+            }
         }
 
 
