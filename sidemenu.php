@@ -200,7 +200,8 @@ if ($user->isLoggedIn()) {
                                             Add <?= $value['name'] ?>
                                             <span class="right badge badge-danger">New</span>
                                         </p>
-                                    <?php } elseif ($user->data()->site_id == $value['id']) { ?>
+                                    <?php break;
+                                    } elseif ($user->data()->site_id == $value['id']) { ?>
                                         <i class="nav-icon fas fa-th"></i>
                                         <p>
                                             Add <?= $value['name'] ?>
