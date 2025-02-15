@@ -1098,9 +1098,13 @@ if ($user->isLoggedIn()) {
                                                             <?php   } ?>
                                                             <br>
 
-                                                            <?php if ($user->data()->power == 1) { ?>
+                                                            <?php
+                                                            //  if ($user->data()->power == 1) { 
+                                                                ?>
                                                                 <a href="#delete_patient<?= $value['id'] ?>" role="button" class="btn btn-danger" data-toggle="modal">Delete Patient</a>
-                                                            <?php   } ?>
+                                                            <?php  
+                                                        //  } 
+                                                         ?>
                                                         </td>
                                                     </tr>
                                                     <div class="modal fade" id="delete_patient<?= $value['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
