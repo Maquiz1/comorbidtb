@@ -1784,10 +1784,29 @@ if ($user->isLoggedIn()) {
                                                                                                             echo 'Select district';
                                                                                                         } ?>
                                                                 </option>
-                                                            </select>
+                                                                <?php foreach ($override->get('districts', 'status', 1) as $district) { ?>
+                                                                    <option value="<?= $district['id'] ?>"><?= $district['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!-- <div class="col-sm-4">
+                                                    <div class="row-form clearfix">
+                                                        <div class="form-group">
+                                                            <label>Wilaya</label>
+                                                            <select id="district" name="wilaya" class="form-control" required>
+                                                                <option value="<?= $districts['id'] ?>"><?php if ($individual['wilaya']) {
+                                                                                                            print_r($districts['name']);
+                                                                                                        } else {
+                                                                                                            echo 'Select district';
+                                                                                                        } ?>
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
                                             </div>
 
                                             <hr>
