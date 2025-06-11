@@ -11,17 +11,17 @@ $successMessage = null;
 $errorM = false;
 $errorMessage = null;
 
-session_start();
+// session_start();
 
 // if (empty($_SESSION['csrf_token'])) {
 //     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 // }
 
-if (isset($_SESSION['csrf_token'])) {
-    $csrf_token = $_SESSION['csrf_token'];
-} else {
-    $csrf_token = bin2hex(random_bytes(32));
-}
+// if (isset($_SESSION['csrf_token'])) {
+//     $csrf_token = $_SESSION['csrf_token'];
+// } else {
+//     $csrf_token = bin2hex(random_bytes(32));
+// }
 
 // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
@@ -152,7 +152,7 @@ else {
                 <p class="login-box-msg">Sign in to start your session</p>
 
                 <form method="post">
-                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    <!-- <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> -->
                     <div class="input-group mb-3">
                         <input type="text" name="username" id="username" placeholder="Username" class="form-control validate[required]" />
                         <div class="input-group-append">
