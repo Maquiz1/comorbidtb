@@ -10,68 +10,89 @@ $pageError = null;
 $successMessage = null;
 $errorM = false;
 $errorMessage = null;
-if (!$user->isLoggedIn()) {
-    if (Input::exists('post')) {
-        if (Token::check(Input::get('token'))) {
-            $validate = new validate();
-            $validate = $validate->check($_POST, array(
-                'username' => array('required' => true),
-                'password' => array('required' => true)
-            ));
-            if ($validate->passed()) {
-                $st = $override->get('user', 'username', Input::get('username'));
-                if ($st) {
-                    if ($st[0]['count'] > 3) {
-                        $errorMessage = 'You Account have been deactivated,Someone was trying to access it with wrong credentials. Please contact your system administrator';
-                    } else {
-                        $login = $user->loginUser(Input::get('username'), Input::get('password'), 'user');
-                        if ($login) {
-                            $lastLogin = $override->get('user', 'id', $user->data()->id);
-                            if ($lastLogin[0]['last_login'] == date('Y-m-d')) {
-                            } else {
+
+session_start();
+
+// if (empty($_SESSION['csrf_token'])) {
+//     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+// }
+
+if (isset($_SESSION['csrf_token'])) {
+    $csrf_token = $_SESSION['csrf_token'];
+} else {
+    $csrf_token = bin2hex(random_bytes(32));
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Invalid CSRF token.");
+    }
+
+    // Safe to proceed with processing form
+
+    if (!$user->isLoggedIn()) {
+        if (Input::exists('post')) {
+            if (Token::check(Input::get('token'))) {
+                $validate = new validate();
+                $validate = $validate->check($_POST, array(
+                    'username' => array('required' => true),
+                    'password' => array('required' => true)
+                ));
+                if ($validate->passed()) {
+                    $st = $override->get('user', 'username', Input::get('username'));
+                    if ($st) {
+                        if ($st[0]['count'] > 3) {
+                            $errorMessage = 'You Account have been deactivated,Someone was trying to access it with wrong credentials. Please contact your system administrator';
+                        } else {
+                            $login = $user->loginUser(Input::get('username'), Input::get('password'), 'user');
+                            if ($login) {
+                                $lastLogin = $override->get('user', 'id', $user->data()->id);
+                                if ($lastLogin[0]['last_login'] == date('Y-m-d')) {
+                                } else {
+                                    try {
+                                        $user->updateRecord('user', array(
+                                            'last_login' => date('Y-m-d H:i:s'),
+                                            'count' => 0,
+                                        ), $user->data()->id);
+                                    } catch (Exception $e) {
+                                    }
+                                }
                                 try {
                                     $user->updateRecord('user', array(
-                                        'last_login' => date('Y-m-d H:i:s'),
                                         'count' => 0,
                                     ), $user->data()->id);
                                 } catch (Exception $e) {
                                 }
-                            }
-                            try {
-                                $user->updateRecord('user', array(
-                                    'count' => 0,
-                                ), $user->data()->id);
-                            } catch (Exception $e) {
-                            }
 
-                            Redirect::to('index1.php');
-                        } else {
-                            $usr = $override->get('user', 'username', Input::get('username'));
-                            if ($usr && $usr[0]['count'] < 3) {
-                                try {
-                                    $user->updateRecord('user', array(
-                                        'count' => $usr[0]['count'] + 1,
-                                    ), $usr[0]['id']);
-                                } catch (Exception $e) {
-                                }
-                                $errorMessage = 'Wrong username or password';
+                                Redirect::to('index1.php');
                             } else {
-                                try {
-                                    $user->updateRecord('user', array(
-                                        'count' => $usr[0]['count'] + 1,
-                                    ), $usr[0]['id']);
-                                } catch (Exception $e) {
+                                $usr = $override->get('user', 'username', Input::get('username'));
+                                if ($usr && $usr[0]['count'] < 3) {
+                                    try {
+                                        $user->updateRecord('user', array(
+                                            'count' => $usr[0]['count'] + 1,
+                                        ), $usr[0]['id']);
+                                    } catch (Exception $e) {
+                                    }
+                                    $errorMessage = 'Wrong username or password';
+                                } else {
+                                    try {
+                                        $user->updateRecord('user', array(
+                                            'count' => $usr[0]['count'] + 1,
+                                        ), $usr[0]['id']);
+                                    } catch (Exception $e) {
+                                    }
+                                    $email->deactivation($usr[0]['email_address'], $usr[0]['lastname'], 'Account Deactivated');
+                                    $errorMessage = 'You Account have been deactivated,Someone was trying to access it with wrong credentials. Please contact your system administrator';
                                 }
-                                $email->deactivation($usr[0]['email_address'], $usr[0]['lastname'], 'Account Deactivated');
-                                $errorMessage = 'You Account have been deactivated,Someone was trying to access it with wrong credentials. Please contact your system administrator';
                             }
                         }
+                    } else {
+                        $errorMessage = 'Invalid username, Please check your credentials and try again';
                     }
                 } else {
-                    $errorMessage = 'Invalid username, Please check your credentials and try again';
+                    $pageError = $validate->errors();
                 }
-            } else {
-                $pageError = $validate->errors();
             }
         }
     }
@@ -130,6 +151,7 @@ if (!$user->isLoggedIn()) {
                 <p class="login-box-msg">Sign in to start your session</p>
 
                 <form method="post">
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <div class="input-group mb-3">
                         <input type="text" name="username" id="username" placeholder="Username" class="form-control validate[required]" />
                         <div class="input-group-append">
