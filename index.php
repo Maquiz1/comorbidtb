@@ -23,10 +23,10 @@ if (isset($_SESSION['csrf_token'])) {
     $csrf_token = bin2hex(random_bytes(32));
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die("Invalid CSRF token.");
-    }
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+//         die("Invalid CSRF token.");
+//     }
 
     // Safe to proceed with processing form
 
@@ -96,7 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-} else {
+// } 
+else {
     Redirect::to('index1.php');
 }
 ?>
